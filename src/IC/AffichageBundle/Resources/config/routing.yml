@@ -1,0 +1,64 @@
+ic_affichage_composant_interne:
+    path:     /Stock-Interne{partie}
+    defaults: 
+        _controller: ICAffichageBundle:Composant:interne
+        partie: affichage
+    
+ic_affichage_sous_traitant:
+    path:     /Stock-Sous-Traitant-{id}
+    defaults: 
+        _controller: ICAffichageBundle:Composant:soustraitant 
+        partie: affichage
+    requirements:
+        id: \d{1,10}
+
+ic_affichage_detail:
+    path:     /Detail-{id}
+    defaults: 
+        _controller: ICAffichageBundle:Composant:detail 
+        partie: affichage
+    requirements:
+        id: \d{1,10}
+
+ic_affichage_nomenclature_pcb:
+    path:     /Nomenclature-PCB-{id}
+    defaults: { _controller: ICAffichageBundle:Nomenclature:nomenclatureComposant }
+    
+ic_affichage_nomenclature_pf:
+    path:     /Nomenclature-Produit-Fini-{id}
+    defaults: { _controller: ICAffichageBundle:Nomenclature:nomenclatureComplete }
+
+ic_affichage_appro_interne:
+    path:     /Approvisionnement-Interne
+    defaults: { _controller: ICAffichageBundle:Approvisionnement:approvisionnementInterne }
+       
+ic_affichage_appro_identifiant:
+    path:     /Approvisionnement-Identifiant
+    defaults: { _controller: ICAffichageBundle:Approvisionnement:approvisionnementIdentifiant }
+    
+ic_affichage_appro_autre:
+    path:     /Approvisionnement-Autre-Produits-Finis
+    defaults: { _controller: ICAffichageBundle:Approvisionnement:approvisionnementAutre }
+
+ic_affichage_production_interne:
+    path:     /Production-Interne
+    defaults: {_controller: ICAffichageBundle:Production:productionInterne }
+
+ic_affichage_production_sous_traitant:
+    path:     /Production-Sous-Traitant-{id}
+    defaults: {_controller: ICAffichageBundle:Production:productionSousTraitant}
+    requirements:
+       id: \d{1,10}
+         
+ic_affichage_produit_fini_interne:
+    path:     /Produit-Fini-Idcapt
+    defaults: {_controller: ICAffichageBundle:ProduitFini:produitFiniIdcapt }
+    
+ic_affichage_produit_fini_identifiant:
+    path:     /Produit-Fini-Identifiant
+    defaults: {_controller: ICAffichageBundle:ProduitFini:produitFiniIdentifiant }
+    
+ic_affichage_produit_fini_autre:
+    path:     /Produit-Fini-Autre
+    defaults: {_controller: ICAffichageBundle:ProduitFini:produitFiniAutre }
+    

@@ -1,0 +1,17 @@
+@page { 
+  size: 21cm 29.7cm landscape; 
+}
+
+#menuVertical, #menuHorizontal, #entete div, .titreDetails, .details, .mini
+{
+	display:none;
+}
+.stockInsufisant
+{
+	color:black;
+	background: white;
+}
+#page
+{
+    width:100%;
+}

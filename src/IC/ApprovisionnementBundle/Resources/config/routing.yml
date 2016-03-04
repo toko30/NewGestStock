@@ -1,0 +1,85 @@
+ic_approvisionnement_mp_production:
+    path:     /Matiere-Premiere-Production
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementMP:approInterneProduction }
+    
+ic_approvisionnement_mp_critique:
+    path:     /Matiere-Premiere-Critique
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementMP:approInterneCritique }
+    
+ic_approvisionnement_pf_identifiant:
+    path:     /Produits-Finis-Identifiants
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementPF:approProduitsFinisIdentifiants }
+    
+ic_approvisionnement_pf_autre:
+    path:     /Autres-Produits-Finis
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementPF:approProduitsFinisAutres }
+    
+ic_approvisionnement_en_cours_mp:
+    path:     /En-Cours-Matiere-Premiere
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approEnCoursMP }
+    
+ic_approvisionnement_en_cours_identifiant:
+    path:     /En-Cours-Produits-Finis-Identifiant
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approEnCoursPFIdentifiant }
+    
+ic_approvisionnement_en_cours_autre:
+    path:     /En-Cours-Produits-Finis-Autres
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approEnCoursPFAutre }
+    
+ic_approvisionnement_envoi_sous_traitant:
+    path:     /Envoi-Sous-Traitant-{idSousTraitant}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approEnCoursSousTraitant }
+    requirements:
+        idSousTraitant: \d{1,10}
+
+ic_approvisionnement_calcul:
+    path:     /Calcul-Approvisionnement-{idFournisseur}-{page}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementMP:calculAppro }
+    methods:  POST
+    requirements:
+        idFournisseur: \d{1,10}
+        page: critique|production
+
+ic_approvisionnement_calcul_identifiant:
+    path:     /Calcul-Approvisionnement-Identifiant-{idFournisseur}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementPF:calculApproIdentifiant }
+    methods:  POST
+    requirements:
+        idFournisseur: \d{1,10}
+        
+ic_approvisionnement_calcul_autre:
+    path:     /Calcul-Approvisionnement-Autre-{idFournisseur}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementPF:calculApproAutre }
+    methods:  POST
+    requirements:
+        idFournisseur: \d{1,10}
+        
+ic_approvisionnement_vers_stock:
+    path:     /Vers-Stock-Interne-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockInterne }
+    requirements:
+        idCommande: \d{1,10}
+        
+ic_approvisionnement_vers_identifiant:
+    path:     /Vers-Stock-Identifiant-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockIdentifiant }
+    requirements:
+        idCommande: \d{1,10}
+
+ic_approvisionnement_vers_lecteur:
+    path:     /Vers-Stock-Lecteur-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockLecteur }
+    requirements:
+        idCommande: \d{1,10}
+
+ic_approvisionnement_vers_autre:
+    path:     /Vers-Stock-Autre-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockAutre }
+    requirements:
+        idCommande: \d{1,10}
+
+ic_approvisionnement_vers_sous_traitant:
+    path:     /Vers-StockSous-Traitant-{idSousTraitant}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockSousTraitant }
+    requirements:
+        idSousTraitant: \d{1,10}

@@ -1,0 +1,68 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Nomenclature{% endblock %}
+
+{% block entete %}{{ parent() }} Nomenclature{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/nomenclature.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+
+    <form method="post" action="{{ path('ic_administration_update_composant_nomenclature', {idNomenclature: idNomenclature}) }}">
+        <table>
+            <tr>
+            <td class="titreFamille">Famille</td>
+            <td class="titreFamille">Sous Famille</td>
+            <td class="titreDesignation">Designation</td>
+            <td class="titreBoitier">Boitier</td>
+            <td class="titreQteNomenclature">Qte</td>
+            <td class="titrePositionNomenclature">Position</td>
+            <td class="titreOptSt">Opt St</td>
+            </tr>
+            {% for composant in composants %}
+                <input type="hidden" name="listId[]" value="{{ composant.id }}">
+                {% set existe = 0 %}
+                <tr>
+                    <td>{{ composant.famille.nom }}</td>
+                    <td class="sousFamille">
+                        {% if composant.idSousFamille != 0 %}
+                            {{composant.SousFamille.nom}}
+                        {% endif %}
+                    </td>
+                    <td class="designation">{{ composant.nom }}</td>
+                    <td>{{ composant.boitier }}</td>
+                    
+                    {% for composantNomenclature in composantsNomenclature %}
+                        {% if composant.id == composantNomenclature.idComposant %}
+                            {% set existe = 1 %}
+                            <td><input class="inputQuantite" type="text" name="{{ composant.id }}" value="{{ composantNomenclature.quantite }}" onfocus="this.value = ''"></td>
+                            <td><input class="inputDesignation" type="text" name="position{{ composant.id }}" value="{{ composantNomenclature.position }}" onfocus="this.value = ''""></td>
+                            
+                            {% if composantNomenclature.optionSt == 1 %}
+                                <td><input type="checkbox" name="optionSt[]" value="{{ composant.id }}" checked></td>
+                            {% else %}
+                                <td><input type="checkbox" name="optionSt[]" value="{{ composant.id }}"></td>
+                            {% endif %}
+                            
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if existe == 0 %}
+                        <td><input class="inputQuantite" type="text" name="{{ composant.id }}" onfocus="this.value = ''"></td>
+                        <td><input class="inputDesignation" type="text" name="position{{ composant.id }}" onfocus="this.value = ''"></td>
+                        <td><input type="checkbox" name="optionSt[]" value="{{ composant.id }}"></td>
+                    {% endif %}
+                    
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Valider la nomenclature" class="inputValider">
+    </form>
+{% endblock %}

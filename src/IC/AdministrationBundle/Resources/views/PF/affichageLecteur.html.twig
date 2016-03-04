@@ -1,0 +1,82 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Nomenclature{% endblock %}
+
+{% block entete %}{{ parent() }} Nomenclature{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/produitFini.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+    
+    {{ form_start(form) }}
+    <table>
+        <tr>
+            <td class="titreReferenceLecteur">Reference</td>
+            <td class="titreDesignation">Désignation</td>
+            <td class="titreType">Type</td>
+            <td class="titreFrequence">Fréquence</td>
+            <td class="titreEtiquette">Petite</td>
+            <td class="titreEtiquette">Moyenne</td>
+            <td class="titreEtiquette">Grande</td>
+            <td class="titreDetails"></td>
+        </tr>
+        {% if idTypeLecteur == 0 %}
+            <tr>
+                <td class="titreDesignation">{{ form_widget(form.nomenclature) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.sousTypeLecteur) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.petite) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.moyenne) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.grande) }}</td>
+                <td class="details">{{ form_widget(form.submit_type_lecteur, {attr: {'class': 'buttonAdd'}}) }}</td>
+            </tr>
+        {% endif %}
+        {% for typeLec in typeLecteur %}
+            {% if idTypeLecteur == typeLec.id %}
+                <tr>
+                    <td class="titreDesignation">{{ form_widget(form.nomenclature) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.sousTypeLecteur) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.petite) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.moyenne) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.grande) }}</td>
+                    <td class="details">{{ form_widget(form.submit_type_lecteur, {attr: {'class': 'buttonUpdate'}}) }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{ typeLec.nomenclature.nom }}</td>
+                    <td class="designation">{{ typeLec.designation }}</td>
+                    <td>{{ typeLec.sousTypeLecteur.nom }}</td>
+                    <td>
+                    {% if typeLec.frequence == 1 %}
+                        13.56MHz
+                    {% else %}
+                        125KHz
+                    {% endif %}
+                    </td>
+                    <td>{{ typeLec.petite }}</td>
+                    <td>{{ typeLec.moyenne }}</td>
+                    <td>{{ typeLec.grande }}</td>
+                    <td class="details">
+                        <a href="{{ path('ic_administration_affichage_produit_fini_lecteur_interne', {'idTypeLecteur': typeLec.id}) }}">
+                            {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                            {% endimage %}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            
+        {% endfor %}
+    </table>
+    {{ form_end(form) }}
+{% endblock %}

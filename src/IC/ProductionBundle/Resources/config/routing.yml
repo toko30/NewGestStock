@@ -1,0 +1,38 @@
+ic_production_interne:
+    path:     /Production-Interne
+    defaults: { _controller: ICProductionBundle:Production:interne }
+    
+ic_production_sous_traitant:
+    path:     /Production-SousTraitant-{id}
+    defaults: { _controller: ICProductionBundle:Production:sousTraitant }
+    requirements:
+        id: \d{1,10}
+
+ic_calcul:
+    path:     /Calcul-{idProducteur}-{idVersion}-{quantite1}-{quantite2}
+    defaults:  
+        _controller: ICProductionBundle:Production:calcul
+        quantite2:   0
+    requirements:
+        idProducteur: \d{1,10}
+        idVersion:    \d{1,10}
+        quantite1:    \d{1,10}
+        quantite2:    \d{1,10}
+        
+ic_lancement_prod:
+    path:     /Lancement-Production-{idProd}
+    defaults: { _controller: ICProductionBundle:Production:lancementProd }
+    requirements:
+        idProd: \d{1,10}
+        
+ic_lancement_test:
+    path:     /lancementProd-Test-{idProd}
+    defaults: { _controller: ICProductionBundle:Production:lancementTest }
+    requirements:
+        idProd: \d{1,10}
+    
+ic_suppression_previsionnelle:
+    path:     /Suppression-previsionelle-{idProd}
+    defaults: { _controller: ICProductionBundle:Production:suppression }
+    requirements:
+        idProd: \d{1,10}

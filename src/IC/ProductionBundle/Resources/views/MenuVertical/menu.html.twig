@@ -1,0 +1,20 @@
+<nav id="lienMenuVertical">
+	<span class="titreMenuVertical">Production</span><br>
+	
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_production_interne') }}">Production Interne</a><br>
+		
+	{% if sousTraitants[0].id is not empty %}
+		
+		{% image 'img/plus.png' %}
+    		<span id="sousMenu1" class="sousMenu"><img id="sousMenu11" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Production ST</span>
+		{% endimage %}
+		<br>
+		<div class="divSousMenu" id="sousMenu111">
+		{% for sousTraitant in sousTraitants %}
+            {% if sousTraitant.id != 0 %}
+			     <a class="sousSousMenu" href="{{ path('ic_production_sous_traitant', {'id': sousTraitant.id}) }}">{{ sousTraitant.nom }}</a><br>
+            {% endif %}
+		{% endfor %}
+		</div>
+	{% endif %}
+</nav>

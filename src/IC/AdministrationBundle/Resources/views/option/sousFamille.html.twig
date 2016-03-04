@@ -1,0 +1,56 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Sous Famille{% endblock %}
+
+{% block entete %}{{ parent() }} Sous Famille{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/optionSousFamille.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+
+    {% for famille in listFamille %}
+        {% if idSousFamille == 0 %}
+            <form method="post" action="{{ path('ic_administration_add_sous_famille', {idFamille: famille.id}) }}">
+        {% else %}
+            <form method="post" action="{{ path('ic_administration_update_sous_famille', {idSousFamille: idSousFamille}) }}">
+        {% endif %}
+            <table class="tabSousFamille"> 
+                <tr>
+                    <td class="titreDesignation" colspan="2">{{famille.nom}}</td>
+                </tr>
+                {% if idSousFamille == 0 %}
+                    <tr>
+                        <td><input class="inputDesignation center" type="text" name="nom"></td><td class="details"><input type="submit" class="buttonAdd"></td>
+                    </tr>
+                {% endif %}
+            {% for sousFamille in listSousFamille %}
+            
+                {% if famille.id == sousFamille.idFamille %}
+                    <tr>
+                        {% if idSousFamille == sousFamille.id %} 
+                             <td><input class="inputDesignation center" type="text" name="nom" value="{{ sousFamille.nom }}" onfocus="this.value = ''"  onblur="if(this.value == '') { this.value = '{{sousFamille.nom}}' }"></td><td class="details"><input type="submit" class="buttonUpdate"></td>   
+                        {% else %}
+                            <td>{{sousFamille.nom}}</td>
+                            <td class="details">
+                                {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                    <a href="{{ path('ic_administration_affichage_sous_famille', {idSousFamille: sousFamille.id}) }}">
+                                        <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                                    </a>
+                                {% endimage %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif%}
+            {% endfor %}
+            </table>
+        </form>
+    {% endfor %}
+
+{% endblock %}

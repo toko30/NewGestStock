@@ -1,0 +1,70 @@
+{% extends 'ICApprovisionnementBundle::layout.html.twig' %}
+
+{% block title %} {{ parent() }} - En Cours Identifiants{% endblock %}
+
+{% block entete %} {{ parent() }} En Cours Identifiants{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICApprovisionnementBundle/Resources/public/css/approPFEnCours.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+    
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+	
+	{% if appro is empty %}
+			<div class="infoPageVide">aucune commande en cours</div>
+	{% else %}
+	
+		{% set id = appro[0].appro.id %}
+        
+		<h2>Commande passée le {{appro[0].appro.dateCommande|date('d-m-Y')}}</h2>
+        
+		<table class="imp">
+			<tr>
+				<td class="titreReference">référence</td>
+				<td class="titreDesignation">Designation</td>
+				<td class="titreQte">Qte</td>
+			</tr>
+			{% for approvisionnement in appro %}
+			
+				{% if approvisionnement.appro.id != id %}					
+					</table>
+					   <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_identifiant', {idCommande: id}) }}">Commande réceptionnée</a>
+                    
+                    {% set id = approvisionnement.appro.id %}
+                    
+                    <hr class="ligneSeparatrice">
+					
+                    <h2>Commande passée le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h2>
+					
+					<table class="imp">
+						<tr>
+							<td class="titreReference">Référence</td>
+							<td class="titreDesignation">Designation</td>
+							<td class="titreQte">Qte</td>
+						</tr>				
+					<tr>
+						<td>{{approvisionnement.badge.typeBadge.reference}}</td>
+						<td class="designation">{{approvisionnement.badge.typeBadge.designation}}</td>
+						<td>{{approvisionnement.quantite}}</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td>{{approvisionnement.badge.typeBadge.reference}}</td>
+						<td class="designation">{{approvisionnement.badge.typeBadge.designation}}</td>
+						<td>{{approvisionnement.quantite}}</td>
+					</tr>
+				{% endif %}				
+			{% endfor %}
+		</table>
+        <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_identifiant', {idCommande: id}) }}">Commande réceptionnée</a>
+	{% endif %}
+{% endblock %}

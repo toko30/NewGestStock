@@ -1,0 +1,120 @@
+{% extends 'ICApprovisionnementBundle::layout.html.twig' %}
+
+{% block title %} {{ parent() }} - En cours Autres Produits finis {% endblock %}
+
+{% block entete %} {{ parent() }} En cours Autres Produits finis {% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICApprovisionnementBundle/Resources/public/css/approPFEnCours.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+    
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+
+    {% if approLecteur is empty and approAutre is empty %}
+		<div class="infoPageVide">aucune commande en cours</div>
+	{% else %}
+	   {% if approLecteur is not empty %}
+            {% set id = approLecteur[0].appro.id %}
+            
+            <h2>Commande passée le {{approLecteur[0].appro.dateCommande|date('d-m-Y')}}</h2>
+            
+            <table class="imp">
+                <tr>
+                    <td class="titreReference">référence</td>
+                    <td class="titreDesignation">Designation</td>
+                    <td class="titreQte">Qte</td>
+                </tr>
+                {% for approvisionnement in approLecteur %}
+                
+                    {% if approvisionnement.appro.id != id %}
+                        
+                        </table>
+                        <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_lecteur',{idCommande: id}) }}">Commande réceptionnée</a>
+                        <hr>
+                        {% set id = approvisionnement.appro.id %}
+                        
+                        <h2>Commande passée le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h2>
+                        
+                        <table class="imp">
+                            <tr>
+    				            <td class="titreReference">référence</td>
+				                <td class="titreDesignation">Designation</td>
+				                <td class="titreQte">Qte</td>
+                            </tr>				
+                            <tr>
+                                <td>{{approvisionnement.typeLecteurAutre.reference}}</td>
+                                <td class="designation">{{approvisionnement.typeLecteurAutre.designation}}</td>
+                                <td>{{approvisionnement.quantite}}</td>
+                            </tr>
+                    {%else %}
+                        <tr>
+                            <td>{{approvisionnement.typeLecteurAutre.reference}}</td>
+                            <td class="designation">{{approvisionnement.typeLecteurAutre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {% endif %}
+                    
+                {% endfor %}
+            </table>     
+                <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_lecteur',{idCommande: id}) }}">Commande réceptionnée</a>  
+                {% if approAutre is not empty %}
+                    <hr>
+                {% endif %}
+       {% endif %}
+       
+       {% if approAutre is not empty %}
+            {% set id = approAutre[0].appro.id %}
+            
+            <h2>Commande passée le {{approAutre[0].appro.dateCommande|date('d-m-Y')}}</h2>
+            
+            <table class="imp">
+                <tr>
+                    <td class="titreReference">référence</td>
+                    <td class="titreDesignation">Designation</td>
+                    <td class="titreQte">Qte</td>
+                </tr>
+                {% for approvisionnement in approAutre %}
+                
+                    {% if approvisionnement.appro.id != id %}
+                        
+                        </table>
+                            <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_autre',{idCommande: id}) }}">Commande réceptionnée</a> 
+                            <hr>
+                        {% set id = approvisionnement.appro.id %}
+                        
+                        <h2>Commande passée le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h2>
+                        
+                        <table class="imp">
+                            <tr>
+         			        	<td class="titreReference">référence</td>
+				                <td class="titreDesignation">Designation</td>
+				                <td class="titreQte">Qte</td>
+                            </tr>				
+                        <tr>
+                            <td>{{approvisionnement.Autre.reference}}</td>
+                            <td class="designation">{{approvisionnement.Autre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{approvisionnement.Autre.reference}}</td>
+                            <td class="designation">{{approvisionnement.Autre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {% endif %}
+                    
+                {% endfor %}
+            </table>    
+                <a class="lienValiderCommande" href="{{ path('ic_approvisionnement_vers_autre',{idCommande: id}) }}">Commande réceptionnée</a>    
+       {% endif %}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "ICAffichageBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Produit Idcapt{% endblock %}
+
+{% block entete %}{{ parent() }} Produit Idcapt{% endblock %}
+
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite'
+	'@ICAffichageBundle/Resources/public/css/sous_traitant.css' %}
+		{{ parent() }}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+	<h1>Stock Autres Produits Finis</h1>
+    
+	<table class="imp">
+		<tr>
+			<td class="titreReference">Référence</td>
+			<td class="titreDesignation">Désignation</td>
+			<td class="titreStock">Quantité</td>
+		</tr>
+		{% for lect in lecteur %}
+            <tr>
+                <td>{{lect.reference}}</td>
+                <td class="designation">{{lect.designation}}</td>
+                <td>{{lect.nbProduit}}</td>
+            </tr>
+		{% endfor %}
+
+		{% for autre in autres %}
+            <tr>
+                <td>{{autre.reference}}</td>
+                <td class="designation">{{autre.designation}}</td>
+                <td>{{autre.quantite}}</td>
+            </tr>
+		{% endfor %}
+	</table>
+{% endblock %}

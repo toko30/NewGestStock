@@ -1,0 +1,106 @@
+{% extends "ICAffichageBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Approvisionnement Lecteur CV{% endblock %}
+
+{% block entete %}{{ parent() }} Approvisionnement Lecteur CV{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICAffichageBundle/Resources/public/css/appro.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+    {% if approLecteur is empty and approAutre is empty %}
+		<div class="infoPageVide">aucune commande en cours</div>
+	{% else %}
+	   {% if approLecteur is not empty %}
+            {% set id = approLecteur[0].appro.id %}
+            
+            <h2>Commande passée le {{approLecteur[0].appro.dateCommande|date('d-m-Y')}}</h2>
+            
+            <table class="imp tabApproIdentifiant">
+                <tr>
+                    <td class="titreReference">Référence</td>
+			        <td class="titreDesignation">Désignation</td>
+                    <td class="titreStock">quantite</td>
+                </tr>
+                {% for approvisionnement in approLecteur %}
+                
+                    {% if approvisionnement.appro.id != id %}
+                        {% set id = approvisionnement.appro.id %}
+                        </table>
+                        
+                        <h2>Commande passée le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h2>
+                        
+                        <table class="imp tabApproIdentifiant">
+                            <tr>
+                                <td class="titreReference">Référence</td>
+			                    <td class="titreDesignation">Désignation</td>
+                                <td class="titreStock">quantite</td>
+                            </tr>				
+                        <tr>
+                            <td>{{approvisionnement.typeLecteurAutre.reference}}</td>
+                            <td class="designation">{{approvisionnement.typeLecteurAutre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {%else %}
+                        <tr>
+                            <td>{{approvisionnement.typeLecteurAutre.reference}}</td>
+                            <td class="designation">{{approvisionnement.typeLecteurAutre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {% endif %}
+                    
+                {% endfor %}
+            </table>       
+       {% endif %}
+       
+       {% if approAutre is not empty %}
+            {% set id = approAutre[0].appro.id %}
+            
+            <h2>Commande passée le {{approAutre[0].appro.dateCommande|date('d-m-Y')}}</h2>
+            
+            <table class="imp tabApproIdentifiant">
+                <tr>
+                    <td class="titreReference">Référence</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td class="titreStock">quantite</td>
+                </tr>
+                {% for approvisionnement in approAutre %}
+                
+                    {% if approvisionnement.appro.id != id %}
+                        {% set id = approvisionnement.appro.id %}
+                        </table>
+                        
+                        <h2>Commande passée le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h2>
+                        
+                        <table class="imp tabApproIdentifiant">
+                            <tr>
+                                <td class="titreReference">Référence</td>
+			                    <td class="titreDesignation">Désignation</td>
+                                <td class="titreStock">quantite</td>
+                            </tr>				
+                        <tr>
+                            <td>{{approvisionnement.autre.reference}}</td>
+                            <td class="designation">{{approvisionnement.autre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {%else %}
+                        <tr>
+                            <td>{{approvisionnement.autre.reference}}</td>
+                            <td class="designation">{{approvisionnement.autre.designation}}</td>
+                            <td>{{approvisionnement.quantite}}</td>
+                        </tr>
+                    {% endif %}
+                    
+                {% endfor %}
+            </table>       
+       {% endif %}
+	{% endif %}
+{% endblock %}

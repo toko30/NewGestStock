@@ -1,0 +1,224 @@
+ic_administration_matiere_premiere:
+    path:     /Matiere-Premiere
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:affichageMatierePremiere }
+
+ic_administration_mp_detail:
+    path:     /Detail-Matiere-Premiere-{idComposant}-{idComposantFournisseur}
+    defaults: 
+        _controller: ICAdministrationBundle:MatierePremiere:affichageMatierePremiereDetail
+        idComposantFournisseur: 0
+    requirements:
+        idComposant: \d{1,10}
+        idComposantFournisseur: \d{1,10}
+        
+ic_administration_mp_add:
+    path:     /Ajouter-Matiere-Premiere
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:addMatierePremiere }
+    
+ic_administration_mp_update:
+    path:     /Modifier-Matiere-Modifier-{idComposant}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:updateMatierePremiere }
+    requirements:
+        idComposant: \d{1,10}
+                        
+ic_administration_mp_delete:
+    path:     /Supprimer-Matiere-Premiere-{idComposant}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:deleteMatierePremiere }
+    requirements:
+        idComposant: \d{1,10}  
+          
+ic_administration_composant_fournisseur_add:
+    path:     /Ajouter-Composant-Fournisseur-{idComposant}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:addComposantFournisseur }
+    requirements:
+        idComposant: \d{1,10}    
+        
+ic_administration_composant_fournisseur_update:
+    path:     /Modifier-Composant-Fournisseur-{idComposantFournisseur}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:updateComposantFournisseur }
+    requirements:
+        idComposantFournisseur: \d{1,10}        
+
+ic_administration_composant_fournisseur_delete:
+    path:     /Supprimer-Composant-Fournisseur-{idComposantFournisseur}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:deleteComposantFournisseur }
+    requirements:
+        idComposantFournisseur: \d{1,10} 
+        
+ic_administration_affichage_fournisseur:
+    path:     /Fournisseur-{idFournisseur}
+    defaults:  
+        _controller: ICAdministrationBundle:Fournisseur:affichageFournisseur
+        idFournisseur: null
+    requirements:
+        idFournisseur: \d{1,10}
+                    
+ic_administration_fournisseur_add:
+    path:     /Ajouter-Fournisseur
+    defaults: { _controller: ICAdministrationBundle:Fournisseur:addFournisseur }       
+
+ic_administration_fournisseur_update:
+    path:     /Modifier-Fournisseur-{idFournisseur}
+    defaults: { _controller: ICAdministrationBundle:Fournisseur:updateFournisseur }   
+    requirements:
+        idFournisseur: \d{1,10} 
+            
+ic_administration_fournisseur_delete:
+    path:     /Supprimer-Fournisseur-{idFournisseur}
+    defaults: { _controller: ICAdministrationBundle:Fournisseur:deleteFournisseur }      
+    requirements:
+        idFournisseur: \d{1,10} 
+
+ic_administration_nomenclature:
+    path:     /Nomenclature-{allVersion}-{idNomenclature}
+    defaults:
+        _controller: ICAdministrationBundle:Nomenclature:affichageNomenclature
+        allVersion: 0
+        idNomenclature: 0   
+    requirements:
+        allVersion: 0|1
+        idNomenclature: \d{1,10}
+        
+ic_administration_composant_nomenclature:
+    path:     /Composant-Nomenclature-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:affichageComposantNomenclature }      
+    requirements:
+        idNomenclature: \d{1,10}
+        
+ic_administration_produit_fini_nomenclature:
+    path:     /Produit-Fini-Nomenclature-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:affichageProduitFiniNomenclature }      
+    requirements:
+        idNomenclature: \d{1,10}
+        
+ic_administration_add_nomenclature:
+    path:     /Ajouter-Nomenclature
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:ajouterNomenclature }
+                
+ic_administration_add_version_nomenclature:
+    path:     /Ajouter-Version-Nomenclature-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:ajouterVersionNomenclature }
+    requirements:
+        idNomenclature: \d{1,10}       
+                                
+ic_administration_update_nomenclature:
+    path:     /Modifier-Nomenclature-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:modifierNomenclature }      
+    requirements:
+        idNomenclature: \d{1,10}
+        
+ic_administration_update_composant_nomenclature:
+    path:     /Modifier-Nomenclature-Composant-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:modifierNomenclatureComposant }      
+    requirements:
+        idNomenclature: \d{1,10}
+        
+ic_administration_update_produit_fini_nomenclature:
+    path:     /Modifier-Nomenclature-Produit-Fini-{idNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Nomenclature:modifierNomenclatureProduitFini }      
+    requirements:
+        idNomenclature: \d{1,10}
+        
+ic_administration_affichage_produit_fini_lecteur_interne:
+    path:     /Produit-Fini-Lecteur-{idTypeLecteur}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:affichageProduitFiniLecteurInterne, idTypeLecteur: 0 }
+    requirements:
+        idTypeLecteur: \d{1,10}
+        
+ic_administration_type_lecteur_add:
+    path:     /Ajouter-Produit-Fini-Lecteur
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:addProduitFiniLecteurInterne }
+            
+ic_administration_type_lecteur_update:
+    path:     /Modifier-Produit-Fini-Lecteur-{idTypeLecteur}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:updateProduitFiniLecteurInterne }
+    requirements:
+        idTypeLecteur: \d{1,10}
+        
+ic_administration_affichage_produit_fini_identifiant_interne:
+    path:     /Produit-Identifiant-{idIdentifiant}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:affichageIdentifiant, idIdentifiant: 0 }
+    requirements:
+        idIdentifiant: \d{1,10}
+        
+ic_administration_identifiant_add:
+    path:     /Ajouter-Identifiant
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:addIdentifiant }
+            
+ic_administration_identifiant_update:
+    path:     /Modifier-Identifiant-{idIdentifiant}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:updateIdentifiant }
+    requirements:
+        idIdentifiant: \d{1,10}
+        
+ic_administration_affichage_produit_fini_autre_interne:
+    path:     /Produit-Autre-{idAutre}-{idType}
+    defaults: 
+        _controller: ICAdministrationBundle:ProduitFini:affichageAutre
+        idAutre: 0
+        idType: 0
+    requirements:
+        idAutre: \d{1,10}
+        idType: \d{1,10}
+        
+ic_administration_autre_add:
+    path:     /Ajouter-Autre-{idType}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:addAutre }
+    requirements:
+        idType: \d{1,10}
+                    
+ic_administration_autre_update:
+    path:     /Modifier-Autre-{idAutre}-{idType}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:updateAutre }
+    requirements:
+        idAutre: \d{1,10}
+        idType: \d{1,10}   
+        
+ic_administration_affichage_qualite:
+    path:     /Controle-Qualite
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageQualite }
+    
+ic_administration_affichage_firmware:
+    path:     /Firmware
+    defaults: { _controller: ICAdministrationBundle:Firmware:affichageFirmware }      
+                                 
+ic_administration_affichage_sous_famille:
+    path:     /Sous-Famille{idSousFamille}
+    defaults: { _controller: ICAdministrationBundle:Option:sousFamille, idSousFamille: 0 }      
+    requirements:
+        idSousFamille: \d{1,10}
+        
+ic_administration_add_sous_famille:
+    path:     /Ajouter-Sous-Famille-{idFamille}
+    defaults: { _controller: ICAdministrationBundle:Option:addsousFamille }      
+    requirements:
+        idFamille: \d{1,10}
+        
+ic_administration_update_sous_famille:
+    path:     /Modifier-Sous-Famille-{idSousFamille}
+    defaults: { _controller: ICAdministrationBundle:Option:updatesousFamille }      
+    requirements:
+        idSousFamille: \d{1,10}   
+            
+ic_administration_affichage_type_badge:
+    path:     /Type-Badge
+    defaults: { _controller: ICAdministrationBundle:Option:typeBadge }      
+    requirements:
+        idSousFamille: \d{1,10}
+        
+ic_administration_affichage_type_lecteur:
+    path:     /Type-Lecteur
+    defaults: { _controller: ICAdministrationBundle:Option:typeLecteur }      
+    requirements:
+        idSousFamille: \d{1,10}
+        
+ic_administration_affichage_type_autre:
+    path:     /Type-Autre
+    defaults: { _controller: ICAdministrationBundle:Option:typeAutre }      
+ 
+                                                  
+ic_ajax_choixFamille:
+    path:     /Choix-Famille-{idFamille}
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:choixFamille, idFamille: 0 }
+    requirements:
+        idFamille: \d{1,10}

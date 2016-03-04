@@ -1,0 +1,148 @@
+{% extends "ICAffichageBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICAffichageBundle/Resources/public/css/interne.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+	{{ parent()}}
+	
+	<h1>Stock Interne Par Référence</h1>
+{% if composants is empty %}
+	aucun composant ne correspond à votre recherche
+{% else %}	
+	<h2>{{composants[0].fournisseur.nom}}</h2>
+	
+	{% set id = composants[0].fournisseur.id %}
+	
+	<table class="imp">
+		<tr>
+			<td class="titreFamille">Famille</th>
+			<td class="titreSousFamille">Sous Famille</td>
+			<td class="titreDesignation">Désignation</td>
+			<td class="titreDesignation">Référence</td>
+			<td class="titreBoitier">Boitier</td>
+			<td class="titreStock">Stock mini</td>
+			<td class="titreStock">Stock</td>
+			<td class="titreDetails"></td>
+		</tr>
+		
+	{% for composant in composants %}
+		{% if composant.fournisseur.id != id %}
+			{% set id = composant.fournisseur.id %}
+			</table>
+			
+			<h2>{{composant.fournisseur.nom}}</h2>
+			
+			<table class="imp">
+				<tr>
+                    <td class="titreFamille">Famille</th>
+                    <td class="titreSousFamille">Sous Famille</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td class="titreDesignation">Référence</td>
+                    <td class="titreBoitier">Boitier</td>
+                    <td class="titreStock">Stock mini</td>
+                    <td class="titreStock">Stock</td>
+                    <td class="titreDetails"></td>
+				</tr>
+		{% endif %}
+			{% if 0 in etat %}	
+
+				<tr class="{% if composant.composant.stockMini > composant.composant.stockInterne %}stockInsufisant {% endif %}ligneStock">
+					<td class="famille">{{composant.composant.Famille.nom}}</td>
+					<td class="sousFamille">
+                        {% if composant.idSousFamille != 0 %}
+                            {{composant.SousFamille.nom}}
+                        {% endif %}
+                    </td>
+					<td class="designation">{{composant.composant.nom}}</td>
+					<td class="designation">{{composant.ref}}</td>
+					<td class="boitier">{{composant.composant.boitier}}</td>
+					<td class="stock">{{composant.composant.stockMini}}</td>
+					<td class="stock">{{composant.composant.stockInterne}}</td>
+					<td class="details">
+						<a href="">
+						{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+							<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+						{% endimage %}
+						</a>
+					</td>
+				</tr>			
+			{% else %}
+				{% if '1' in etat[0] and '2'  not in etat[0] %}
+					{% if composant.composant.stockMini <= composant.composant.stockInterne %}		
+						<tr class="{% if composant.composant.stockMini > composant.composant.stockInterne %}stockInsufisant {% endif %}ligneStock">
+							<td class="famille">{{composant.composant.Famille.nom}}</td>
+							<td class="sousFamille">
+                             {% if composant.idSousFamille != 0 %}
+                                    {{composant.SousFamille.nom}}
+                                {% endif %}
+                            </td>
+							<td class="designation">{{composant.composant.nom}}</td>
+							<td class="boitier">{{composant.composant.boitier}}</td>
+							<td class="stock">{{composant.composant.stockMini}}</td>
+							<td class="stock">{{composant.composant.stockInterne}}</td>
+							<td class="details">
+								<a href="">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+								{% endimage %}
+								</a>
+							</td>
+						</tr>
+					{% endif %}
+				{% elseif '2' in etat[0] and '1'  not in etat[0] %}
+					{% if composant.composant.stockMini > composant.composant.stockInterne %}
+						<tr class="{% if composant.composant.stockMini > composant.composant.stockInterne %}stockInsufisant {% endif %}ligneStock">
+							<td class="famille">{{composant.composant.Famille.nom}}</td>
+							<td class="sousFamille">
+                                {% if composant.idSousFamille != 0 %}
+                                    {{composant.SousFamille.nom}}
+                                {% endif %}
+                            </td>
+							<td class="designation">{{composant.composant.nom}}</td>
+							<td class="boitier">{{composant.composant.boitier}}</td>
+							<td class="stock">{{composant.composant.stockMini}}</td>
+							<td class="stock">{{composant.composant.stockInterne}}</td>
+							<td class="details">
+								<a href="">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+								{% endimage %}
+								</a>
+							</td>
+						</tr>			
+					{% endif %}
+				{% else %}	
+					<tr class="{% if composant.composant.stockMini > composant.composant.stockInterne %}stockInsufisant {% endif %}ligneStock">
+						<td class="famille">{{composant.composant.Famille.nom}}</td>
+						<td class="sousFamille">
+                            {% if composant.idSousFamille != 0 %}
+                                {{composant.SousFamille.nom}}
+                            {% endif %}
+                        </td>
+						<td class="designation">{{composant.composant.nom}}</td>
+						<td class="boitier">{{composant.composant.boitier}}</td>
+						<td class="stock">{{composant.composant.stockMini}}</td>
+						<td class="stock">{{composant.composant.stockInterne}}</td>
+						<td class="details">
+							<a href="">
+							{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+								<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+							{% endimage %}
+							</a>
+						</td>
+					</tr>			
+				{% endif %}
+			{% endif %}
+	{% endfor %}
+	</table>
+{% endif %}
+{% endblock %}
