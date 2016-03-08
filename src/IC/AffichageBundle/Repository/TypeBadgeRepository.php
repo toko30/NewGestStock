@@ -2,14 +2,12 @@
 
 namespace IC\AffichageBundle\Repository;
 
-class BadgeRepository extends \Doctrine\ORM\EntityRepository
+class TypeBadgeRepository extends \Doctrine\ORM\EntityRepository
 {
    public function getStockBadge($critere)
    {
-        $req = $this->createQueryBuilder('b')
-        ->join('b.typeBadge', 'tb')
+        $req = $this->createQueryBuilder('tb')
         ->join('tb.sousTypeBadge', 'stb')
-        ->addSelect('tb')
         ->addSelect('stb');
         
         if(!empty($critere['recherche']))

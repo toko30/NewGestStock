@@ -255,4 +255,3 @@ class TypeLecteur
         return $this->nomenclature;
     }
 }
-

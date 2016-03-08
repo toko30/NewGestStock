@@ -20,7 +20,7 @@ class ProductionController extends Controller
         {
             //Récupération de la derniere version de la nomenclature
             $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);
-            var_dump($data);
+
             $idVersion = $version[0]->getId();
             $version = $version[0]->getVersion();
             
@@ -61,7 +61,7 @@ class ProductionController extends Controller
     public function sousTraitantAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $request->get('formProduction');
+        $data = $request->get('production');
         
         //AFFICHAGE LISTE COMPOSANT NOMENCLATURE
         if('POST' == $request->getMethod())
@@ -95,7 +95,7 @@ class ProductionController extends Controller
             $listLastNomenclature = $this->container->get('ic_production')->listLastNomenclature();
 
             //Création du formulaire et affichage de la vue
-            $form = $this->createForm(new ProductionType($listLastNomenclature));
+            $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastnomenclature' => $listLastNomenclature)));
             
             return $this->render('ICProductionBundle:Production:sousTraitant.html.twig', array('partie' => 'production',
                                                                                                'form' => $form->createView(),

@@ -10,35 +10,5 @@ namespace IC\ApprovisionnementBundle\Repository;
  */
 class ComposantFournisseurRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getComposantFournisseurById($listeIdComposant)
-    {
-        for($i = 0; $i < count($listeIdComposant); $i++)
-        {
-            $listeId[] = $listeIdComposant[$i]['idComposant'];
-        }
-        
-        $req = $this->createQueryBuilder('cf')
-        ->join('cf.fournisseur', 'f')
-        ->join('cf.composant', 'c')
-        ->orderBy('c.designation')
-        ->addSelect('c', 'f')
-        ->orderBy('cf.idFournisseur', 'ASC')
-        ->where('cf.idComposant IN (:id)')
-        ->setParameter('id', $listeId);
-        
-        /*
-        if(!empty($critere['famille']))
-        {
-                $req->where('c.idFamille IN (:id)') 
-                ->setParameter('id', $critere['famille']);
-        }
-        
-        if(!empty($critere['sousFamille']))
-        {
-                $req->andWhere('c.idSousFamille IN (:id1)') 
-                ->setParameter('id1', $critere['sousFamille']);
-        }
-        */
-        return $req->getQuery()->getResult();           
-    }
+
 }

@@ -16,7 +16,12 @@ class TypeBadge
      * @var string
      */
     private $designation;
-
+    
+    /**
+     * @var integer
+     */
+    private $quantite;
+    
     /**
      * @var integer
      */
@@ -90,7 +95,31 @@ class TypeBadge
     {
         return $this->designation;
     }
+    
+    /**
+     * Set quantite
+     *
+     * @param integer $quantite
+     *
+     * @return TypeBadge
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
 
+        return $this;
+    }
+
+    /**
+     * Get frequence
+     *
+     * @return integer
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+    
     /**
      * Set frequence
      *

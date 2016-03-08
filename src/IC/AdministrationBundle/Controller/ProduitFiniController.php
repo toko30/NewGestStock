@@ -99,7 +99,7 @@ class ProduitFiniController extends Controller
         return $this->redirectToRoute('ic_administration_affichage_produit_fini_lecteur_interne');         
     }
     
-    public function affichageIdentifiantAction($idIdentifiant)
+    public function affichageIdentifiantAction($idIdentifiant, $idFournisseur)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -124,7 +124,8 @@ class ProduitFiniController extends Controller
         return $this->render('ICAdministrationBundle:PF:affichageIdentifiant.html.twig', array('partie' => 'Administration',
                                                                                                'form' => $formTypeIdentifiant,
                                                                                                'fournisseurs' => $listFournisseur,
-                                                                                               'idIdentifiant' => $idIdentifiant));
+                                                                                               'idIdentifiant' => $idIdentifiant,
+                                                                                               'idFournisseur' => $idFournisseur));
     }
     
     public function addIdentifiantAction(request $request)
@@ -183,7 +184,7 @@ class ProduitFiniController extends Controller
         return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_interne');         
     }
     
-    public function affichageAutreAction($idAutre, $idType)
+    public function affichageAutreAction($idAutre, $idType, $idFournisseur)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -227,6 +228,7 @@ class ProduitFiniController extends Controller
                                                                                          'form1' => $formAutre,
                                                                                          'idType' => $idType,
                                                                                          'idAutre' => $idAutre,
+                                                                                         'idFourniseur' => $idFournisseur,
                                                                                          'fournisseursLecteurAutre' => $listLecteurAutre,
                                                                                          'fournisseursAutre' => $listAutre));        
     }

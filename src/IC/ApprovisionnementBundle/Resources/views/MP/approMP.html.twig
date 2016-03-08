@@ -19,68 +19,35 @@
 
     {{ parent() }}
         
-        {% if composantFournisseur is empty %}
-            <div class="infoPageVide">
+    {% if fournisseurs is empty %}
+        <div class="infoPageVide">
+        
+            {{ textPartie }}<br>
+            <br>
+            {% if textPartie1 is defined %}
+                <span class="erreur">{{ textPartie1 }}</span>
+            {% endif %}
+        </div>
+    {% else %}
+
+        {% for fournisseur in fournisseurs %}
+        
+            <h1>{{fournisseur.nom}}</h1>
             
-                {{ textPartie }}<br>
-                <br>
-                {% if textPartie1 is defined %}
-                    <span class="erreur">{{ textPartie1 }}</span>
-                {% endif %}
-            </div>
-        {% else %}
+            <form method="post" action="{{ path('ic_approvisionnement_calcul', {idFournisseur: fournisseur.id, page: page}) }}">
             
-            {% set id = composantFournisseur[0].fournisseur.id %}
-            
-            <h1>{{composantFournisseur[0].fournisseur.nom}}</h1>
-            
-            <form method="post" action="{{ path('ic_approvisionnement_calcul', {idFournisseur: composantFournisseur[0].fournisseur.id, page: page}) }}">
-            
-            <table class="imp">
-                <tr>
-                    <td class="titreFamille">Famille</td>
-                    <td class="titreSousFamille">Sous Famille</td>
-                    <td class="titreDesignation">Designation</td>
-                    <td class="titreReference">Référence</td>
-                    <td class="titreBoitier">Boitier</td>
-                    <td class="titreQte">Qte</td>
-                    <td class="titreQteNecessaire">Qte Mini</td>
-                </tr>
-                {% for approvisionnement in composantFournisseur %}
-                
-                    {% if approvisionnement.fournisseur.id != id %}
-                        {% set id = approvisionnement.fournisseur.id %}
-                        </table>
-                            <input class="inputValiderCommande" type="submit" value="Valider la commande">
-                        </form>
-                        <h1>{{approvisionnement.fournisseur.nom}}</h1>
+                <table class="imp">
+                    <tr>
+                        <td class="titreFamille">Famille</td>
+                        <td class="titreSousFamille">Sous Famille</td>
+                        <td class="titreDesignation">Designation</td>
+                        <td class="titreReference">Référence</td>
+                        <td class="titreBoitier">Boitier</td>
+                        <td class="titreQte">Qte</td>
+                        <td class="titreQteNecessaire">Qte Mini</td>
+                    </tr>
+                    {% for approvisionnement in fournisseur.composantFournisseur %}
                         
-                        <form method="post" action="{{ path('ic_approvisionnement_calcul', {idFournisseur: approvisionnement.fournisseur.id, page: page}) }}">
-                        <table class="imp">
-                            <tr>
-                                <td class="titreFamille">Famille</td>
-                                <td class="titreSousFamille">Sous Famille</td>
-                                <td class="titreDesignation">Designation</td>
-                                <td class="titreReference">Référence</td>
-                                <td class="titreBoitier">Boitier</td>
-                                <td class="titreQte">Qte</td>
-                                <td class="titreQteNecessaire">Qte Mini</td>
-                           </tr>
-                            <tr>
-                                <input type="hidden" name="listId[]" value="{{approvisionnement.idComposant}}">
-                                <td>{{approvisionnement.composant.famille.nom}}</td>
-                                <td>{{approvisionnement.composant.sousFamille.nom}}</td>
-                                <td class="designation">{{approvisionnement.composant.nom}}</td>
-                                <td>{{approvisionnement.reference}}</td>
-                                <td>{{approvisionnement.composant.boitier}}</td>
-                                <td><input class="inputQuantite" type="text" name="{{approvisionnement.idComposant}}"></td>
-                                {% for qte in quantiteCommande %}
-                                    {% if qte.idComposant == approvisionnement.idComposant %}
-                                        <td>{{qte.quantite}}</td>
-                                    {% endif %}
-                                {% endfor %}
-                            </tr>
-                    {% else %}
                         <tr>
                             <input type="hidden" name="listId[]" value="{{approvisionnement.idComposant}}">
                             <td>{{approvisionnement.composant.famille.nom}}</td>
@@ -94,14 +61,14 @@
                                     <td>{{qte.quantite}}</td>
                                 {% endif %}
                             {% endfor %}
-                        </tr>
-                    {% endif %}
-                    
-                {% endfor %}
-            </table>
-            <input class="inputValiderCommande" type="submit" value="Valider la commande">
+                        </tr>  
+                    {% endfor %}
+                </table>
+                
+                <input class="inputValiderCommande" type="submit" value="Valider la commande">
             </form>
-        {% endif %}
+        {% endfor %}
+    {% endif %}
     
 {% endblock %}
 

@@ -22,7 +22,7 @@
         {% if idAutre == 0 %}
             {{ form_start(form[loop.index0]) }}
             {{ form_widget(form[loop.index0].idFournisseur, {attr: {'value': fournisseur.id}}) }} 
-        {% elseif idType == 1%}
+        {% elseif idType == 1 and idFourniseur == fournisseur.id %}
             {{ form_start(form) }}
             {{ form_widget(form.idFournisseur, {attr: {'value': fournisseur.id}}) }}
         {% endif %}
@@ -80,7 +80,7 @@
                             <td>{{ lecAutre.moyenne }}</td>
                             <td>{{ lecAutre.grande }}</td>
                             <td class="details">
-                                <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': lecAutre.id, idType: 1}) }}">
+                                <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': lecAutre.id, idType: 1, 'idFournisseur': fournisseur.id}) }}">
                                     {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                         <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                     {% endimage %}
@@ -93,7 +93,7 @@
         
         {% if idAutre == 0 %}
             {{ form_end(form[loop.index0]) }}
-        {% elseif idType == 1%}
+        {% elseif idType == 1  and idFourniseur == fournisseur.id %}
             {{ form_end(form) }}
         {% endif %}
         
@@ -106,7 +106,7 @@
         {% if idAutre == 0 %}
             {{ form_start(form1[loop.index0]) }}
             {{ form_widget(form1[loop.index0].idFournisseur, {attr: {'value': fournisseur.id}}) }} 
-        {% elseif idType == 2 %}
+        {% elseif idType == 2  and idFourniseur == fournisseur.id %}
             {{ form_start(form1) }}
             {{ form_widget(form1.idFournisseur, {attr: {'value': fournisseur.id}}) }}
         {% endif %}
@@ -141,7 +141,7 @@
                         <td class="designation">{{ autre.designation }}</td>
                         <td>{{ autre.typeAutre.nom }}</td>
                         <td class="details">
-                            <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': autre.id, idType: 2}) }}">
+                            <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': autre.id, idType: 2, 'idFournisseur': fournisseur.id}) }}">
                                 {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                     <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                 {% endimage %}
@@ -154,7 +154,7 @@
         
         {% if idAutre == 0 %}
             {{ form_end(form1[loop.index0]) }}
-        {% elseif idType == 2 %}
+        {% elseif idType == 2  and idFourniseur == fournisseur.id %}
             {{ form_end(form1) }}
         {% endif %}
         

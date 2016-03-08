@@ -136,10 +136,14 @@ ic_administration_type_lecteur_update:
         idTypeLecteur: \d{1,10}
         
 ic_administration_affichage_produit_fini_identifiant_interne:
-    path:     /Produit-Identifiant-{idIdentifiant}
-    defaults: { _controller: ICAdministrationBundle:ProduitFini:affichageIdentifiant, idIdentifiant: 0 }
+    path:     /Produit-Identifiant-{idIdentifiant}-{idFournisseur}
+    defaults: 
+        _controller: ICAdministrationBundle:ProduitFini:affichageIdentifiant
+        idIdentifiant: 0
+        idFournisseur: 0
     requirements:
         idIdentifiant: \d{1,10}
+        idFournisseur: \d{1,10}
         
 ic_administration_identifiant_add:
     path:     /Ajouter-Identifiant
@@ -152,14 +156,16 @@ ic_administration_identifiant_update:
         idIdentifiant: \d{1,10}
         
 ic_administration_affichage_produit_fini_autre_interne:
-    path:     /Produit-Autre-{idAutre}-{idType}
+    path:     /Produit-Autre-{idAutre}-{idType}-{idFournisseur}
     defaults: 
         _controller: ICAdministrationBundle:ProduitFini:affichageAutre
         idAutre: 0
         idType: 0
+        idFournisseur: 0
     requirements:
         idAutre: \d{1,10}
         idType: \d{1,10}
+        idFournisseur: \d{1,10}
         
 ic_administration_autre_add:
     path:     /Ajouter-Autre-{idType}

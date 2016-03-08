@@ -14,7 +14,9 @@
 {% block page %}
 
 	{{ parent()}}
-
+    
+    <h1>Sous Famille</h1>
+    
     {% for famille in listFamille %}
         {% if idSousFamille == 0 %}
             <form method="post" action="{{ path('ic_administration_add_sous_famille', {idFamille: famille.id}) }}">
@@ -35,7 +37,7 @@
                 {% if famille.id == sousFamille.idFamille %}
                     <tr>
                         {% if idSousFamille == sousFamille.id %} 
-                             <td><input class="inputDesignation center" type="text" name="nom" value="{{ sousFamille.nom }}" onfocus="this.value = ''"  onblur="if(this.value == '') { this.value = '{{sousFamille.nom}}' }"></td><td class="details"><input type="submit" class="buttonUpdate"></td>   
+                             <td class="titreDesignation"><input class="inputDesignation center" type="text" name="nom" value="{{ sousFamille.nom }}" onfocus="this.value = ''"  onblur="if(this.value == '') { this.value = '{{sousFamille.nom}}' }"></td><td class="details"><input type="submit" class="buttonUpdate"></td>   
                         {% else %}
                             <td>{{sousFamille.nom}}</td>
                             <td class="details">

@@ -32,8 +32,8 @@
     <one-to-one field="typeAutre" target-entity="TypeAutre" >
       <join-column name="type" referenced-column-name="id" />
     </one-to-one>
-    <one-to-one field="fournisseur" target-entity="Fournisseur" >
+    <many-to-one field="fournisseur" target-entity="Fournisseur"  inversed-by="autre">
       <join-column name="id_fournisseur" referenced-column-name="id" />
-    </one-to-one>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

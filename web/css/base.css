@@ -2,6 +2,7 @@ body
 {
 	margin: 0;
 	font-family: "Calibri";
+    overflow : scroll;	
 }
 .spanMenu
 {
@@ -48,10 +49,7 @@ body
 	color: #00B8D6;
 	background: white;
 }
-body
-{
-	overflow : scroll;	
-}
+
 #page
 {
     float:left;

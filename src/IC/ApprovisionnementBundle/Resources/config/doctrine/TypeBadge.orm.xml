@@ -32,5 +32,8 @@
     <one-to-one field="sousTypeBadge" target-entity="SousTypeBadge" >
         <join-column name="type" referenced-column-name="id" />
     </one-to-one>
+    <many-to-one field="fournisseur" target-entity="Fournisseur" inversed-by="badge">
+        <join-column name="id_fournisseur" referenced-column-name="id"  nullable="false"/>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

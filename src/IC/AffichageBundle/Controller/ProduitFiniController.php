@@ -24,11 +24,11 @@ class ProduitFiniController extends Controller
         $formProduitFiniIdentifiant = $request->get('formProduitFiniIdentifiant');
         
         if(!empty($formProduitFiniIdentifiant))
-            $nbBadge = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Badge')->getStockBadge($formProduitFiniIdentifiant);
+            $nbBadge = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:TypeBadge')->getStockBadge($formProduitFiniIdentifiant);
         else
-            $nbBadge = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Badge')->getStockBadge(0);
+            $nbBadge = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:TypeBadge')->getStockBadge(0);
                     
-        return $this->render('ICAffichageBundle:produitFini:identifiant.html.twig', array('partie' => 'affichage', 'badge' => $nbBadge));
+        return $this->render('ICAffichageBundle:produitFini:identifiant.html.twig', array('partie' => 'affichage', 'badges' => $nbBadge));
     }
 
     public function produitFiniAutreAction(request $request)

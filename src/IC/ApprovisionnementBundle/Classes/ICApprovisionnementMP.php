@@ -63,7 +63,6 @@ class ICApprovisionnementMP
                     }
                 }
                 
-                $composantStockST = array();
                 //ajout de la quantité du stock sous traitant à additionner au stock à commander
                 if(in_array($composantNomenclature->getIdComposant(), $listComposantUtilise))
                 {
@@ -73,7 +72,7 @@ class ICApprovisionnementMP
                         if($composantSousTraitant->getIdComposant() == $composantNomenclature->getIdComposant())
                         {
                             //au premier tour de boucle on créé le premier champ du tableau
-                            if(!isset($composantStockST[0]['idComposant']))
+                            if(!isset($composantStockST['lieu']))
                             {
                                 $composantStockST['lieu'] = $production->getIdLieu();
                                 $composantStockST['idComposant'][] = $composantSousTraitant->getIdComposant();
@@ -82,22 +81,22 @@ class ICApprovisionnementMP
                             else
                             {
                                 $existe = 0;
-                                
-                                for($i = 0; $i < count($composantStockST['idComposant']); $i++)
+                                $nbStockST = count($composantStockST['idComposant']);
+                                for($i = 0; $i < $nbStockST; $i++)
                                 {
                                     //on vérifie que le composant n'existe pas déja chez un autre sous traitant sinon on l'ajoute a celui ci 
                                     //on vérifie que l'on ne fais pas de doublon en comparant que le sous traitant actuel est différent du sous traitant enregistré
-                                    if($composantStockST['idComposant'][$i] == $composantNomenclature->getIdComposant() && $composantStockST['lieu'][$i] != $production->getIdLieu())
+                                    if($composantStockST['idComposant'][$i] == $composantNomenclature->getIdComposant() && $composantStockST['lieu'] != $production->getIdLieu())
                                     {
                                         $existe = 1;
-                                        $composantStockST['lieu'][] = $production->getIdLieu();
+                                        $composantStockST['lieu'] = $production->getIdLieu();
                                         $composantStockST['quantite'][$i] += $composantSousTraitant->getQuantite();
                                     }
                                 }
                                 //si il n'existe pas on le créé
                                 if($existe == 0)
                                 {
-                                    $composantStockST['lieu'][] = $production->getIdLieu();
+                                    $composantStockST['lieu'] = $production->getIdLieu();
                                     $composantStockST['idComposant'][] = $composantSousTraitant->getIdComposant();
                                     $composantStockST['quantite'][] = $composantSousTraitant->getQuantite();
                                 }
@@ -115,6 +114,7 @@ class ICApprovisionnementMP
         $doctrine = $this->doctrine;
         
         $listComposant = $doctrine->getRepository('ICApprovisionnementBundle:Composant')->findAll();
+        $quantiteCommande = array();
         
         $i = 0;
         foreach ($listComposant as $composant) {
@@ -123,9 +123,7 @@ class ICApprovisionnementMP
                 $quantiteCommande[$i]['idComposant'] = $composant->getId();
                 $quantiteCommande[$i++]['quantite'] = $composant->getStockInterne() - $composant->getStockMini();
             }
-        }
-        if(!isset($quantiteCommande))
-            $quantiteCommande = array();
+        }    
             
         return $quantiteCommande;        
     }
@@ -138,7 +136,9 @@ class ICApprovisionnementMP
             {
                 if($quantiteCommande[$i1]['idComposant'] == $composantStockST['idComposant'][$i])
                 {
+
                     $quantiteCommande[$i1]['quantite'] += $composantStockST['quantite'][$i]; 
+                    
                 }
             }
         }

@@ -44,8 +44,11 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <one-to-one field="fournisseur" target-entity="Fournisseur" >
+    <many-to-one field="fournisseur" target-entity="Fournisseur" inversed-by="lecteurAutre">
         <join-column name="id_fournisseur" referenced-column-name="id" />
+    </many-to-one>
+    <one-to-one field="sousTypeLecteur" target-entity="SousTypeLecteur" >
+        <join-column name="type" referenced-column-name="id" />
     </one-to-one>
   </entity>
 </doctrine-mapping>

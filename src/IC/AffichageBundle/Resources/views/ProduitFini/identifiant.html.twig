@@ -21,11 +21,11 @@
 			<td class="titreDesignation">Désignation</td>
 			<td class="titreStock">Quantité</td>
 		</tr>
-		{% for bad in badge %}
+		{% for badge in badges %}
 			<tr>
-				<td>{{bad.typeBadge.reference}}</td>
-				<td class="designation">{{bad.typeBadge.designation}}</td>
-				<td>{{bad.quantite}}</td>
+				<td>{{badge.reference}}</td>
+				<td class="designation">{{badge.designation}}</td>
+				<td>{{badge.quantite}}</td>
 			</tr>
 		{% endfor %}
 	</table>

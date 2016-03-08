@@ -18,8 +18,8 @@ class ApprovisionnementMPController extends Controller
         //ajout du stock actuel du ou des sous traitant au quantité à commander
         if(isset($composantStockST['idComposant'][0]))
             $quantiteCommande = $this->container->get('ic_approvisionnementMP')->ajoutStockST($composantStockST, $quantiteCommande);
-            
-        //soustraction des appro en cour au quantité nécéssaires
+
+        //soustraction des appro en cour aux quantités nécéssaires
         $listApproEnCours = $em->getRepository('ICApprovisionnementBundle:ApproComposant')->getApproEnCours();
         
         if($listApproEnCours != null)
@@ -30,18 +30,16 @@ class ApprovisionnementMPController extends Controller
         
         //récupération des fournisseurs dont le composant est disponible
         if($quantiteCommande != null)
-            $listComposantFournisseur = $em->getRepository('ICApprovisionnementBundle:ComposantFournisseur')->getComposantFournisseurById($quantiteCommande);
+            $listComposantFournisseur = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getComposantFournisseurById($quantiteCommande);
         else
             $listComposantFournisseur = array();
-            
-        //var_dump($listComposantFournisseur);
         
         return $this->render('ICApprovisionnementBundle:MP:approMP.html.twig', array('partie' => 'approvisionnement', 
                                                                                      'titrePartie' => 'Approvisionnement nécéssaire à la production',
                                                                                      'textPartie' => 'Aucun approvisionnement nécéssaire à la production',
                                                                                      'textPartie1' => 'Si une production ne peut être lancée, vérifier les composants en cours d\'approvisionnement',
                                                                                      'page' => 'production',
-                                                                                     'composantFournisseur' => $listComposantFournisseur,
+                                                                                     'fournisseurs' => $listComposantFournisseur,
                                                                                      'quantiteCommande' => $quantiteCommande));
     }
     
@@ -63,7 +61,7 @@ class ApprovisionnementMPController extends Controller
                      
         //récupération des fournisseurs dont le composant est disponible
         if($quantiteCommande !== null)
-            $listComposantFournisseur = $em->getRepository('ICApprovisionnementBundle:ComposantFournisseur')->getComposantFournisseurById($quantiteCommande);
+            $listComposantFournisseur = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getComposantFournisseurById($quantiteCommande);
         else
             $listComposantFournisseur = array();          
                
@@ -71,7 +69,7 @@ class ApprovisionnementMPController extends Controller
                                                                                         'titrePartie' => 'Approvisionnement des composants en etat critique',
                                                                                         'textPartie' => 'Aucun composant dont le stock est en etat critique',
                                                                                         'page' => 'critique',
-                                                                                        'composantFournisseur' => $listComposantFournisseur,
+                                                                                        'fournisseurs' => $listComposantFournisseur,
                                                                                         'quantiteCommande' => $quantiteCommande));
     }
     

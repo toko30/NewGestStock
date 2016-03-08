@@ -22,7 +22,7 @@
     <one-to-one field="composant" target-entity="Composant" >
       <join-column name="id_composant" referenced-column-name="id" />
     </one-to-one>
-    <one-to-one field="fournisseur" target-entity="Fournisseur" >
+    <one-to-one field="fournisseur" target-entity="Fournisseur" inversed-by="composantFournisseur">
       <join-column name="id_fournisseur" referenced-column-name="id" />
     </one-to-one>
   </entity>

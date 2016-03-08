@@ -16,6 +16,7 @@
 {% endblock %}
 
 {% block page %}
+
     {{ parent() }}
     
     <form method="post" action="{{ path('ic_approvisionnement_calcul_identifiant', {idFournisseur: identifiant[0].typeBadge.idFournisseur}) }}">
@@ -39,6 +40,7 @@
         <input class="inputValiderCommande" type="submit" value="Lancer la commande">
         
     </form>
+    
 {% endblock %}
 
 {% block javascripts %}

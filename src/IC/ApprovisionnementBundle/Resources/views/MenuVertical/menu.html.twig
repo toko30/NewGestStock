@@ -7,7 +7,7 @@
 	<span class="titreMenuVertical">Appro PF</span><br>
 	
 		<a class="sousMenu decalageNoPlus" href="{{ path('ic_approvisionnement_pf_identifiant') }}">Identifiants</a><br>
-		<a class="sousMenu decalageNoPlus" href="{{ path('ic_approvisionnement_pf_autre') }}">Autres</a><br> 
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_approvisionnement_pf_autre') }}">Autres PF</a><br> 
 
 	<span class="titreMenuVertical">Appro En Cours</span><br>
 	
@@ -18,7 +18,7 @@
     <br>
     <div class="divSousMenu" id="sousMenu111">
         <a class="sousSousMenu" href="{{ path('ic_approvisionnement_en_cours_identifiant') }}">Identifiants</a><br>
-        <a class="sousSousMenu" href="{{ path('ic_approvisionnement_en_cours_autre') }}">Autres</a><br>
+        <a class="sousSousMenu" href="{{ path('ic_approvisionnement_en_cours_autre') }}">Autres PF</a><br>
     </div>
 
     {% if sousTraitants is not empty %}
@@ -32,6 +32,7 @@
     <span class="lienImp" onclick="$('.imp').tableExport({type:'excel', escape:'false'})">Enregistrer au format Excel</span><br>
     <span class="lienImp" onclick="javascript:window.print()">Imprimer</span><br>
     <br>
+    
 {% if url == "ic_approvisionnement_mp_production" or url == "ic_approvisionnement_mp_critique" %}
 	{{ include("ICApprovisionnementBundle:Form:FormMatierePremiere.html.twig") }}
 {% elseif url == "ic_approvisionnement_pf_identifiant" %}
