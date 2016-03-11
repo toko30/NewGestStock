@@ -11,23 +11,23 @@ class ApprovisionnementPFController extends Controller
     {       
         $em = $this->getDoctrine()->getManager();
         
-        $identifiant = $em->getRepository('ICApprovisionnementBundle:Badge')->getAllBadge();
+        $fournisseurs = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getAllPF(2);
         
-        return $this->render('ICApprovisionnementBundle:PF:identifiant.html.twig', array('partie' => 'approvisionnement', 'identifiant' => $identifiant));
+        return $this->render('ICApprovisionnementBundle:PF:identifiant.html.twig', array('partie' => 'approvisionnement', 'fournisseurs' => $fournisseurs));
     }
     
     public function approProduitsFinisAutresAction()
     {
         $em = $this->getDoctrine()->getManager();
         
-        $typeLecteur = $em->getRepository('ICApprovisionnementBundle:TypeLecteurAutre')->getAllTypeLecteur();
-        $autre = $em->getRepository('ICApprovisionnementBundle:Autre')->getAllAutre();
+        $typeLecteur = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getAllPF(3);
+        $autre = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getAllPF(4);
         
         return $this->render('ICApprovisionnementBundle:PF:autre.html.twig', array('partie' => 'approvisionnement', 
-                                                                                   'typeLecteur' => $typeLecteur,
-                                                                                   'autre' => $autre));
+                                                                                   'fournisseursLecteurs' => $typeLecteur,
+                                                                                   'fournisseursAutres' => $autre));
     }
-    
+
     public function calculApproIdentifiantAction(request $request, $idFournisseur)
     {
         //Ajout des identifiants en BDD
@@ -42,5 +42,5 @@ class ApprovisionnementPFController extends Controller
         $this->container->get('ic_approvisionnement_pf')->addApproAutre($request, $idFournisseur);
                 
         return $this->redirectToRoute('ic_approvisionnement_pf_autre');
-    }    
+    }
 }

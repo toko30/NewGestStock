@@ -28,14 +28,14 @@ class ApproAutre
     private $id;
 
     /**
-     * @var \IC\ApprovisionnementBundle\Entity\Appro
-     */
-    private $appro;
-
-    /**
      * @var \IC\ApprovisionnementBundle\Entity\Autre
      */
     private $autre;
+
+    /**
+     * @var \IC\ApprovisionnementBundle\Entity\Appro
+     */
+    private $appro;
 
 
     /**
@@ -121,30 +121,6 @@ class ApproAutre
     }
 
     /**
-     * Set appro
-     *
-     * @param \IC\ApprovisionnementBundle\Entity\Appro $appro
-     *
-     * @return ApproAutre
-     */
-    public function setAppro(\IC\ApprovisionnementBundle\Entity\Appro $appro = null)
-    {
-        $this->appro = $appro;
-
-        return $this;
-    }
-
-    /**
-     * Get appro
-     *
-     * @return \IC\ApprovisionnementBundle\Entity\Appro
-     */
-    public function getAppro()
-    {
-        return $this->appro;
-    }
-
-    /**
      * Set autre
      *
      * @param \IC\ApprovisionnementBundle\Entity\Autre $autre
@@ -167,4 +143,29 @@ class ApproAutre
     {
         return $this->autre;
     }
+
+    /**
+     * Set appro
+     *
+     * @param \IC\ApprovisionnementBundle\Entity\Appro $appro
+     *
+     * @return ApproAutre
+     */
+    public function setAppro(\IC\ApprovisionnementBundle\Entity\Appro $appro = null)
+    {
+        $this->appro = $appro;
+
+        return $this;
+    }
+
+    /**
+     * Get appro
+     *
+     * @return \IC\ApprovisionnementBundle\Entity\Appro
+     */
+    public function getAppro()
+    {
+        return $this->appro;
+    }
 }
+

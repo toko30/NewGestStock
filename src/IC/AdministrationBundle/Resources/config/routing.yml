@@ -135,16 +135,24 @@ ic_administration_type_lecteur_update:
     requirements:
         idTypeLecteur: \d{1,10}
         
-ic_administration_affichage_produit_fini_identifiant_interne:
-    path:     /Produit-Identifiant-{idIdentifiant}-{idFournisseur}
+ic_administration_affichage_produit_fini_identifiant:
+    path:     /Produit-Fini-Identifiant-{idIdentifiant}
     defaults: 
         _controller: ICAdministrationBundle:ProduitFini:affichageIdentifiant
         idIdentifiant: 0
-        idFournisseur: 0
     requirements:
         idIdentifiant: \d{1,10}
-        idFournisseur: \d{1,10}
         
+ic_administration_affichage_produit_fini_identifiant_detail:
+    path:     /Detail-Produit-Fini-Identifiant-{idIdentifiant}-{idBadgeFournisseur}
+    defaults: 
+        _controller: ICAdministrationBundle:ProduitFini:affichageIdentifiantDetail
+        idIdentifiant: 0
+        idBadgeFournisseur: 0
+    requirements:
+        idIdentifiant: \d{1,10}
+        idBadgeFournisseur: \d{1,10}
+                
 ic_administration_identifiant_add:
     path:     /Ajouter-Identifiant
     defaults: { _controller: ICAdministrationBundle:ProduitFini:addIdentifiant }
@@ -155,7 +163,25 @@ ic_administration_identifiant_update:
     requirements:
         idIdentifiant: \d{1,10}
         
-ic_administration_affichage_produit_fini_autre_interne:
+ic_administration_identifiant_fournisseur_add:
+    path:     /Ajouter-Identifiant-Fournisseur-{idIdentifiant}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:addIdentifiantFournisseur }
+    requirements:
+        idIdentifiant: \d{1,10}    
+        
+ic_administration_identifiant_fournisseur_update:
+    path:     /Modifier-Identifiant-Fournisseur-{idBadgeFournisseur}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:updateIdentifiantFournisseur }
+    requirements:
+        idBadgeFournisseur: \d{1,10}  
+               
+ic_administration_identifiant_fournisseur_delete:
+    path:     /Supprimer-Identifiant-Fournisseur-{idBadgeFournisseur}
+    defaults: { _controller: ICAdministrationBundle:ProduitFini:deleteIdentifiantFournisseur }
+    requirements:
+        idBadgeFournisseur: \d{1,10} 
+                   
+ic_administration_affichage_produit_fini_autre:
     path:     /Produit-Autre-{idAutre}-{idType}-{idFournisseur}
     defaults: 
         _controller: ICAdministrationBundle:ProduitFini:affichageAutre

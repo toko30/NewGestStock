@@ -6,7 +6,7 @@
 	<br>
 	{{ form_widget(form.Rechercher, {'attr': {'class': 'submitRecherche'}}) }}
 	
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox11" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}	
 	{{ form_label(form.type, 'Type', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox1'}}) }}
@@ -18,7 +18,7 @@
 		{% endfor %}
 	</div>
 	
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox21" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}	
 	{{ form_label(form.frequence, 'Fréquence', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox2'}}) }}

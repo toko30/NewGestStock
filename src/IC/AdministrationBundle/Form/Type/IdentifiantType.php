@@ -27,9 +27,7 @@ class IdentifiantType extends AbstractType
         $builder->add('sousTypeBadge', EntityType::class, array(
                       'class' => 'IC\AdministrationBundle\Entity\SousTypeBadge',
                       'choice_label' => 'nom',
-                      'multiple'  => false));       
-                      
-        $builder->add('idFournisseur', HiddenType::class); 
+                      'multiple'  => false));                            
                                   
         $builder->add('submit_identifiant', SubmitType::class);
     }

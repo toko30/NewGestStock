@@ -19,11 +19,11 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <one-to-one field="appro" target-entity="Appro" >
-      <join-column name="id_commande" referenced-column-name="id" />
-    </one-to-one>
-    <one-to-one field="badge" target-entity="Badge" >
+    <one-to-one field="typeBadge" target-entity="TypeBadge" >
       <join-column name="id_identifiant" referenced-column-name="id" />
     </one-to-one>
+    <many-to-one field="appro" target-entity="Appro" inversed-by="approIdentifiant">
+      <join-column name="id_commande" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

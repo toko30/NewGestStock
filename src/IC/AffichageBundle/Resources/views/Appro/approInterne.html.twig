@@ -16,63 +16,36 @@
 {% block page %}
 	{{ parent() }}
 	
-	{% if appro is empty %}
-		aucune commande en cours
+	{% if approvisionnement is empty %}
+		<div class="infoPageVide">Aucun approvisionnement de matière première en cours</div>
 	{% else %}
 	
-		{% set id = appro[0].appro.id %}
+		{% for appro in approvisionnement %}
 		
-		<h1>{{appro[0].appro.fournisseur.nom}} le {{appro[0].appro.dateCommande|date('d-m-Y')}}</h1>
-		<table class="imp">
-			<tr>
-                <td class="titreFamille">Famille</td>
-                <td class="titreFamille">Sous Famille</td>
-                <td class="titreDesignation">Désignation</td>
-                <td class="titreBoitier">Boitier</td>
-                <td class="titreStock">Quantite</td>
-			</tr>
-			{% for approvisionnement in appro %}
-			
-				{% if approvisionnement.appro.id != id %}
-					{% set id = approvisionnement.appro.id %}
-					</table>
-					
-					<h1>{{approvisionnement.appro.fournisseur.nom}} le {{approvisionnement.appro.dateCommande|date('d-m-Y')}}</h1>
-					
-					<table class="imp">
-						<tr>
-                            <td class="titreFamille">Famille</td>
-                            <td class="titreFamille">Sous Famille</td>
-                            <td class="titreDesignation">Désignation</td>
-                            <td class="titreBoitier">Boitier</td>
-                            <td class="titreStock">Quantite</td>
-						</tr>				
-					<tr>
-						<td>{{approvisionnement.composant.famille.nom}}</td>
+            <h1>{{ appro.fournisseur.nom }} le {{ appro.dateCommande|date('d-m-Y') }}</h1>
+            
+            <table class="imp">
+                <tr>
+                    <td class="titreFamille">Famille</td>
+                    <td class="titreFamille">Sous Famille</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td class="titreBoitier">Boitier</td>
+                    <td class="titreStock">Quantite</td>
+                </tr>
+                {% for approComposant in appro.approComposant %}
+                    <tr>
+                        <td>{{approComposant.composant.famille.nom}}</td>
                         <td class="sousFamille">
-                            {% if approvisionnement.composant.idSousFamille != 0 %}
-                                {{approvisionnement.composant.sousFamille.nom}}
+                            {% if approComposant.composant.idSousFamille != 0 %}
+                                {{approComposant.composant.sousFamille.nom}}
                             {% endif %}
                         </td>
-						<td class="designation">{{approvisionnement.composant.nom}}</td>
-						<td>{{approvisionnement.composant.boitier}}</td>
-						<td>{{approvisionnement.quantite}}</td>
-					</tr>
-				{%else %}
-					<tr>
-						<td>{{approvisionnement.composant.famille.nom}}</td>
-                        <td class="sousFamille">
-                            {% if approvisionnement.composant.idSousFamille != 0 %}
-                                {{approvisionnement.composant.sousFamille.nom}}
-                            {% endif %}
-                        </td>
-						<td class="designation">{{approvisionnement.composant.nom}}</td>
-						<td>{{approvisionnement.composant.boitier}}</td>
-						<td>{{approvisionnement.quantite}}</td>
-					</tr>
-				{% endif %}
-				
-			{% endfor %}
-		</table>
+                        <td class="designation">{{approComposant.composant.nom}}</td>
+                        <td>{{approComposant.composant.boitier}}</td>
+                        <td>{{approComposant.quantite}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
 	{% endif %}
 {% endblock %}

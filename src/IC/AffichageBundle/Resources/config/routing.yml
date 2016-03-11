@@ -61,4 +61,3 @@ ic_affichage_produit_fini_identifiant:
 ic_affichage_produit_fini_autre:
     path:     /Produit-Fini-Autre
     defaults: {_controller: ICAffichageBundle:ProduitFini:produitFiniAutre }
-    

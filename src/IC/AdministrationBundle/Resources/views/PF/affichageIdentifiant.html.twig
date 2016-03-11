@@ -15,80 +15,49 @@
 
 	{{ parent()}}
     
-    {% if fournisseurs is not empty %}
+    {% if identifiants is not empty %}
     
-        {% for fournisseur in fournisseurs %}
+        {{ form_start(form) }}
+            <table>
+                <tr>
+                    <td class="titreReference">Reference</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td  class="titreType">Type</td>
+                    <td class="titreFrequence">Fréquence</td>
+                    <td class="titreDetails"></td>
+                </tr>
+                <tr>
+                    <td class="titreDesignation">{{ form_widget(form.reference) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.sousTypeBadge) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
+                    <td class="details">{{ form_widget(form.submit_identifiant, {attr: {'class': 'buttonAdd'}}) }}</td>
+                </tr>
 
-                <h1>{{fournisseur.nom}}</h1>
-                        
-                {% if idIdentifiant == 0 %}
-                    {{ form_start(form[loop.index0]) }}
-                    {{ form_widget(form[loop.index0].idFournisseur, {attr: {'value': fournisseur.id}}) }} 
-                {% elseif idFournisseur == fournisseur.id %}
-                    {{ form_start(form) }}
-                    {{ form_widget(form.idFournisseur, {attr: {'value': fournisseur.id}}) }}
-                {% endif %}
-
-                <table>
+                {% for id in identifiants %}
                     <tr>
-                        <td class="titreReference">Reference</td>
-                        <td class="titreDesignation">Désignation</td>
-                        <td  class="titreType">Type</td>
-                        <td class="titreFrequence">Fréquence</td>
-                        <td class="titreDetails"></td>
-                    </tr>
-                    {% if idIdentifiant == 0 %}
-                        <tr>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].reference) }}</td>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].designation, {attr: {'class': 'inputDesignation'}}) }}</td>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].sousTypeBadge) }}</td>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].frequence) }}</td>
-                            <td class="details">{{ form_widget(form[loop.index0].submit_identifiant, {attr: {'class': 'buttonAdd'}}) }}</td>
-                        </tr>
-                    {% endif %}
-
-            {% for typeId in fournisseur.badge %}
-   
-                {% if idIdentifiant == typeId.id %}
-                    <tr>
-                        <td class="titreDesignation">{{ form_widget(form.reference) }}</td>
-                        <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
-                        <td class="titreDesignation">{{ form_widget(form.sousTypeBadge) }}</td>
-                        <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
-                        <td class="details">{{ form_widget(form.submit_identifiant, {attr: {'class': 'buttonUpdate'}}) }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td>{{ typeId.reference }}</td>
-                        <td class="designation">{{ typeId.designation }}</td>
-                        <td>{{ typeId.sousTypeBadge.nom }}</td>
+                        <td>{{ id.reference }}</td>
+                        <td class="designation">{{ id.designation }}</td>
+                        <td>{{ id.sousTypeBadge.nom }}</td>
                         <td>
-                        {% if typeId.frequence == 1 %}
+                        {% if id.frequence == 1 %}
                             13.56MHz
                         {% else %}
                             125KHz
                         {% endif %}
                         </td>
                         <td class="details">
-                            <a href="{{ path('ic_administration_affichage_produit_fini_identifiant_interne', {'idIdentifiant': typeId.id, 'idFournisseur': fournisseur.id}) }}">
+                            <a href="{{ path('ic_administration_affichage_produit_fini_identifiant_detail', {'idIdentifiant': id.id}) }}">
                                 {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                     <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                 {% endimage %}
                             </a>
                         </td>
-                    </tr>
-                {% endif %}
-                            
-            {% endfor %}
+                    </tr>                           
+                {% endfor %}
             </table>
-            
-            {% if idIdentifiant == 0 %}
-                {{ form_end(form[loop.index0]) }}
-            {% elseif idFournisseur == fournisseur.id %}
-                {{ form_end(form) }}
-            {% endif %}
-            
-        {% endfor %}
+        {{ form_end(form) }}
+        
     {% else %}
         <div>Aucun fournisseur enregistré</div>
     {% endif %}

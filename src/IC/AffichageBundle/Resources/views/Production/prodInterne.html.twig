@@ -18,21 +18,21 @@
 	<h1>Production Interne</h1>
 	
 	{% if prod is empty %}
-		Aucune production en cours
+		<div class="infoPageVide">Aucune production en cours</div>
 	{% else %}
-		<table class="imp">
-		<tr>
-			<td class="titreDesignation">Produit</td>
-			<td class="titreStock">Quantité</td>
-			<td class="titreStock">Date de lancement</td>
-		</tr>
-		{% for production in prod %}
-			<tr>
-				<td>{{production.version.nomenclature.nom}}-V{{production.version.version}}</td>
-				<td>{{production.quantite}}</td>
-				<td>{{production.dateProd|date('d-m-Y')}}</td>
-			</tr>
-		{% endfor %}
+		<table class="imp tableProd">
+            <tr>
+                <td class="titreDesignation">Nomenclature</td>
+                <td class="titreQte">Qte</td>
+                <td class="titreDate">Date de lancement</td>
+            </tr>
+            {% for production in prod %}
+                <tr>
+                    <td>{{production.version.nomenclature.nom}}-V{{production.version.version}}</td>
+                    <td>{{production.quantite}}</td>
+                    <td>{{production.dateProd|date('d-m-Y')}}</td>
+                </tr>
+            {% endfor %}
 		</table>
 	{% endif %}
 {% endblock %}

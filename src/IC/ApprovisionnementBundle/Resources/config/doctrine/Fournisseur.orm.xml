@@ -35,7 +35,7 @@
       </options>
     </field>
     <one-to-many field="composantFournisseur" target-entity="ComposantFournisseur" mapped-by="fournisseur"/>
-    <one-to-many field="badge" target-entity="TypeBadge" mapped-by="fournisseur"/>
+    <one-to-many field="badgeFournisseur" target-entity="BadgeFournisseur" mapped-by="fournisseur"/>
     <one-to-many field="lecteurAutre" target-entity="TypeLecteurAutre" mapped-by="fournisseur"/>
     <one-to-many field="autre" target-entity="Autre" mapped-by="fournisseur"/>
   </entity>

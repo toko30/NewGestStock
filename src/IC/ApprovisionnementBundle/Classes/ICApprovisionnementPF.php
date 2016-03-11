@@ -18,9 +18,8 @@ class ICApprovisionnementPF
     
     public function addApproIdentifiant($request, $idFournisseur)
     {
-        if($request->get('option') !== null)
-        {
             $doctrine = $this->doctrine;
+            $existe = 0;
             
             $fournisseur = $doctrine->getRepository('ICApprovisionnementBundle:Fournisseur')->findOneBy(array('id' => $idFournisseur));
             
@@ -34,72 +33,92 @@ class ICApprovisionnementPF
                 
             $lastAppro = $doctrine->getRepository('ICApprovisionnementBundle:Appro')->getLastAppro();
         
-            foreach ($request->get('option') as $idBadge) 
+            foreach ($request->get('listId') as $id) 
             {    
-                if($request->get($idBadge) !== null)
+                $quantite = $request->get($id);
+                
+                if(!empty($quantite))
                 {
-                    $badge = $doctrine->getRepository('ICApprovisionnementBundle:Badge')->findOneBy(array('id' => $idBadge));
-                    
+                    $existe = 1; 
+                    $badge = $doctrine->getRepository('ICApprovisionnementBundle:TypeBadge')->findOneBy(array('id' => $id));
                     
                     $composantAppro = new ApproIdentifiant();
-                    $composantAppro->setBadge($badge);
-                    $composantAppro->setQuantite($request->get($idBadge));
+                    $composantAppro->setTypeBadge($badge);
+                    $composantAppro->setQuantite($request->get($id));
                     $composantAppro->setAppro($lastAppro[0]);
                     
                     $doctrine->persist($composantAppro);                    
                 }
             }
-            $doctrine->flush();     
-        }
+            
+            if($existe == 0)
+            {
+                $doctrine->remove($lastAppro[0]);
+            } 
+                 
+            $doctrine->flush();
     }
     public function addApproAutre($request, $idFournisseur)
     {
-        if($request->get('option') !== null)
+        $doctrine = $this->doctrine;
+        $existe = 0;
+        $fournisseur = $doctrine->getRepository('ICApprovisionnementBundle:Fournisseur')->findOneBy(array('id' => $idFournisseur));
+            
+        $appro = new Appro();
+        $appro->setFournisseur($fournisseur);
+        $appro->setTypeProduit($fournisseur->getType());
+        $appro->setDateCommande(new \Datetime());
+        
+        $doctrine->persist($appro);
+        $doctrine->flush();
+            
+        $lastAppro = $doctrine->getRepository('ICApprovisionnementBundle:Appro')->getLastAppro();
+        
+        if($fournisseur->getType() == 4)
         {
-            $doctrine = $this->doctrine;
-            
-            $fournisseur = $doctrine->getRepository('ICApprovisionnementBundle:Fournisseur')->findOneBy(array('id' => $idFournisseur));
-                
-            $appro = new Appro();
-            $appro->setFournisseur($fournisseur);
-            $appro->setTypeProduit($fournisseur->getType());
-            $appro->setDateCommande(new \Datetime());
-            
-            $doctrine->persist($appro);
-            $doctrine->flush();
-                
-            $lastAppro = $doctrine->getRepository('ICApprovisionnementBundle:Appro')->getLastAppro();
-            
-            if($fournisseur->getType() == 4)
+            foreach ($request->get('listId') as $id) 
             {
-                foreach ($request->get('option') as $idAutre) 
+                $quantite = $request->get($id);
+                
+                if(!empty($quantite))
                 {
-                    $autre = $doctrine->getRepository('ICApprovisionnementBundle:Autre')->findOneBy(array('id' => $idAutre));
+                    $existe = 1;
+                    $autre = $doctrine->getRepository('ICApprovisionnementBundle:Autre')->findOneBy(array('id' => $id));
 
                     $approAutre = new ApproAutre();
                     $approAutre->setAutre($autre);
-                    $approAutre->setQuantite($request->get($idAutre));
+                    $approAutre->setQuantite($request->get($id));
                     $approAutre->setAppro($lastAppro[0]);
-                       
+                    
                     $doctrine->persist($approAutre);            
                 }
             }
-            elseif($fournisseur->getType() == 3)
+        }
+        elseif($fournisseur->getType() == 3)
+        {
+            foreach ($request->get('listId') as $id) 
             {
-                foreach ($request->get('option') as $idLecteur) 
+                $vide = $request->get($id);
+                
+                if(!empty($vide))
                 {
-                    $typeLecteur = $doctrine->getRepository('ICApprovisionnementBundle:TypeLecteurAutre')->findOneBy(array('id' => $idLecteur));
+                    $existe = 1;
+                    $typeLecteur = $doctrine->getRepository('ICApprovisionnementBundle:TypeLecteurAutre')->findOneBy(array('id' => $id));
 
                     $approLecteur = new ApproLecteur();
                     $approLecteur->setTypeLecteurAutre($typeLecteur);
-                    $approLecteur->setQuantite($request->get($idLecteur));
+                    $approLecteur->setQuantite($request->get($id));
                     $approLecteur->setAppro($lastAppro[0]);
-                       
-                    $doctrine->persist($approLecteur);            
-                }                
+                    
+                    $doctrine->persist($approLecteur);  
+                }          
             }
-            
-            $doctrine->flush();
-        }        
+        }
+        
+        if($existe == 0)
+        {
+            $doctrine->remove($lastAppro[0]);
+        }         
+        $doctrine->flush();       
     }
 }

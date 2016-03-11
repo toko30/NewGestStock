@@ -38,12 +38,12 @@ class Autre
     private $id;
 
     /**
-     * @var \IC\AdministrationBundle\Entity\TypeAutre
+     * @var \IC\ApprovisionnementBundle\Entity\TypeAutre
      */
     private $typeAutre;
 
     /**
-     * @var \IC\AdministrationBundle\Entity\Fournisseur
+     * @var \IC\ApprovisionnementBundle\Entity\Fournisseur
      */
     private $fournisseur;
 
@@ -181,11 +181,11 @@ class Autre
     /**
      * Set typeAutre
      *
-     * @param \IC\AdministrationBundle\Entity\TypeAutre $typeAutre
+     * @param \IC\ApprovisionnementBundle\Entity\TypeAutre $typeAutre
      *
      * @return Autre
      */
-    public function setTypeAutre(\IC\AdministrationBundle\Entity\TypeAutre $typeAutre = null)
+    public function setTypeAutre(\IC\ApprovisionnementBundle\Entity\TypeAutre $typeAutre = null)
     {
         $this->typeAutre = $typeAutre;
 
@@ -195,7 +195,7 @@ class Autre
     /**
      * Get typeAutre
      *
-     * @return \IC\AdministrationBundle\Entity\TypeAutre
+     * @return \IC\ApprovisionnementBundle\Entity\TypeAutre
      */
     public function getTypeAutre()
     {
@@ -205,11 +205,11 @@ class Autre
     /**
      * Set fournisseur
      *
-     * @param \IC\AdministrationBundle\Entity\Fournisseur $fournisseur
+     * @param \IC\ApprovisionnementBundle\Entity\Fournisseur $fournisseur
      *
      * @return Autre
      */
-    public function setFournisseur(\IC\AdministrationBundle\Entity\Fournisseur $fournisseur = null)
+    public function setFournisseur(\IC\ApprovisionnementBundle\Entity\Fournisseur $fournisseur = null)
     {
         $this->fournisseur = $fournisseur;
 
@@ -219,10 +219,11 @@ class Autre
     /**
      * Get fournisseur
      *
-     * @return \IC\AdministrationBundle\Entity\Fournisseur
+     * @return \IC\ApprovisionnementBundle\Entity\Fournisseur
      */
     public function getFournisseur()
     {
         return $this->fournisseur;
     }
 }
+

@@ -7,11 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 use IC\AdministrationBundle\Form\Type\LecteurType;
 use IC\AdministrationBundle\Form\Type\IdentifiantType;
 use IC\AdministrationBundle\Form\Type\LecteurAutreType;
+use IC\AdministrationBundle\Form\Type\IdentifiantFournisseurType;
 use IC\AdministrationBundle\Form\Type\AutreType;
 use IC\AdministrationBundle\Entity\TypeLecteur;
 use IC\AdministrationBundle\Entity\TypeLecteurAutre;
 use IC\AdministrationBundle\Entity\TypeBadge;
 use IC\AdministrationBundle\Entity\Autre;
+use IC\AdministrationBundle\Entity\BadgeFournisseur;
 
 class ProduitFiniController extends Controller
 {
@@ -99,35 +101,49 @@ class ProduitFiniController extends Controller
         return $this->redirectToRoute('ic_administration_affichage_produit_fini_lecteur_interne');         
     }
     
-    public function affichageIdentifiantAction($idIdentifiant, $idFournisseur)
+    public function affichageIdentifiantAction($idIdentifiant)
     {
         $em = $this->getDoctrine()->getManager();
         
-        $listFournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->getFournisseurByType(2);
-        $nbFournisseur = count($listFournisseur);
+        $listIdentifiants = $em->getRepository('ICAdministrationBundle:TypeBadge')->findAll();
         $formTypeIdentifiant = null;
 
-        if($idIdentifiant == 0)
-        {
-            $identifiant = new TypeBadge();
-            
-            for ($i = 0; $i < $nbFournisseur; $i++)
-                $formTypeIdentifiant[] = $this->createForm(IdentifiantType::class, $identifiant,array('action' => $this->generateUrl('ic_administration_identifiant_add')))->createView();
-        }
-        else
-        {
-            $identifiant = $em->getRepository('ICAdministrationBundle:TypeBadge')->find($idIdentifiant);
-                      
-            $formTypeIdentifiant = $this->createForm(IdentifiantType::class, $identifiant, array('action' => $this->generateUrl('ic_administration_identifiant_update', array('idIdentifiant' => $idIdentifiant))))->createView();
-        }
+        $identifiant = new TypeBadge();
+        $formTypeIdentifiant = $this->createForm(IdentifiantType::class, $identifiant,array('action' => $this->generateUrl('ic_administration_identifiant_add')))->createView();
 
         return $this->render('ICAdministrationBundle:PF:affichageIdentifiant.html.twig', array('partie' => 'Administration',
                                                                                                'form' => $formTypeIdentifiant,
-                                                                                               'fournisseurs' => $listFournisseur,
-                                                                                               'idIdentifiant' => $idIdentifiant,
-                                                                                               'idFournisseur' => $idFournisseur));
+                                                                                               'identifiants' => $listIdentifiants));
     }
-    
+    public function affichageIdentifiantDetailAction($idIdentifiant, $idBadgeFournisseur)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $identifiant = $em->getRepository('ICAdministrationBundle:TypeBadge')->find($idIdentifiant);
+        $listBadgeFournisseur = $em->getRepository('ICAdministrationBundle:BadgeFournisseur')->getListBadgeById($idIdentifiant);     
+
+        if($idBadgeFournisseur != 0)
+        {
+            $url = $this->generateUrl('ic_administration_identifiant_fournisseur_update', array('idBadgeFournisseur' => $idBadgeFournisseur));
+            $badgeFournisseur = $em->getRepository('ICAdministrationBundle:BadgeFournisseur')->find($idBadgeFournisseur);           
+        }
+        else
+        {
+            
+            $url = $this->generateUrl('ic_administration_identifiant_fournisseur_add', array('idIdentifiant' => $idIdentifiant));
+            $badgeFournisseur = new BadgeFournisseur();
+        }
+              
+        $formTypeIdentifiant = $this->createForm(IdentifiantType::class, $identifiant,array('action' => $this->generateUrl('ic_administration_identifiant_update', array('idIdentifiant' => $idIdentifiant))))->createView();
+        $formTypeIdentifiantFournisseur = $this->createForm(IdentifiantFournisseurType::class, $badgeFournisseur, array('action' => $url))->createView();
+        
+        return $this->render('ICAdministrationBundle:PF:affichageDetailIdentifiant.html.twig', array('partie' => 'Administration',
+                                                                                               'form' => $formTypeIdentifiant,
+                                                                                               'form1' => $formTypeIdentifiantFournisseur,
+                                                                                               'idIdentifiantFournisseur' => $idBadgeFournisseur,
+                                                                                               'badgesFournisseurs' => $listBadgeFournisseur));
+    }
+        
     public function addIdentifiantAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -139,7 +155,6 @@ class ProduitFiniController extends Controller
             $data = $request->get('identifiant');
               
             $type = $em->getRepository('ICAdministrationBundle:SousTypeBadge')->find($data['sousTypeBadge']);                      
-            $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($data['idFournisseur']); 
             
             $typeBadge = new TypeBadge();
             
@@ -147,13 +162,12 @@ class ProduitFiniController extends Controller
             $typeBadge->setDesignation($data['designation']);
             $typeBadge->setFrequence($data['frequence']);
             $typeBadge->setSousTypeBadge($type);
-            $typeBadge->setFournisseur($fournisseur);
             
             $em->persist($typeBadge);
-            $em->flush($typeBadge);     
+            $em->flush();     
         }
         
-        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_interne');          
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant');          
     }
     
     public function updateIdentifiantAction(request $request, $idIdentifiant)
@@ -167,7 +181,6 @@ class ProduitFiniController extends Controller
             $data = $request->get('identifiant');
               
             $type = $em->getRepository('ICAdministrationBundle:SousTypeBadge')->find($data['sousTypeBadge']);                      
-            $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($data['idFournisseur']); 
             
             $typeBadge = $em->getRepository('ICAdministrationBundle:TypeBadge')->find($idIdentifiant); 
             
@@ -175,15 +188,78 @@ class ProduitFiniController extends Controller
             $typeBadge->setDesignation($data['designation']);
             $typeBadge->setFrequence($data['frequence']);
             $typeBadge->setSousTypeBadge($type);
-            $typeBadge->setFournisseur($fournisseur);
                         
             $em->persist($typeBadge);
-            $em->flush($typeBadge);     
+            $em->flush();     
         }
         
-        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_interne');         
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant');         
     }
     
+    public function addIdentifiantFournisseurAction(request $request, $idIdentifiant)
+    {
+       $em = $this->getDoctrine()->getManager();
+
+        $formBadgeFournisseur = $this->createForm(IdentifiantFournisseurType::class);
+        
+        if ($formBadgeFournisseur->handleRequest($request)->isValid())
+        {
+            $data = $request->get('identifiant_fournisseur');
+
+            $typeBadge = $em->getRepository('ICAdministrationBundle:TypeBadge')->find($idIdentifiant);   
+            $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($data['fournisseur']);
+            
+            $badgeFournisseur = new BadgeFournisseur();
+            
+            $badgeFournisseur->setReference($data['reference']);
+            $badgeFournisseur->setPrix($data['prix']);
+            $badgeFournisseur->setTypeBadge($typeBadge);
+            $badgeFournisseur->setFournisseur($fournisseur);
+            
+            $em->persist($badgeFournisseur);
+            $em->flush();     
+        }
+        
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_detail', array('idIdentifiant' => $idIdentifiant));
+    }
+    
+    public function updateIdentifiantFournisseurAction(request $request, $idBadgeFournisseur)
+    {
+        $em = $this->getDoctrine()->getManager();
+       
+        $formBadgeFournisseur = $this->createForm(IdentifiantFournisseurType::class);
+        
+        if ($formBadgeFournisseur->handleRequest($request)->isValid())
+        {
+            $data = $request->get('identifiant_fournisseur');
+              
+            $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($data['fournisseur']);
+            $badgeFournisseur = $em->getRepository('ICAdministrationBundle:BadgeFournisseur')->find($idBadgeFournisseur);
+            
+            $badgeFournisseur->setReference($data['reference']);
+            $badgeFournisseur->setPrix($data['prix']);
+            $badgeFournisseur->setFournisseur($fournisseur);
+            
+            $em->persist($badgeFournisseur);
+            $em->flush();     
+        }
+        
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_detail', array('idIdentifiant' => $badgeFournisseur->getTypeBadge()->getId()));
+    }
+    
+    public function deleteIdentifiantFournisseurAction($idBadgeFournisseur)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $BadgeFournisseur = $em->getRepository('ICAdministrationBundle:BadgeFournisseur')->find($idBadgeFournisseur);
+        
+        $em->remove($BadgeFournisseur);
+        $em->flush();
+        
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_identifiant_detail', array('idIdentifiant' => $idBadgeFournisseur));        
+    }
+            
     public function affichageAutreAction($idAutre, $idType, $idFournisseur)
     {
         $em = $this->getDoctrine()->getManager();
@@ -289,7 +365,7 @@ class ProduitFiniController extends Controller
             }                
         }
         
-        return $this->redirectToRoute('ic_administration_affichage_produit_fini_autre_interne');  
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_autre');  
     }
     
     public function updateAutreAction(request $request, $idAutre, $idType)
@@ -348,6 +424,6 @@ class ProduitFiniController extends Controller
             }                
         }
         
-        return $this->redirectToRoute('ic_administration_affichage_produit_fini_autre_interne');         
+        return $this->redirectToRoute('ic_administration_affichage_produit_fini_autre');         
     }
 }

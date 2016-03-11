@@ -21,7 +21,7 @@ class FournisseurType extends AbstractType
         $builder->add('numero', TextType::class, array('required' => false));
         $builder->add('site', TextType::class, array('required' => false));
       
-        $builder->add('type', EntityType::class, array(
+        $builder->add('typeProduit', EntityType::class, array(
                       'class' => 'IC\AdministrationBundle\Entity\TypeProduit',
                       'choice_label' => 'nom',
                       'multiple'  => false));

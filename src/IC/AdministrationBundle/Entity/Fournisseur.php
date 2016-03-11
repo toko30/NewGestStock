@@ -348,4 +348,82 @@ class Fournisseur
     {
         return $this->autre;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $composantFournisseur;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $badgeFournisseur;
+
+
+    /**
+     * Add composantFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
+     *
+     * @return Fournisseur
+     */
+    public function addComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
+    {
+        $this->composantFournisseur[] = $composantFournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Remove composantFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
+     */
+    public function removeComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
+    {
+        $this->composantFournisseur->removeElement($composantFournisseur);
+    }
+
+    /**
+     * Get composantFournisseur
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComposantFournisseur()
+    {
+        return $this->composantFournisseur;
+    }
+
+    /**
+     * Add badgeFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
+     *
+     * @return Fournisseur
+     */
+    public function addBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
+    {
+        $this->badgeFournisseur[] = $badgeFournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Remove badgeFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
+     */
+    public function removeBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
+    {
+        $this->badgeFournisseur->removeElement($badgeFournisseur);
+    }
+
+    /**
+     * Get badgeFournisseur
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBadgeFournisseur()
+    {
+        return $this->badgeFournisseur;
+    }
 }

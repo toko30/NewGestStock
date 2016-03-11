@@ -13,38 +13,42 @@
 {% endblock %}
 
 {% block page %}
+
 	{{ parent() }}
-	{% if composantSousTraitants is not empty %}
+    
+    {% if composantSousTraitants is not empty %}
+    
 		<h1>{{composantSousTraitants[0].soustraitant.nom}}</h1>
+        
 		<table class="imp tabStockSt">
 			<tr>
-				<th class="titreFamille">Famille</th>
-				<th class="titreFamille">Sous Famille</th>
-				<th class="titreDesignation">Désignation</th>
-				<th class="titreBoitier">Boitier</th>
-			<th class="titreStock">Stock</th>
-			<th class="titreDetails"></th>
+				<td class="titreFamille">Famille</td>
+				<td class="titreFamille">Sous Famille</td>
+				<td class="titreDesignation">Désignation</td>
+				<td class="titreBoitier">Boitier</td>
+			    <td class="titreStock">Stock</td>
+			    <td class="titreDetails"></td>
 			</tr>
-		{% for composantSousTraitant in composantSousTraitants %}
-			<tr>
-				<td class="famille">{{composantSousTraitant.composant.Famille.nom}}</td>
-				<td class="sousFamille">
-                    {% if composantSousTraitant.composant.idSousFamille != 0 %}
-                        {{composantSousTraitant.composant.SousFamille.nom}}
-                    {% endif %}
-                </td>
-				<td class="designation">{{composantSousTraitant.composant.nom}}</td>
-				<td class="boitier">{{composantSousTraitant.composant.boitier}}</td>
-				<td class="stock">{{composantSousTraitant.quantite}}</td>
-				<td class="details">
-					<a href="">
-					{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
-						<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
-					{% endimage %}
-					</a>
-				</td>
-			</tr>		
-		{% endfor %}
+            {% for composantSousTraitant in composantSousTraitants %}
+                <tr>
+                    <td class="famille">{{composantSousTraitant.composant.Famille.nom}}</td>
+                    <td class="sousFamille">
+                        {% if composantSousTraitant.composant.idSousFamille != 0 %}
+                            {{composantSousTraitant.composant.SousFamille.nom}}
+                        {% endif %}
+                    </td>
+                    <td class="designation">{{composantSousTraitant.composant.nom}}</td>
+                    <td class="boitier">{{composantSousTraitant.composant.boitier}}</td>
+                    <td class="stock">{{composantSousTraitant.quantite}}</td>
+                    <td class="details">
+                        <a href="">
+                        {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                            <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                        {% endimage %}
+                        </a>
+                    </td>
+                </tr>		
+            {% endfor %}
 		</table>
 	{% else %}
 		Aucun Composant en stock pour ce sous-traitant

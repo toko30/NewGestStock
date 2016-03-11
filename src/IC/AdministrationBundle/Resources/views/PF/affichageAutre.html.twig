@@ -80,7 +80,7 @@
                             <td>{{ lecAutre.moyenne }}</td>
                             <td>{{ lecAutre.grande }}</td>
                             <td class="details">
-                                <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': lecAutre.id, idType: 1, 'idFournisseur': fournisseur.id}) }}">
+                                <a href="{{ path('ic_administration_affichage_produit_fini_autre', {'idAutre': lecAutre.id, idType: 1, 'idFournisseur': fournisseur.id}) }}">
                                     {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                         <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                     {% endimage %}
@@ -141,7 +141,7 @@
                         <td class="designation">{{ autre.designation }}</td>
                         <td>{{ autre.typeAutre.nom }}</td>
                         <td class="details">
-                            <a href="{{ path('ic_administration_affichage_produit_fini_autre_interne', {'idAutre': autre.id, idType: 2, 'idFournisseur': fournisseur.id}) }}">
+                            <a href="{{ path('ic_administration_affichage_produit_fini_autre', {'idAutre': autre.id, idType: 2, 'idFournisseur': fournisseur.id}) }}">
                                 {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                     <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                 {% endimage %}

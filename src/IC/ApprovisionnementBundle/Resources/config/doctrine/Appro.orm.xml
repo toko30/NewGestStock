@@ -18,5 +18,9 @@
    <one-to-one field="fournisseur" target-entity="Fournisseur" >
       <join-column name="id_fournisseur" referenced-column-name="id" />
     </one-to-one>
+    <one-to-many field="approComposant" target-entity="ApproComposant" mapped-by="appro"/>
+    <one-to-many field="approIdentifiant" target-entity="ApproIdentifiant" mapped-by="appro"/>
+    <one-to-many field="approLecteur" target-entity="ApproLecteur" mapped-by="appro"/>
+    <one-to-many field="approAutre" target-entity="ApproAutre" mapped-by="appro"/>
   </entity>
 </doctrine-mapping>

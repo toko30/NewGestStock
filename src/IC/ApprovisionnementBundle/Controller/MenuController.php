@@ -16,7 +16,7 @@ class MenuController extends Controller
         
         //Liste des requètes Doctrine pour les options du menu
         $listProdSousTraitant = $em->getRepository('ICApprovisionnementBundle:Production')->getListProdSousTraitant();
-        $i = 0;
+        $i10 = 0;
         
         foreach($listProdSousTraitant as $prodSousTraitant)
         {
@@ -41,8 +41,8 @@ class MenuController extends Controller
                 
                 if(empty($ListSousTraitant))
                 {
-                    $ListSousTraitant[$i]['id'] = $sousTraitant->getId();
-                    $ListSousTraitant[$i++]['nom'] = $sousTraitant->getNom();
+                    $ListSousTraitant[$i10]['id'] = $sousTraitant->getId();
+                    $ListSousTraitant[$i10++]['nom'] = $sousTraitant->getNom();
                 }
                 else
                 {
@@ -56,8 +56,8 @@ class MenuController extends Controller
                     //si il n'y est pas on l'ajoute
                     if($existe == 0)
                     {
-                       $ListSousTraitant[$i]['id'] = $sousTraitant->getId();
-                       $ListSousTraitant[$i++]['nom'] = $sousTraitant->getNom();                        
+                       $ListSousTraitant[$i10]['id'] = $sousTraitant->getId();
+                       $ListSousTraitant[$i10++]['nom'] = $sousTraitant->getNom();                        
                     }
                 }
             }
@@ -93,7 +93,6 @@ class MenuController extends Controller
                         }
                     }            
                 } 
-                
                 foreach ($listComposantSousTraitant as $ComposantST) 
                 {                            
                     for($i = 0; $i < count($quantiteNomenclature['idComposant']); $i++)
@@ -105,8 +104,8 @@ class MenuController extends Controller
                             
                             if(empty($ListSousTraitant))
                             {
-                                $ListSousTraitant[$i]['id'] = $ComposantST->getSousTraitant()->getId();
-                                $ListSousTraitant[$i++]['nom'] = $ComposantST->getSousTraitant()->getNom();
+                                $ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+                                $ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();
                             }
                             else
                             {
@@ -120,8 +119,8 @@ class MenuController extends Controller
                                 //si il n'y est pas on l'ajoute
                                 if($existe == 0)
                                 {
-                                    $ListSousTraitant[$i]['id'] = $ComposantST->getSousTraitant()->getId();
-                                    $ListSousTraitant[$i++]['nom'] = $ComposantST->getSousTraitant()->getNom();                        
+                                    $ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+                                    $ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();                        
                                 }
                             }
                         }

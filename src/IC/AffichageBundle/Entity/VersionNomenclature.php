@@ -109,4 +109,33 @@ class VersionNomenclature
     {
         return $this->nomenclature;
     }
+    /**
+     * @var \IC\AffichageBundle\Entity\TypeLecteur
+     */
+    private $typeLecteur;
+
+
+    /**
+     * Set typeLecteur
+     *
+     * @param \IC\AffichageBundle\Entity\TypeLecteur $typeLecteur
+     *
+     * @return VersionNomenclature
+     */
+    public function setTypeLecteur(\IC\AffichageBundle\Entity\TypeLecteur $typeLecteur = null)
+    {
+        $this->typeLecteur = $typeLecteur;
+
+        return $this;
+    }
+
+    /**
+     * Get typeLecteur
+     *
+     * @return \IC\AffichageBundle\Entity\TypeLecteur
+     */
+    public function getTypeLecteur()
+    {
+        return $this->typeLecteur;
+    }
 }

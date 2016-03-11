@@ -5,7 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets filter='cssrewrite'
-            'css/base.css' %}
+            'Resources/public/css/base.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
             {% endstylesheets %}
         {% endblock %}
@@ -13,7 +13,7 @@
     </head>
     <body>
         <header id="entete">
-            <img src="{{ asset('img/logo.png') }}" alt="logo idcapt">
+            <img src="{{ asset('Resources/public/images/logo.png') }}" alt="logo idcapt">
             <div>{% block entete %}{% endblock %}</div>
         </header>
         <nav id="menuHorizontal">

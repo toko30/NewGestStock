@@ -8,9 +8,8 @@ class ApproIdentifiantRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('ai')
         ->join('ai.appro', 'a')
-        ->join('ai.badge', 'b')
-        ->join('b.typeBadge', 'tb')
-        ->addSelect('a', 'b', 'tb')
+        ->join('ai.typeBadge', 'tb')
+        ->addSelect('a', 'tb')
         ->orderby('ai.idCommande')
         ->where('a.typeProduit = 2')
         ->getQuery()

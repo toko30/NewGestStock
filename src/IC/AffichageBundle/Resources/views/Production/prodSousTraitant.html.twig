@@ -13,15 +13,16 @@
 {% endblock %}
 
 {% block page %}
+
 	{{ parent() }}
 	
 	<h1>Production {{prod[0].sousTraitant.nom}}</h1>
 	
-	<table class="imp">
+	<table class="imp tableProd">
 	<tr>
-		<th>Produit</th>
-		<th>Quantité</th>
-		<th>Date de lancement</th>
+		<td class="titreDesignation">Nomenclature</td>
+		<td class="titreQte">Qte</td>
+		<td class="titreDate">Date de lancement</td>
 	</tr>
 	{% for production in prod %}
 		<tr>

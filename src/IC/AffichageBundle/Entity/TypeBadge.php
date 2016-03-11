@@ -16,12 +16,12 @@ class TypeBadge
      * @var string
      */
     private $designation;
-    
+
     /**
      * @var integer
      */
     private $quantite;
-    
+
     /**
      * @var integer
      */
@@ -31,11 +31,6 @@ class TypeBadge
      * @var integer
      */
     private $type;
-
-    /**
-     * @var integer
-     */
-    private $idFournisseur;
 
     /**
      * @var integer
@@ -95,7 +90,7 @@ class TypeBadge
     {
         return $this->designation;
     }
-    
+
     /**
      * Set quantite
      *
@@ -111,7 +106,7 @@ class TypeBadge
     }
 
     /**
-     * Get frequence
+     * Get quantite
      *
      * @return integer
      */
@@ -119,7 +114,7 @@ class TypeBadge
     {
         return $this->quantite;
     }
-    
+
     /**
      * Set frequence
      *
@@ -166,30 +161,6 @@ class TypeBadge
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set idFournisseur
-     *
-     * @param integer $idFournisseur
-     *
-     * @return TypeBadge
-     */
-    public function setIdFournisseur($idFournisseur)
-    {
-        $this->idFournisseur = $idFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get idFournisseur
-     *
-     * @return integer
-     */
-    public function getIdFournisseur()
-    {
-        return $this->idFournisseur;
     }
 
     /**

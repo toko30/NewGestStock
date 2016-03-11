@@ -28,14 +28,14 @@ class ApproIdentifiant
     private $id;
 
     /**
+     * @var \IC\ApprovisionnementBundle\Entity\TypeBadge
+     */
+    private $typeBadge;
+
+    /**
      * @var \IC\ApprovisionnementBundle\Entity\Appro
      */
     private $appro;
-
-    /**
-     * @var \IC\ApprovisionnementBundle\Entity\Badge
-     */
-    private $badge;
 
 
     /**
@@ -121,6 +121,30 @@ class ApproIdentifiant
     }
 
     /**
+     * Set typeBadge
+     *
+     * @param \IC\ApprovisionnementBundle\Entity\TypeBadge $typeBadge
+     *
+     * @return ApproIdentifiant
+     */
+    public function setTypeBadge(\IC\ApprovisionnementBundle\Entity\TypeBadge $typeBadge = null)
+    {
+        $this->typeBadge = $typeBadge;
+
+        return $this;
+    }
+
+    /**
+     * Get typeBadge
+     *
+     * @return \IC\ApprovisionnementBundle\Entity\TypeBadge
+     */
+    public function getTypeBadge()
+    {
+        return $this->typeBadge;
+    }
+
+    /**
      * Set appro
      *
      * @param \IC\ApprovisionnementBundle\Entity\Appro $appro
@@ -143,28 +167,5 @@ class ApproIdentifiant
     {
         return $this->appro;
     }
-
-    /**
-     * Set badge
-     *
-     * @param \IC\ApprovisionnementBundle\Entity\Badge $badge
-     *
-     * @return ApproIdentifiant
-     */
-    public function setBadge(\IC\ApprovisionnementBundle\Entity\Badge $badge = null)
-    {
-        $this->badge = $badge;
-
-        return $this;
-    }
-
-    /**
-     * Get badge
-     *
-     * @return \IC\ApprovisionnementBundle\Entity\Badge
-     */
-    public function getBadge()
-    {
-        return $this->badge;
-    }
 }
+

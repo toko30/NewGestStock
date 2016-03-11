@@ -19,28 +19,32 @@
 
     {{ parent() }}
     
-    <form method="post" action="{{ path('ic_approvisionnement_calcul_identifiant', {idFournisseur: identifiant[0].typeBadge.idFournisseur}) }}">
-        <table>
-            <tr>
-                <td class="titreCheckBoxTab"></td>
-                <td class="titreReference">Référence</td>
-                <td class="titreDesignation">Désignation</td>
-                <td class="titreQte">Qte</td>
-            </tr>
-            {% for id in identifiant %}
-                <tr>
-                    <td><input type="checkbox" name="option[]" value="{{id.id}}"></td>
-                    <td>{{id.typeBadge.reference}}</td>
-                    <td class="designation">{{id.typeBadge.designation}}</td>
-                    <td><input class="inputQuantite" name="{{id.id}}">
-                </tr>
-            {% endfor %}
-        </table>
-        
-        <input class="inputValiderCommande" type="submit" value="Lancer la commande">
-        
-    </form>
+    {% for fournisseur in fournisseurs %}
     
+        <h2>{{ fournisseur.nom }}</h2>
+        
+        <form method="post" action="{{ path('ic_approvisionnement_calcul_identifiant', {idFournisseur: fournisseur.id}) }}">
+            <table>
+                <tr>
+                    <td class="titreReference">Référence</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td class="titreQte">Qte</td>
+                </tr>
+                {% for id in fournisseur.badgeFournisseur %}
+                    <tr>
+                        <input type="hidden" name="listId[]" value="{{id.typeBadge.id}}">
+                        <td>{{id.typeBadge.reference}}</td>
+                        <td class="designation">{{id.typeBadge.designation}}</td>
+                        <td><input class="inputQuantite" name="{{id.typeBadge.id}}">
+                    </tr>
+                {% endfor %}
+            </table>
+            
+            <input class="inputValiderCommande" type="submit" value="Lancer la commande">
+            
+        </form>
+        
+    {% endfor %}
 {% endblock %}
 
 {% block javascripts %}

@@ -22,8 +22,8 @@
     <one-to-one field="composant" target-entity="Composant" >
       <join-column name="id_produit" referenced-column-name="id" />
     </one-to-one>
-    <one-to-one field="appro" target-entity="Appro" >
+    <many-to-one field="appro" target-entity="Appro" inversed-by="approComposant">
       <join-column name="id_commande" referenced-column-name="id" />
-    </one-to-one>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

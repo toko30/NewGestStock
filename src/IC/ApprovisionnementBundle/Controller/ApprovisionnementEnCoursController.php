@@ -9,28 +9,28 @@ class ApprovisionnementEnCoursController extends Controller
 {
     public function approEnCoursMPAction()
     {
-        $appro = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:ApproComposant')->getAllApproEnCours();
+        $appro = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:Appro')->getApproComposant();
         
         return $this->render('ICApprovisionnementBundle:EnCours:matierePremiere.html.twig', array('partie' => 'approvisionnement', 
-                                                                                                  'appro' => $appro));
+                                                                                                  'approvisionnement' => $appro));
     }
     
     public function approEnCoursPFIdentifiantAction()
     {
-        $appro = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:ApproIdentifiant')->getApproIdentifiant();
+        $appro = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:Appro')->getApproIdentifiant();
         
         return $this->render('ICApprovisionnementBundle:EnCours:produitsFinisIdentifiant.html.twig', array('partie' => 'approvisionnement', 
-                                                                                                           'appro' => $appro));
+                                                                                                           'approvisionnement' => $appro));
     }
     
     public function approEnCoursPFAutreAction()
     {
-        $approLecteur = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:ApproLecteur')-> getApproLecteur();
-        $approAutre = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:ApproAutre')-> getApproAutre();        
+        $approLecteurs = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:Appro')-> getApproLecteur();
+        $approAutres = $this->getDoctrine()->getManager()->getRepository('ICApprovisionnementBundle:Appro')-> getApproAutre();        
 
         return $this->render('ICApprovisionnementBundle:EnCours:produitsFinisAutre.html.twig', array('partie' => 'approvisionnement', 
-                                                                                                     'approLecteur' => $approLecteur,
-                                                                                                     'approAutre' => $approAutre));
+                                                                                                     'approLecteurs' => $approLecteurs,
+                                                                                                     'approAutres' => $approAutres));
     }
     
     public function approEnCoursSousTraitantAction($idSousTraitant)
@@ -184,7 +184,7 @@ class ApprovisionnementEnCoursController extends Controller
                            
         foreach($approIdentifiant as $aId)
         {
-            $newQuantite = $aId->getBadge()->setQuantite($aId->getQuantite() + $aId->getBadge()->getQuantite());
+            $newQuantite = $aId->getTypeBadge()->setQuantite($aId->getQuantite() + $aId->getTypeBadge()->getQuantite());
             
             $em->persist($newQuantite);
             $em->remove($aId);

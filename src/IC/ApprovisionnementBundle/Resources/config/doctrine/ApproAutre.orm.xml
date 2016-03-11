@@ -19,11 +19,11 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <one-to-one field="appro" target-entity="Appro" >
-      <join-column name="id_commande" referenced-column-name="id" />
-    </one-to-one>
     <one-to-one field="autre" target-entity="Autre" >
       <join-column name="id_autre" referenced-column-name="id" />
     </one-to-one>
+    <many-to-one field="appro" target-entity="Appro" inversed-by="approAutre">
+      <join-column name="id_commande" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

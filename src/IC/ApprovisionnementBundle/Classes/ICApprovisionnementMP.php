@@ -196,9 +196,9 @@ class ICApprovisionnementMP
             
         foreach ($request->get('listId') as $id)
         {
-			$vide = $request->get($id);
+			$quantite = $request->get($id);
             
-            if(!empty($vide))
+            if(!empty($quantite))
             {
                 $existe = 1; 
                 $composant = $doctrine->getRepository('ICApprovisionnementBundle:Composant')->findOneBy(array('id' => $id));

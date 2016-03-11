@@ -51,4 +51,33 @@ class Nomenclature
     {
         return $this->id;
     }
+    /**
+     * @var \IC\AffichageBundle\Entity\TypeLecteur
+     */
+    private $typeLecteur;
+
+
+    /**
+     * Set typeLecteur
+     *
+     * @param \IC\AffichageBundle\Entity\TypeLecteur $typeLecteur
+     *
+     * @return Nomenclature
+     */
+    public function setTypeLecteur(\IC\AffichageBundle\Entity\TypeLecteur $typeLecteur = null)
+    {
+        $this->typeLecteur = $typeLecteur;
+
+        return $this;
+    }
+
+    /**
+     * Get typeLecteur
+     *
+     * @return \IC\AffichageBundle\Entity\TypeLecteur
+     */
+    public function getTypeLecteur()
+    {
+        return $this->typeLecteur;
+    }
 }

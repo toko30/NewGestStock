@@ -1,7 +1,7 @@
 {{ form_start(form, {'attr': {'class': 'form-verical'}}) }}
 
 <div id="recherche">
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox11" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.famille, 'Famille', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox1'}}) }}
@@ -13,7 +13,7 @@
 		{% endfor %}
 	</div>
 	
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox21" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}	
 	{{ form_label(form.sousFamille, 'Sous Famille', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox2'}}) }}
@@ -25,7 +25,7 @@
 		{% endfor %}
 	</div>
 		
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox41" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.fournisseur, 'Fournisseur', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox4'}}) }}	

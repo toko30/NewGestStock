@@ -19,12 +19,12 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="type" type="integer" column="type" nullable="false">
+    <field name="quantite" type="integer" column="quantite" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="idFournisseur" type="integer" column="id_fournisseur" nullable="false">
+    <field name="type" type="integer" column="type" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
@@ -32,8 +32,5 @@
     <one-to-one field="sousTypeBadge" target-entity="SousTypeBadge" >
         <join-column name="type" referenced-column-name="id" />
     </one-to-one>
-    <many-to-one field="fournisseur" target-entity="Fournisseur" inversed-by="badge">
-        <join-column name="id_fournisseur" referenced-column-name="id"  nullable="false"/>
-    </many-to-one>
   </entity>
 </doctrine-mapping>

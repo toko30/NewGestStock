@@ -6,7 +6,7 @@
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/detailComposant.css' %}
+	'@ICAdministrationBundle/Resources/public/css/detail.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
@@ -66,12 +66,12 @@
                         <td class="titreFournisseur">{{ form_widget(form1.fournisseur, {'attr': {'class': 'inputListe', }}) }}</td>
                         <td class="titreReference">{{ form_widget(form1.reference, {'attr': {'class': 'inputDesignation', 'onfocus': 'this.value = ""'}}) }}</td>
                         <td class="titrePrix">{{ form_widget(form1.prix, {'attr': {'class': 'inputQuantite', 'onfocus': 'this.value = ""'}}) }}</td>
-                        <td class="details">{{ form_widget(form1.update_composant_fournisseur) }}</td>
+                        <td class="details">{{ form_widget(form1.submit_composant_fournisseur) }}</td>
                     {% else %}
                         <tr>
                             <td class="supprimer">
                                 <a href="{{ path('ic_administration_composant_fournisseur_delete', {'idComposantFournisseur': composantFournisseur.id}) }}">
-                                    {% image 'img/redcroix.png' %}
+                                    {% image 'Resources/public/images/redcroix.png' %}
                                         <img class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                     {% endimage %}
                                 </a>                        

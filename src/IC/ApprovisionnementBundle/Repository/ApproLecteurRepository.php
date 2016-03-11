@@ -14,6 +14,7 @@ class ApproLecteurRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('al')
         ->join('al.appro', 'a')
+        ->join('al')
         ->join('al.typeLecteurAutre', 'tla')
         ->addSelect('a', 'tla')
         ->orderBy('al.idCommande')

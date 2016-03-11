@@ -25,12 +25,12 @@ class TypeBadge
     /**
      * @var integer
      */
-    private $type;
+    private $quantite;
 
     /**
      * @var integer
      */
-    private $idFournisseur;
+    private $type;
 
     /**
      * @var integer
@@ -38,14 +38,10 @@ class TypeBadge
     private $id;
 
     /**
-     * @var \IC\AdministrationBundle\Entity\SousTypeBadge
+     * @var \IC\ApprovisionnementBundle\Entity\SousTypeBadge
      */
     private $sousTypeBadge;
-    
-    /**
-     * @var \IC\AdministrationBundle\Entity\Fournisseur
-     */
-    private $fournisseur;
+
 
     /**
      * Set reference
@@ -120,6 +116,30 @@ class TypeBadge
     }
 
     /**
+     * Set quantite
+     *
+     * @param integer $quantite
+     *
+     * @return TypeBadge
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * Get quantite
+     *
+     * @return integer
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
      * Set type
      *
      * @param integer $type
@@ -144,30 +164,6 @@ class TypeBadge
     }
 
     /**
-     * Set idFournisseur
-     *
-     * @param integer $idFournisseur
-     *
-     * @return TypeBadge
-     */
-    public function setIdFournisseur($idFournisseur)
-    {
-        $this->idFournisseur = $idFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get idFournisseur
-     *
-     * @return integer
-     */
-    public function getIdFournisseur()
-    {
-        return $this->idFournisseur;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -180,11 +176,11 @@ class TypeBadge
     /**
      * Set sousTypeBadge
      *
-     * @param \IC\AdministrationBundle\Entity\SousTypeBadge $sousTypeBadge
+     * @param \IC\ApprovisionnementBundle\Entity\SousTypeBadge $sousTypeBadge
      *
      * @return TypeBadge
      */
-    public function setSousTypeBadge(\IC\AdministrationBundle\Entity\SousTypeBadge $sousTypeBadge = null)
+    public function setSousTypeBadge(\IC\ApprovisionnementBundle\Entity\SousTypeBadge $sousTypeBadge = null)
     {
         $this->sousTypeBadge = $sousTypeBadge;
 
@@ -194,34 +190,11 @@ class TypeBadge
     /**
      * Get sousTypeBadge
      *
-     * @return \IC\AdministrationBundle\Entity\SousTypeBadge
+     * @return \IC\ApprovisionnementBundle\Entity\SousTypeBadge
      */
     public function getSousTypeBadge()
     {
         return $this->sousTypeBadge;
     }
-
-    /**
-     * Set fournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\Fournisseur $fournisseur
-     *
-     * @return TypeBadge
-     */
-    public function setFournisseur(\IC\AdministrationBundle\Entity\Fournisseur $fournisseur = null)
-    {
-        $this->fournisseur = $fournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get fournisseur
-     *
-     * @return \IC\AdministrationBundle\Entity\Fournisseur
-     */
-    public function getFournisseur()
-    {
-        return $this->fournisseur;
-    }
 }
+

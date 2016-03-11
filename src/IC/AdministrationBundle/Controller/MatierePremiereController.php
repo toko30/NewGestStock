@@ -43,14 +43,17 @@ class MatierePremiereController extends Controller
         
         if($idComposantFournisseur != 0)
         {
+            $url = $this->generateUrl('ic_administration_composant_fournisseur_update', array('idComposantFournisseur' => $idComposantFournisseur));
             $composantFournisseur = $em->getRepository('ICAdministrationBundle:ComposantFournisseur')->find($idComposantFournisseur);           
         }
         else
-            $composantfournisseur = new ComposantFournisseur();
-
+        {
+            $url = $this->generateUrl('ic_administration_composant_fournisseur_add', array('idComposant' => $idComposant));
+            $composantFournisseur = new ComposantFournisseur();
+        }
         
         $formComposant = $this->createForm(ComposantType::class, $composant, array('action' => $this->generateUrl('ic_administration_mp_update', array('idComposant' => $idComposant))));
-        $formComposantFournisseur = $this->createForm(ComposantFournisseurType::class, $composantfournisseur, array('action' => $this->generateUrl('ic_administration_composant_fournisseur_add', array('idComposant' => $idComposant))));
+        $formComposantFournisseur = $this->createForm(ComposantFournisseurType::class, $composantFournisseur, array('action' => $url));
          
         return $this->render('ICAdministrationBundle:MP:affichageDetail.html.twig', array('partie' => 'Administration', 
                                                                                           'form' => $formComposant->createView(),
@@ -137,7 +140,7 @@ class MatierePremiereController extends Controller
             $composantFournisseur->setFournisseur($fournisseur);
             
             $em->persist($composantFournisseur);
-            $em->flush($composantFournisseur);     
+            $em->flush();     
         }
         
         return $this->redirectToRoute('ic_administration_mp_detail', array('idComposant' => $idComposant));
@@ -151,7 +154,7 @@ class MatierePremiereController extends Controller
         
         if ($formComposantFournisseur->handleRequest($request)->isValid())
         {
-            $data = $request->get('composantFournisseurType');
+            $data = $request->get('composant_fournisseur');
               
             $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($data['fournisseur']);
             $composantFournisseur = $em->getRepository('ICAdministrationBundle:ComposantFournisseur')->find($idComposantFournisseur);
@@ -161,7 +164,7 @@ class MatierePremiereController extends Controller
             $composantFournisseur->setFournisseur($fournisseur);
             
             $em->persist($composantFournisseur);
-            $em->flush($composantFournisseur);     
+            $em->flush();     
         }
         
         return $this->redirectToRoute('ic_administration_mp_detail', array('idComposant' => $composantFournisseur->getComposant()->getId()));

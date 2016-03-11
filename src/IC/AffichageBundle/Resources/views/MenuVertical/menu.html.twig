@@ -5,7 +5,7 @@
 		
 	{% if sousTraitants[0].id is not empty %}
 		
-		{% image 'img/plus.png' %}
+		{% image 'Resources/public/images/plus.png' %}
     		<span id="sousMenu1" class="sousMenu"><img id="sousMenu11" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Stock Sous-Traitants</span>
 		{% endimage %}
 		<br>
@@ -22,7 +22,7 @@
 	
 		<span class="titreMenuVertical">Nomenclatures</span><br>
 		
-			{% image 'img/plus.png' %}
+			{% image 'Resources/public/images/plus.png' %}
     			<span id="sousMenu2" class="sousMenu"><img id="sousMenu21" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Nomenclatures PCB</span>
 			{% endimage %}
 			<br>
@@ -37,7 +37,7 @@
                 {% endfor %}
 			</div>
 			
-			{% image 'img/plus.png' %}
+			{% image 'Resources/public/images/plus.png' %}
     			<span id="sousMenu3" class="sousMenu"><img id="sousMenu31" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Nomenclatures PF</span>
 			{% endimage %}
 			
@@ -57,7 +57,7 @@
 				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_appro_interne') }}">Appro Matière Première</a><br>
 				
                 {#
-				{% image 'img/plus.png' %}
+				{% image 'Resources/public/images/plus.png' %}
 					<span id="sousMenu4" class="sousMenu"><img id="sousMenu41" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Appro Sous Traitant</span><br>
 				{% endimage %}
 				
@@ -79,7 +79,7 @@
             
 				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_production_interne') }}">Production Interne</a><br>
 				
-				{% image 'img/plus.png' %}
+				{% image 'Resources/public/images/plus.png' %}
 					<span id="sousMenu5" class="sousMenu"><img id="sousMenu51" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Production Sous-Traitants</span><br>
 				{% endimage %}
 				

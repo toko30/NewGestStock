@@ -147,7 +147,7 @@ class ApproLecteur
     /**
      * Set typeLecteurAutre
      *
-     * @param \IC\AffichageBundle\Entity\TypeLecteurAutre $typeLecteur
+     * @param \IC\AffichageBundle\Entity\TypeLecteurAutre $typeLecteurAutre
      *
      * @return ApproLecteur
      */
@@ -161,7 +161,7 @@ class ApproLecteur
     /**
      * Get typeLecteurAutre
      *
-     * @return \IC\AffichageBundle\Entity\TypeLecteur
+     * @return \IC\AffichageBundle\Entity\TypeLecteurAutre
      */
     public function getTypeLecteurAutre()
     {

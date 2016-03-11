@@ -8,25 +8,25 @@ class ApprovisionnementController extends Controller
 {
     public function approvisionnementInterneAction()
     {
-        $appro = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:ApproComposant')->getApproInterne();
+        $appro = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Appro')->getApproComposant();
         
-        return $this->render('ICAffichageBundle:Appro:approInterne.html.twig', array('partie' => 'affichage', 'appro' => $appro));
+        return $this->render('ICAffichageBundle:Appro:approInterne.html.twig', array('partie' => 'affichage', 'approvisionnement' => $appro));
     }
 
     public function approvisionnementIdentifiantAction()
     {
-        $appro = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:ApproIdentifiant')->getApproIdentifiant();
+        $appro = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Appro')->getApproIdentifiant();
         
-        return $this->render('ICAffichageBundle:Appro:approIdentifiant.html.twig', array('partie' => 'affichage', 'appro' => $appro));
+        return $this->render('ICAffichageBundle:Appro:approIdentifiant.html.twig', array('partie' => 'affichage', 'approvisionnement' => $appro));
     }
     
     public function approvisionnementAutreAction()
     {
-        $approLecteur = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:ApproLecteur')-> getApproLecteur();
-        $approAutre = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:ApproAutre')-> getApproAutre();
+        $approLecteur = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Appro')-> getApproLecteur();
+        $approAutre = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Appro')-> getApproAutre();
         
         return $this->render('ICAffichageBundle:Appro:approAutre.html.twig', array('partie' => 'affichage', 
-                                                                                   'approLecteur' => $approLecteur,
-                                                                                   'approAutre' => $approAutre));
+                                                                                   'approLecteurs' => $approLecteur,
+                                                                                   'approAutres' => $approAutre));
     }
 }

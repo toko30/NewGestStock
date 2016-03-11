@@ -16,7 +16,7 @@
 	{% endfor %}
 	{{ form_widget(form.rechercher, {'attr': {'class': 'submitRecherche'}}) }}
 	<br>
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox11" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.famille, 'Famille', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox1'}}) }}
@@ -28,7 +28,7 @@
 		{% endfor %}
 	</div>
 	
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox21" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}	
 	{{ form_label(form.sousFamille, 'Sous Famille', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox2'}}) }}
@@ -40,7 +40,7 @@
 		{% endfor %}
 	</div>
 		
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox31" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.etat, 'Etat', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox3'}}) }}	
@@ -51,7 +51,7 @@
 			{{ form_label(child, child, {'label_attr': {'class': 'labelCheckBox'}}) }} <br>
 		{% endfor %}
 	</div>
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox41" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.fournisseur, 'Fournisseur', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox4'}}) }}	
@@ -63,7 +63,7 @@
 		{% endfor %}
 	</div>
 	{#
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox51" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.nomenclature, 'Nomenclature', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox5'}}) }}		
@@ -75,7 +75,7 @@
 		{% endfor %}
 	</div>
 	#}
-	{% image 'img/plus.png' %}
+	{% image 'Resources/public/images/plus.png' %}
     	<img id="checkBox61" class="imgFlecheCheckBox" src="{{ asset_url }}" alt="Fleche Bas" />
 	{% endimage %}
 	{{ form_label(form.stock, 'Stock', {'label_attr': {'class': 'titreCheckBox', 'id': 'checkBox6'}}) }}

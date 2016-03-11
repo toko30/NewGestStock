@@ -1,8 +1,6 @@
 .tabSousFamille
 {
-    width:25%;
-}
-.center
-{
-    text-align:center;
+    width:20%;
+    float:left;
+    margin-left: 3%;
 }

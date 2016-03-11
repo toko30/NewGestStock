@@ -41,4 +41,29 @@ class FournisseurRepository extends \Doctrine\ORM\EntityRepository
         */
         return $req->getQuery()->getResult();           
     }
+    
+    public function getAllPF($idType)
+    {
+        $req = $this->createQueryBuilder('f');
+        
+        if($idType == 2)
+        {
+            $req->join('f.badgeFournisseur', 'bf')
+            ->join('bf.typeBadge', 'tb')
+            ->addSelect('f', 'bf', 'tb');
+        }
+        elseif($idType == 3)
+        {
+            $req->join('f.lecteurAutre', 'la')
+            ->addSelect('f', 'la');            
+        }
+        elseif($idType == 4)
+        {
+            $req->join('f.autre', 'a')
+            ->addSelect('f', 'a');            
+        }
+        
+        return $req->getQuery()
+        ->getResult();
+    }
 }
