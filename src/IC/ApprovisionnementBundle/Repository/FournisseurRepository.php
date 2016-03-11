@@ -25,20 +25,7 @@ class FournisseurRepository extends \Doctrine\ORM\EntityRepository
         ->orderBy('cf.idFournisseur', 'ASC')
         ->where('cf.idComposant IN (:id)')
         ->setParameter('id', $listeId);
-        
-        /*
-        if(!empty($critere['famille']))
-        {
-                $req->where('c.idFamille IN (:id)') 
-                ->setParameter('id', $critere['famille']);
-        }
-        
-        if(!empty($critere['sousFamille']))
-        {
-                $req->andWhere('c.idSousFamille IN (:id1)') 
-                ->setParameter('id1', $critere['sousFamille']);
-        }
-        */
+       
         return $req->getQuery()->getResult();           
     }
     

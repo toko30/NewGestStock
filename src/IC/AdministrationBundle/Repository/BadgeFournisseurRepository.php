@@ -19,20 +19,7 @@ class BadgeFournisseurRepository extends \Doctrine\ORM\EntityRepository
         ->orderBy('fb.idFournisseur', 'ASC')
         ->where('fb.idTypeBadge =:id')
         ->setParameter('id', $idBadge);
-        
-        /*
-        if(!empty($critere['famille']))
-        {
-                $req->where('c.idFamille IN (:id)') 
-                ->setParameter('id', $critere['famille']);
-        }
-        
-        if(!empty($critere['sousFamille']))
-        {
-                $req->andWhere('c.idSousFamille IN (:id1)') 
-                ->setParameter('id1', $critere['sousFamille']);
-        }
-        */
+
         return $req->getQuery()->getResult();          
     }
 }

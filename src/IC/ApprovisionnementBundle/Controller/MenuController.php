@@ -97,8 +97,6 @@ class MenuController extends Controller
                 {                            
                     for($i = 0; $i < count($quantiteNomenclature['idComposant']); $i++)
                     {
-                        
-                        //echo $quantiteNomenclature['idComposant'][$i1].'=='.$ComposantST->getIdComposant().' '.$quantiteNomenclature['quantite'][$i1].'>'.$ComposantST->getQuantite().'<br>';
                         if($quantiteNomenclature['idComposant'][$i] == $ComposantST->getIdComposant() && $quantiteNomenclature['quantite'][$i] > $ComposantST->getQuantite())
                         {
                             

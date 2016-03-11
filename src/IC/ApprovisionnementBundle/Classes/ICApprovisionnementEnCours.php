@@ -11,9 +11,7 @@ class ICApprovisionnementEnCours
     public function __construct(EntityManager $doctrine)
     {      
         $this->doctrine = $doctrine;
-    }
-    
-    //$doctrine = $this->doctrine;
+    }    
     
     public function addStockInterne($approComposant)
     {

@@ -12,9 +12,7 @@ class ICProduction
     public function __construct(EntityManager $doctrine)
     {      
         $this->doctrine = $doctrine;
-    }
-    
-    //$doctrine = $this->doctrine;
+    }   
     
     //Listage des dernières nomenclatures
     public function listLastNomenclature()
