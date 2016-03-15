@@ -33,4 +33,27 @@ class VersionNomenclatureRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter('idNomenclature', $idNomenclature)
         ->getQuery()->getResult();
     }
+    
+    public function getComposantByNomenclature($idNomenclature)
+    {
+        return $this->createQueryBuilder('vn')
+        ->leftJoin('vn.composantNomenclature', 'cn')
+        ->join('vn.nomenclature', 'n')
+        ->addSelect('vn', 'cn', 'n')
+        ->where('vn.id = :idVersion')
+        ->setParameter('idVersion', $idNomenclature)
+        ->getQuery()
+        ->getResult();
+    }
+    public function getProduitFiniByNomenclature($idNomenclature)
+    {
+        return $this->createQueryBuilder('vn')
+        ->leftJoin('vn.produitFiniNomenclature', 'cn')
+        ->join('vn.nomenclature', 'n')
+        ->addSelect('vn', 'cn', 'n')
+        ->where('vn.id = :idVersion')
+        ->setParameter('idVersion', $idNomenclature)
+        ->getQuery()
+        ->getResult();        
+    }
 }

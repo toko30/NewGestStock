@@ -17,6 +17,24 @@ class Nomenclature
      */
     private $id;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $versionNomenclature;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $firmware;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->versionNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->firmware = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set nom
@@ -51,4 +69,73 @@ class Nomenclature
     {
         return $this->id;
     }
+
+    /**
+     * Add versionNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature
+     *
+     * @return Nomenclature
+     */
+    public function addVersionNomenclature(\IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature)
+    {
+        $this->versionNomenclature[] = $versionNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Remove versionNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature
+     */
+    public function removeVersionNomenclature(\IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature)
+    {
+        $this->versionNomenclature->removeElement($versionNomenclature);
+    }
+
+    /**
+     * Get versionNomenclature
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVersionNomenclature()
+    {
+        return $this->versionNomenclature;
+    }
+
+    /**
+     * Add firmware
+     *
+     * @param \IC\AdministrationBundle\Entity\Firmware $firmware
+     *
+     * @return Nomenclature
+     */
+    public function addFirmware(\IC\AdministrationBundle\Entity\Firmware $firmware)
+    {
+        $this->firmware[] = $firmware;
+
+        return $this;
+    }
+
+    /**
+     * Remove firmware
+     *
+     * @param \IC\AdministrationBundle\Entity\Firmware $firmware
+     */
+    public function removeFirmware(\IC\AdministrationBundle\Entity\Firmware $firmware)
+    {
+        $this->firmware->removeElement($firmware);
+    }
+
+    /**
+     * Get firmware
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFirmware()
+    {
+        return $this->firmware;
+    }
 }
+

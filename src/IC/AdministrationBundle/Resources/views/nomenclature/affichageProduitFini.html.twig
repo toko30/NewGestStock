@@ -13,8 +13,10 @@
 
 {% block page %}
 
-	{{ parent()}}
+	{{ parent() }}
     
+    <h1>{{ versionNomenclature[0].nomenclature.nom }}-V{{ versionNomenclature[0].version}}</h1>
+        
     <form method="post" action="{{ path('ic_administration_update_produit_fini_nomenclature', {idNomenclature: idNomenclature}) }}">
         <table>
             <tr>
@@ -36,7 +38,8 @@
                     </td>
                     <td class="designation">{{ composant.nom }}</td>
                     <td>{{ composant.boitier }}</td>
-                    {% for produitFiniNomenclature in produitsFinisNomenclature %}
+                    
+                    {% for produitFiniNomenclature in versionNomenclature[0].produitFiniNomenclature %}
                         {% if composant.id == produitFiniNomenclature.idComposant %}
                             {% set existe = 1 %}
                             <td><input class="inputQuantite" type="text" name="{{ composant.id }}" value="{{ produitFiniNomenclature.quantite }}" onfocus="this.value = ''" onblur="if(this.value == '') { this.value = '{{ produitFiniNomenclature.quantite }}' }"></td>

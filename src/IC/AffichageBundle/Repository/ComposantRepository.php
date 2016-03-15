@@ -8,7 +8,7 @@ class ComposantRepository extends \Doctrine\ORM\EntityRepository
    {	
         $req = $this->createQueryBuilder('c')
         ->join('c.famille', 'f')
-        ->join('c.sousFamille', 's')
+        ->LeftJoin('c.sousFamille', 's')
         ->orderBy('c.nom');
         if(!empty($critere['recherche']))
         {

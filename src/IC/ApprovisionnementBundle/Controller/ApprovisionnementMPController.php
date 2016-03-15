@@ -26,7 +26,7 @@ class ApprovisionnementMPController extends Controller
             $quantiteCommande = $this->container->get('ic_approvisionnementMP')->ajoutApproEnCour($listApproEnCours, $quantiteCommande);
         
         //sortie des composants dont le stock est suffisant
-        $quantiteCommande = $this->container->get('ic_approvisionnementMP')->verifStockCommande($quantiteCommande);
+        $quantiteCommande = $this->container->get('ic_approvisionnementMP')->verifStockCommande($quantiteCommande, 1);
         
         //récupération des fournisseurs dont le composant est disponible
         if($quantiteCommande != null)
@@ -57,10 +57,10 @@ class ApprovisionnementMPController extends Controller
             $quantiteCommande = $this->container->get('ic_approvisionnementMP')->ajoutApproEnCour($listApproEnCours, $quantiteCommande);    
   
        //sortie des composants dont le stock est suffisant
-        $quantiteCommande = $this->container->get('ic_approvisionnementMP')->verifStockCommande($quantiteCommande); 
-                     
+        $quantiteCommande = $this->container->get('ic_approvisionnementMP')->verifStockCommande($quantiteCommande, 0); 
+                  
         //récupération des fournisseurs dont le composant est disponible
-        if($quantiteCommande !== null)
+        if(!empty($quantiteCommande))
             $listComposantFournisseur = $em->getRepository('ICApprovisionnementBundle:Fournisseur')->getComposantFournisseurById($quantiteCommande);
         else
             $listComposantFournisseur = array();          

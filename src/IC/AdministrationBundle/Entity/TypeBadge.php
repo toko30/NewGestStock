@@ -37,6 +37,7 @@ class TypeBadge
      */
     private $sousTypeBadge;
 
+
     /**
      * Set reference
      *
@@ -167,3 +168,4 @@ class TypeBadge
         return $this->sousTypeBadge;
     }
 }
+

@@ -23,10 +23,28 @@ class VersionNomenclature
     private $id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $composantNomenclature;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $produitFiniNomenclature;
+
+    /**
      * @var \IC\AdministrationBundle\Entity\Nomenclature
      */
     private $nomenclature;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->composantNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->produitFiniNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set idNomenclature
@@ -87,6 +105,74 @@ class VersionNomenclature
     }
 
     /**
+     * Add composantNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\ComposantNomenclature $composantNomenclature
+     *
+     * @return VersionNomenclature
+     */
+    public function addComposantNomenclature(\IC\AdministrationBundle\Entity\ComposantNomenclature $composantNomenclature)
+    {
+        $this->composantNomenclature[] = $composantNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Remove composantNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\ComposantNomenclature $composantNomenclature
+     */
+    public function removeComposantNomenclature(\IC\AdministrationBundle\Entity\ComposantNomenclature $composantNomenclature)
+    {
+        $this->composantNomenclature->removeElement($composantNomenclature);
+    }
+
+    /**
+     * Get composantNomenclature
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComposantNomenclature()
+    {
+        return $this->composantNomenclature;
+    }
+
+    /**
+     * Add produitFiniNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature
+     *
+     * @return VersionNomenclature
+     */
+    public function addProduitFiniNomenclature(\IC\AdministrationBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature)
+    {
+        $this->produitFiniNomenclature[] = $produitFiniNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Remove produitFiniNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature
+     */
+    public function removeProduitFiniNomenclature(\IC\AdministrationBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature)
+    {
+        $this->produitFiniNomenclature->removeElement($produitFiniNomenclature);
+    }
+
+    /**
+     * Get produitFiniNomenclature
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduitFiniNomenclature()
+    {
+        return $this->produitFiniNomenclature;
+    }
+
+    /**
      * Set nomenclature
      *
      * @param \IC\AdministrationBundle\Entity\Nomenclature $nomenclature
@@ -110,3 +196,4 @@ class VersionNomenclature
         return $this->nomenclature;
     }
 }
+

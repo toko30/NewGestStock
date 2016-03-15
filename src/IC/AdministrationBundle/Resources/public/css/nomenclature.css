@@ -1,13 +1,13 @@
 .versionPlus
 {
-    background:url('../img/blueplus.png') top left no-repeat;
+    background:url('../images/blueplus.png') top left no-repeat;
     display:inline-block;
     width:16px;
     height:16px;
 }
 tr:hover .versionPlus
 {
-    background:url('../img/whiteplus.png') top left no-repeat;
+    background:url('../images/whiteplus.png') top left no-repeat;
 }
 .tabNomenclature
 {

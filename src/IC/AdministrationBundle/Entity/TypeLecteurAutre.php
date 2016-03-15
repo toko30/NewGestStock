@@ -52,6 +52,16 @@ class TypeLecteurAutre
      */
     private $id;
 
+    /**
+     * @var \IC\AdministrationBundle\Entity\SousTypeLecteur
+     */
+    private $sousTypeLecteur;
+
+    /**
+     * @var \IC\AdministrationBundle\Entity\Fournisseur
+     */
+    private $fournisseur;
+
 
     /**
      * Set reference
@@ -254,40 +264,6 @@ class TypeLecteurAutre
     {
         return $this->id;
     }
-    /**
-     * @var \IC\AdministrationBundle\Entity\Fournisseur
-     */
-    private $fournisseur;
-
-    /**
-     * @var \IC\AdministrationBundle\Entity\SousTypeLecteur
-     */
-    private $sousTypeLecteur;
-
-
-    /**
-     * Set fournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\Fournisseur $fournisseur
-     *
-     * @return TypeLecteurAutre
-     */
-    public function setFournisseur(\IC\AdministrationBundle\Entity\Fournisseur $fournisseur = null)
-    {
-        $this->fournisseur = $fournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get fournisseur
-     *
-     * @return \IC\AdministrationBundle\Entity\Fournisseur
-     */
-    public function getFournisseur()
-    {
-        return $this->fournisseur;
-    }
 
     /**
      * Set sousTypeLecteur
@@ -312,4 +288,29 @@ class TypeLecteurAutre
     {
         return $this->sousTypeLecteur;
     }
+
+    /**
+     * Set fournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\Fournisseur $fournisseur
+     *
+     * @return TypeLecteurAutre
+     */
+    public function setFournisseur(\IC\AdministrationBundle\Entity\Fournisseur $fournisseur = null)
+    {
+        $this->fournisseur = $fournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Get fournisseur
+     *
+     * @return \IC\AdministrationBundle\Entity\Fournisseur
+     */
+    public function getFournisseur()
+    {
+        return $this->fournisseur;
+    }
 }
+

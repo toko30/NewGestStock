@@ -125,6 +125,13 @@ tr td
 	background: #00B8D6;
 	color: white;    
 }
+.titrePrix
+{
+    width:15%;
+    font-weight:bold;
+	background: #00B8D6;
+	color: white;    
+}
 .supprimer
 {
 	background: #00B8D6;       
@@ -152,7 +159,7 @@ tr td
 .inputQuantite
 {
     text-align: center;
-    width: 60%;
+    width: 50px;
     margin: 0 10px;
 }
 .inputDesignation
@@ -164,45 +171,6 @@ tr td
 {
     margin: 0 5px;
     height:21px;
-}
-.checkBox
-{
-    width:5%;
-}
-.titrePrix
-{
-    width:15%;
-    font-weight:bold;
-	background: #00B8D6;
-	color: white;    
-}
-.buttonUpdate
-{
-    margin:0 4px 0 0;
-    display: inline-block;
-    width:20px;
-    height:20px;
-    background:url('../img/whitevalid.png') top left no-repeat;
-    text-indent:-9000px;
-    text-transform: capitalize;
-    line-height: -9999px;
-    overflow:hidden;
-    border:0;
-    cursor:pointer;
-}
-.buttonAdd
-{
-    margin:5px 0 0 5px;
-    display: inline-block;
-    width:20px;
-    height:20px;
-    background:url('../img/whiteplus.png') top left no-repeat;
-    text-indent:-9000px;
-    text-transform: capitalize;
-    line-height: -9999px;
-    overflow:hidden;
-    border:0;
-    cursor:pointer;
 }
 .inputValider
 {
@@ -217,9 +185,36 @@ tr td
     width:240px;
     text-align:center;
 }
-.inputQuantite
+.checkBox
 {
-    text-align: center;
-    width: 50px;
-    margin: 0 10px;
+    width:5%;
+}
+
+.buttonUpdate
+{
+    margin:0 4px 0 0;
+    display: inline-block;
+    width:20px;
+    height:20px;
+    background:url('../images/whitevalid.png') top left no-repeat;
+    text-indent:-9000px;
+    text-transform: capitalize;
+    line-height: -9999px;
+    overflow:hidden;
+    border:0;
+    cursor:pointer;
+}
+.buttonAdd
+{
+    margin:5px 0 0 5px;
+    display: inline-block;
+    width:20px;
+    height:20px;
+    background:url('../images/whiteplus.png') top left no-repeat;
+    text-indent:-9000px;
+    text-transform: capitalize;
+    line-height: -9999px;
+    overflow:hidden;
+    border:0;
+    cursor:pointer;
 }

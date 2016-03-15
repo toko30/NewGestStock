@@ -70,4 +70,16 @@ class ApproRepository extends \Doctrine\ORM\EntityRepository
 		->getQuery()
 		->getResult();       
    }
+   
+   public function getListeLecteurs($idCommande)
+   {
+		return $this->createQueryBuilder('a')
+		->join('a.approLecteur', 'al')
+		->join('al.typeLecteurAutre', 'tla')
+		->addSelect('a', 'al', 'tla')
+		->where('a.id = :idCommande')
+        ->setParameter('idCommande', $idCommande)
+		->getQuery()
+		->getResult();         
+   }
 }

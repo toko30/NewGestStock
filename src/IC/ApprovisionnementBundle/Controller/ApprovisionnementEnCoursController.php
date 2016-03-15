@@ -197,7 +197,12 @@ class ApprovisionnementEnCoursController extends Controller
     
     public function approVersStockLecteurAction($idCommande)
     {
+        $em = $this->getDoctrine()->getManager(); 
         
+        $appro = $em->getRepository('ICApprovisionnementBundle:Appro')->getListeLecteurs($idCommande);
+        
+        return $this->render('ICApprovisionnementBundle:EnCours:enregistrementLecteur.html.twig', array('partie' => 'approvisionnement',
+                                                                                               'appro' => $appro));        
     }
     
     public function approVersStockAutreAction($idCommande)

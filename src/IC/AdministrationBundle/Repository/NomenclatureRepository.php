@@ -9,13 +9,20 @@ namespace IC\AdministrationBundle\Repository;
  * repository methods below.
  */
 class NomenclatureRepository extends \Doctrine\ORM\EntityRepository
-{
-    
+{ 
     public function getLastNomenclature()
     {
         return $this->createQueryBuilder('n')
         ->orderBy('n.id', 'DESC')
         ->getQuery()
         ->getResult();        
+    }
+    
+    public function getAllFirmware()
+    {
+        return $this->createQueryBuilder('n')
+        ->leftJoin('n.firmware', 'f')
+        ->getQuery()
+        ->getResult();   
     }
 }

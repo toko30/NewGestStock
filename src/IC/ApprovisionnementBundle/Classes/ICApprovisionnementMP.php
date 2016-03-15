@@ -37,7 +37,7 @@ class ICApprovisionnementMP
                     if(!isset($quantiteCommande[0]['idComposant']))
                     {
                         $quantiteCommande[0]['idComposant'] = $composantNomenclature->getIdComposant();
-                        $quantiteCommande[0]['quantite'] = $composantNomenclature->getComposant()->getStockInterne() - ($composantNomenclature->getQuantite() * $production->getQuantite());
+                        $quantiteCommande[0]['quantite'] = ($composantNomenclature->getComposant()->getStockInterne()) - ($composantNomenclature->getQuantite() * $production->getQuantite());
                     }
                     else
                     {
@@ -162,16 +162,26 @@ class ICApprovisionnementMP
     }
     
     //On trie en supprimmant les composants dont le stock est suffisant
-    public function verifStockCommande($quantiteCommande)
+    public function verifStockCommande($quantiteCommande, $idPartie = 0)
     {
+        $doctrine = $this->doctrine;
         $nbQuantiteCommande = count($quantiteCommande);
         
         for($i = 0; $i < $nbQuantiteCommande; $i++)
         {
-            if($quantiteCommande[$i]['quantite'] > 0)
+            if($quantiteCommande[$i]['quantite'] >= 0)
                 unset($quantiteCommande[$i]);
             else
-                $quantiteCommande[$i]['quantite'] = abs($quantiteCommande[$i]['quantite']);
+            {
+                if($idPartie == 1)
+                {
+                    $composant = $doctrine->getRepository('ICApprovisionnementBundle:Composant')->find($quantiteCommande[$i]['idComposant']);
+                    $quantiteCommande[$i]['quantite'] = abs($quantiteCommande[$i]['quantite']) + $composant->getStockMini();
+                }
+                else
+                    $quantiteCommande[$i]['quantite'] = abs($quantiteCommande[$i]['quantite']);
+            }
+                
         }
 
         return array_values($quantiteCommande);        

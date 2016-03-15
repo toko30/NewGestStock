@@ -13,6 +13,8 @@ class ComposantRepository extends \Doctrine\ORM\EntityRepository
     public function getComposantProduitFini()
     {
         return $this->createQueryBuilder('c')
+        ->join('c.famille', 'f')
+        ->LeftJoin('c.sousFamille', 's')
         ->orderBy('c.nom')
         ->where('c.idFamille IN(:famille)')
         ->setParameter('famille', array(3,4))
@@ -23,6 +25,8 @@ class ComposantRepository extends \Doctrine\ORM\EntityRepository
     public function getComposantPCB()
     {
         return $this->createQueryBuilder('c')
+        ->join('c.famille', 'f')
+        ->LeftJoin('c.sousFamille', 's')
         ->orderBy('c.nom')
         ->where('c.idFamille IN(:famille)')
         ->setParameter('famille', array(1,2))
@@ -34,7 +38,7 @@ class ComposantRepository extends \Doctrine\ORM\EntityRepository
     {	
         $req = $this->createQueryBuilder('c')
         ->join('c.famille', 'f')
-        ->join('c.sousFamille', 's')
+        ->LeftJoin('c.sousFamille', 's')
         ->orderBy('c.nom');
         if(!empty($critere['recherche']))
         {

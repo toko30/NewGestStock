@@ -19,9 +19,9 @@
         <option name="fixed"/>
       </options>
     </field>
-    <one-to-one field="version" target-entity="VersionNomenclature">
+    <many-to-one field="versionNomenclature" target-entity="VersionNomenclature"  inversed-by="produitFiniNomenclature">
       <join-column name="id_version" referenced-column-name="id" />
-    </one-to-one>
+    </many-to-one>
     <one-to-one field="composant" target-entity="Composant" >
       <join-column name="id_composant" referenced-column-name="id" />
     </one-to-one>

@@ -1,0 +1,38 @@
+{% extends 'ICApprovisionnementBundle::layout.html.twig' %}
+
+{% block title %} {{ parent() }} - En Cours Matières Premières{% endblock %}
+
+{% block entete %} {{ parent() }} En Cours Matières Premières{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICApprovisionnementBundle/Resources/public/css/enregistrementLecteur.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+    
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+    {% for approLecteur in appro[0].approLecteur %}
+        {% if loop.index0 == 0 %}
+            <div id="focus" class="lecteur">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur">{{ approLecteur.quantite }} / {{ approLecteur.quantite }}</span> </div>
+        {% else %}
+            <div class="lecteur">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur">{{ approLecteur.quantite }} / {{ approLecteur.quantite }}</span> </div>
+        {% endif %}
+    {% endfor %}
+    <input id="inputEnregistrement" type="text">
+    <div id="listeLecteur">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+    
+{% endblock %}

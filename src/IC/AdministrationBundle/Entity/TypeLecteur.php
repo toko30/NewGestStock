@@ -51,11 +51,12 @@ class TypeLecteur
      * @var \IC\AdministrationBundle\Entity\Nomenclature
      */
     private $nomenclature;
-    
+
     /**
      * @var \IC\AdministrationBundle\Entity\SousTypeLecteur
      */
     private $sousTypeLecteur;
+
 
     /**
      * Set idNomenclature
@@ -262,7 +263,7 @@ class TypeLecteur
     /**
      * Set sousTypeLecteur
      *
-     * @param \IC\AdministrationBundle\Entity\SousType $sousTypeLecteur
+     * @param \IC\AdministrationBundle\Entity\SousTypeLecteur $sousTypeLecteur
      *
      * @return TypeLecteur
      */
@@ -283,3 +284,4 @@ class TypeLecteur
         return $this->sousTypeLecteur;
     }
 }
+

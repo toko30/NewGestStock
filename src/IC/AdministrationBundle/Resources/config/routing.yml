@@ -211,9 +211,21 @@ ic_administration_affichage_qualite:
     defaults: { _controller: ICAdministrationBundle:Qualite:affichageQualite }
     
 ic_administration_affichage_firmware:
-    path:     /Firmware
-    defaults: { _controller: ICAdministrationBundle:Firmware:affichageFirmware }      
-                                 
+    path:     /Firmware-{idFirmware}
+    defaults: { _controller: ICAdministrationBundle:Firmware:affichageFirmware, idFirmware: 0}    
+    requirements:
+        idFirmware: \d{1,4}
+
+ic_administration_add_firmware:
+    path:     /Ajouter-Firmware
+    defaults: { _controller: ICAdministrationBundle:Firmware:addFirmware }   
+    
+ic_administration_update_firmware:
+    path:     /Modifier-Firmware-{idFirmware}
+    defaults: { _controller: ICAdministrationBundle:Firmware:updateFirmware }  
+    requirements:
+        idFirmware: \d{1,4}
+                                   
 ic_administration_affichage_sous_famille:
     path:     /Sous-Famille{idSousFamille}
     defaults: { _controller: ICAdministrationBundle:Option:sousFamille, idSousFamille: 0 }      

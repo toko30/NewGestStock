@@ -1,7 +1,6 @@
 <?php
 
 namespace IC\AdministrationBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Fournisseur
@@ -47,11 +46,17 @@ class Fournisseur
      * @var \IC\AdministrationBundle\Entity\TypeProduit
      */
     private $typeProduit;
-    
+
     /**
-     * @var \IC\AdministrationBundle\Entity\TypeBadge
-     */    
-    private $badge;
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $composantFournisseur;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $badgeFournisseur;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -61,12 +66,16 @@ class Fournisseur
      * @var \Doctrine\Common\Collections\Collection
      */
     private $autre;
-        
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->badge = new ArrayCollection();
-        $this->lecteurAutre = new ArrayCollection();
-        $this->autre = new ArrayCollection();
+        $this->composantFournisseur = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->badgeFournisseur = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lecteurAutre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->autre = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -248,37 +257,71 @@ class Fournisseur
     }
 
     /**
-     * Add badge
+     * Add composantFournisseur
      *
-     * @param \IC\AdministrationBundle\Entity\TypeBadge $badge
+     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
      *
      * @return Fournisseur
      */
-    public function addBadge(\IC\AdministrationBundle\Entity\TypeBadge $badge)
+    public function addComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
     {
-        $this->badge[] = $badge;
+        $this->composantFournisseur[] = $composantFournisseur;
 
         return $this;
     }
 
     /**
-     * Remove badge
+     * Remove composantFournisseur
      *
-     * @param \IC\AdministrationBundle\Entity\TypeBadge $badge
+     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
      */
-    public function removeBadge(\IC\AdministrationBundle\Entity\TypeBadge $badge)
+    public function removeComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
     {
-        $this->badge->removeElement($badge);
+        $this->composantFournisseur->removeElement($composantFournisseur);
     }
 
     /**
-     * Get badge
+     * Get composantFournisseur
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBadge()
+    public function getComposantFournisseur()
     {
-        return $this->badge;
+        return $this->composantFournisseur;
+    }
+
+    /**
+     * Add badgeFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
+     *
+     * @return Fournisseur
+     */
+    public function addBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
+    {
+        $this->badgeFournisseur[] = $badgeFournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Remove badgeFournisseur
+     *
+     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
+     */
+    public function removeBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
+    {
+        $this->badgeFournisseur->removeElement($badgeFournisseur);
+    }
+
+    /**
+     * Get badgeFournisseur
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBadgeFournisseur()
+    {
+        return $this->badgeFournisseur;
     }
 
     /**
@@ -348,82 +391,5 @@ class Fournisseur
     {
         return $this->autre;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $composantFournisseur;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $badgeFournisseur;
-
-
-    /**
-     * Add composantFournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
-     *
-     * @return Fournisseur
-     */
-    public function addComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
-    {
-        $this->composantFournisseur[] = $composantFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Remove composantFournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur
-     */
-    public function removeComposantFournisseur(\IC\AdministrationBundle\Entity\ComposantFournisseur $composantFournisseur)
-    {
-        $this->composantFournisseur->removeElement($composantFournisseur);
-    }
-
-    /**
-     * Get composantFournisseur
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getComposantFournisseur()
-    {
-        return $this->composantFournisseur;
-    }
-
-    /**
-     * Add badgeFournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
-     *
-     * @return Fournisseur
-     */
-    public function addBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
-    {
-        $this->badgeFournisseur[] = $badgeFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Remove badgeFournisseur
-     *
-     * @param \IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur
-     */
-    public function removeBadgeFournisseur(\IC\AdministrationBundle\Entity\BadgeFournisseur $badgeFournisseur)
-    {
-        $this->badgeFournisseur->removeElement($badgeFournisseur);
-    }
-
-    /**
-     * Get badgeFournisseur
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBadgeFournisseur()
-    {
-        return $this->badgeFournisseur;
-    }
 }
+

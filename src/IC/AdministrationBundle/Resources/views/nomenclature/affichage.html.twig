@@ -56,7 +56,7 @@
                     {% if allVersion == 0  and modifNomenclature == 0 %}
                         <td class="">{{ versionNomenclature.nomenclature.nom }}</td>          
                         <td class="details">
-                        {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                        {% image 'Resources/public/images/fleche.png' %}
                             <a href="{{ path('ic_administration_nomenclature', {idNomenclature: versionNomenclature.nomenclature.id}) }}">
                                 <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                             </a>

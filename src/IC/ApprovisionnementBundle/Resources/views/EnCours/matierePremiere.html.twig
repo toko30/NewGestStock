@@ -37,11 +37,15 @@
                 </tr>
                 {% for approComposant in appro.approComposant %}
                     <tr>
-                        <td>{{approComposant.composant.famille.nom}}</td>
-                        <td>{{approComposant.composant.sousFamille.nom}}</td>
-                        <td class="designation">{{approComposant.composant.nom}}</td>
-                        <td>{{approComposant.composant.boitier}}</td>
-                        <td>{{approComposant.quantite}}</td>
+                        <td>{{ approComposant.composant.famille.nom }}</td>
+                        <td class="sousFamille">
+                            {% if approComposant.composant.idSousFamille != 0 %}
+                                {{ approComposant.composant.SousFamille.nom }}
+                            {% endif %}
+                        </td>
+                        <td class="designation">{{ approComposant.composant.nom }}</td>
+                        <td>{{ approComposant.composant.boitier }}</td>
+                        <td>{{ approComposant.quantite }}</td>
                     </tr>
                 {% endfor %}
             </table>

@@ -14,7 +14,9 @@
 {% block page %}
 
 	{{ parent()}}
-
+    
+    <h1>{{ versionNomenclature[0].nomenclature.nom }}-V{{ versionNomenclature[0].version}}</h1>
+    
     <form method="post" action="{{ path('ic_administration_update_composant_nomenclature', {idNomenclature: idNomenclature}) }}">
         <table>
             <tr>
@@ -39,7 +41,7 @@
                     <td class="designation">{{ composant.nom }}</td>
                     <td>{{ composant.boitier }}</td>
                     
-                    {% for composantNomenclature in composantsNomenclature %}
+                    {% for composantNomenclature in versionNomenclature[0].composantNomenclature %}
                         {% if composant.id == composantNomenclature.idComposant %}
                             {% set existe = 1 %}
                             <td><input class="inputQuantite" type="text" name="{{ composant.id }}" value="{{ composantNomenclature.quantite }}" onfocus="this.value = ''"></td>

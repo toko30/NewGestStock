@@ -45,7 +45,7 @@
                     <td class="titrePageFournisseur">{{ form_widget(form.numero) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.site) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.typeProduit, {'attr': {'class': 'inputListe'}}) }}</td>
-                    <td class="FournisseurDetails">{{ form_widget(form.submit_fournisseur) }}</td>                
+                    <td class="FournisseurDetails">{{ form_widget(form.submit_fournisseur, {'attr': {'class': 'buttonUpdate'}}) }}</td>                
                 {% else %} 
                     <tr>
                         <td>{{ fournisseur.nom }}</td>

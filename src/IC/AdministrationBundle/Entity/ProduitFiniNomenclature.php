@@ -28,14 +28,14 @@ class ProduitFiniNomenclature
     private $id;
 
     /**
-     * @var \IC\AdministrationBundle\Entity\VersionNomenclature
-     */
-    private $version;
-
-    /**
      * @var \IC\AdministrationBundle\Entity\Composant
      */
     private $composant;
+
+    /**
+     * @var \IC\AdministrationBundle\Entity\VersionNomenclature
+     */
+    private $versionNomenclature;
 
 
     /**
@@ -121,30 +121,6 @@ class ProduitFiniNomenclature
     }
 
     /**
-     * Set version
-     *
-     * @param \IC\AdministrationBundle\Entity\VersionNomenclature $version
-     *
-     * @return ProduitFiniNomenclature
-     */
-    public function setVersion(\IC\AdministrationBundle\Entity\VersionNomenclature $version = null)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return \IC\AdministrationBundle\Entity\VersionNomenclature
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
      * Set composant
      *
      * @param \IC\AdministrationBundle\Entity\Composant $composant
@@ -167,4 +143,29 @@ class ProduitFiniNomenclature
     {
         return $this->composant;
     }
+
+    /**
+     * Set versionNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature
+     *
+     * @return ProduitFiniNomenclature
+     */
+    public function setVersionNomenclature(\IC\AdministrationBundle\Entity\VersionNomenclature $versionNomenclature = null)
+    {
+        $this->versionNomenclature = $versionNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Get versionNomenclature
+     *
+     * @return \IC\AdministrationBundle\Entity\VersionNomenclature
+     */
+    public function getVersionNomenclature()
+    {
+        return $this->versionNomenclature;
+    }
 }
+

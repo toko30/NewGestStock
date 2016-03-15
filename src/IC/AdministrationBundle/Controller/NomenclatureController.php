@@ -25,28 +25,29 @@ class NomenclatureController extends Controller
     
     public function affichageComposantNomenclatureAction($idNomenclature)
     {
+        
         $em = $this->getDoctrine()->getManager();
         
-        $composantNomenclature = $em->getRepository('ICAdministrationBundle:ComposantNomenclature')->getComposantByNomenclature($idNomenclature);
+        $versionNomenclature = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->getComposantByNomenclature($idNomenclature);
         $composant = $em->getRepository('ICAdministrationBundle:Composant')->getComposantPCB();
 
         return $this->render('ICAdministrationBundle:nomenclature:affichageComposantPCB.html.twig', array('partie' => 'Administration',
                                                                                                           'idNomenclature' => $idNomenclature,
                                                                                                           'composants' => $composant,                                                                                                          
-                                                                                                          'composantsNomenclature' => $composantNomenclature));        
+                                                                                                          'versionNomenclature' => $versionNomenclature));        
     }
     
     public function affichageProduitFiniNomenclatureAction($idNomenclature)
     {
         $em = $this->getDoctrine()->getManager();
         
-        $produitFiniNomenclature = $em->getRepository('ICAdministrationBundle:ProduitFiniNomenclature')->getComposantByNomenclature($idNomenclature);
+        $versionNomenclature = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->getProduitFiniByNomenclature($idNomenclature);
         $composant = $em->getRepository('ICAdministrationBundle:Composant')->getComposantProduitFini();
         
         return $this->render('ICAdministrationBundle:nomenclature:affichageProduitFini.html.twig', array('partie' => 'Administration',
                                                                                                          'idNomenclature' => $idNomenclature, 
                                                                                                          'composants' => $composant,
-                                                                                                         'produitsFinisNomenclature' => $produitFiniNomenclature));   
+                                                                                                         'versionNomenclature' => $versionNomenclature));   
     }
     
     public function ajouterNomenclatureAction(request $request)
@@ -65,7 +66,7 @@ class NomenclatureController extends Controller
             
             $versionNomenclature = new VersionNomenclature();
             $versionNomenclature->setNomenclature($lastNomenclature[0]);
-            $versionNomenclature->setVersion(1);
+            $versionNomenclature->setVersionNomenclature(1);
             $em->persist($versionNomenclature);
             $em->flush();
         }
@@ -81,6 +82,7 @@ class NomenclatureController extends Controller
             $nomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->find($idNomenclature);
             
             $versionNomenclature = new VersionNomenclature();
+            
             $versionNomenclature->setNomenclature($nomenclature);
             $versionNomenclature->setVersion($lastVersion[0]->getVersion() + 1);
             $em->persist($versionNomenclature);
@@ -127,7 +129,7 @@ class NomenclatureController extends Controller
                 
                 $composantNomenclature = new ComposantNomenclature();
                 $composantNomenclature->setComposant($composant);
-                $composantNomenclature->setVersion($versionNomenclature);
+                $composantNomenclature->setVersionNomenclature($versionNomenclature);
                 $composantNomenclature->setQuantite($request->get($id));
                 $composantNomenclature->setPosition($request->get('position'.$id));
                 
@@ -184,7 +186,7 @@ class NomenclatureController extends Controller
                 $produitFiniNomenclature = new ProduitFiniNomenclature();
                 
                 $produitFiniNomenclature->setComposant($composant);
-                $produitFiniNomenclature->setVersion($versionNomenclature);
+                $produitFiniNomenclature->setVersionNomenclature($versionNomenclature);
                 $produitFiniNomenclature->setQuantite($request->get($id));                                
                     
                 $em->persist($produitFiniNomenclature);

@@ -49,13 +49,17 @@
                     {% for approvisionnement in fournisseur.composantFournisseur %}
                         
                         <tr>
-                            <input type="hidden" name="listId[]" value="{{approvisionnement.idComposant}}">
+                            <input type="hidden" name="listId[]" value="{{ approvisionnement.idComposant }}">
                             <td>{{approvisionnement.composant.famille.nom}}</td>
-                            <td>{{approvisionnement.composant.sousFamille.nom}}</td>
+                            <td class="sousFamille">
+                                {% if approvisionnement.composant.idSousFamille != 0 %}
+                                    {{ approvisionnement.composant.SousFamille.nom }}
+                                {% endif %}
+                            </td>
                             <td class="designation">{{approvisionnement.composant.nom}}</td>
-                            <td>{{approvisionnement.reference}}</td>
-                            <td>{{approvisionnement.composant.boitier}}</td>
-                            <td><input class="inputQuantite" type="text" name="{{approvisionnement.idComposant}}"></td>
+                            <td>{{ approvisionnement.reference }}</td>
+                            <td>{{ approvisionnement.composant.boitier }}</td>
+                            <td><input class="inputQuantite" type="text" name="{{ approvisionnement.idComposant }}"></td>
                             {% for qte in quantiteCommande %}
                                 {% if qte.idComposant == approvisionnement.idComposant %}
                                     <td>{{qte.quantite}}</td>

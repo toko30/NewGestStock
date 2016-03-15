@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use IC\AdministrationBundle\Repository\SousFamilleRepository;
 
 class ComposantType extends AbstractType
 {
@@ -27,7 +28,12 @@ class ComposantType extends AbstractType
         $builder->add('sousFamille', EntityType::class, array(
                       'class' => 'IC\AdministrationBundle\Entity\SousFamille',
                       'choice_label' => 'nom',
-                      'multiple'  => false));
+                      'multiple'  => false,
+                      'query_builder' => function (SousFamilleRepository $er) 
+                      {
+                        return $er->createQueryBuilder('sf')
+                        ->where('sf.idFamille = 1');
+                      }));
         
         $builder->add('submit_composant', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));
     }
