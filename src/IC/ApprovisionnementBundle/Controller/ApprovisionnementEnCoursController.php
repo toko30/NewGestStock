@@ -4,6 +4,8 @@ namespace IC\ApprovisionnementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use IC\ApprovisionnementBundle\Entity\LecteurAutre;
 
 class ApprovisionnementEnCoursController extends Controller
 {
@@ -202,7 +204,44 @@ class ApprovisionnementEnCoursController extends Controller
         $appro = $em->getRepository('ICApprovisionnementBundle:Appro')->getListeLecteurs($idCommande);
         
         return $this->render('ICApprovisionnementBundle:EnCours:enregistrementLecteur.html.twig', array('partie' => 'approvisionnement',
-                                                                                               'appro' => $appro));        
+                                                                                                        'appro' => $appro));        
+    }
+    
+    public function addLecteurAction(request $request, $idCommande)
+    {      
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->get('listeLecteur');
+        $nbData = count($data);
+        
+        $commande = $em->getRepository('ICApprovisionnementBundle:Appro')->getListeLecteurs($idCommande);
+        
+        foreach($commande->getApproLecteur as $approLecteur)
+        {
+            $quantite += $approLecteur->getQuantite();
+        }
+        if($quantite == $nbData)
+        {
+            $em->remove($commande);
+        }
+        else
+        {
+            
+        }
+        
+        foreach($data as $lecteur)
+        {
+            $typeLecteur = $em->getRepository('ICApprovisionnementBundle:TypeLecteurAutre')->findOneBy(array('reference' => $lecteur['ref']));
+            $lect = new LecteurAutre();
+            
+            $lect->setNumSerie($lecteur['numSerie']);
+            $lect->setTypeLecteurAutre($typeLecteur);
+            $lect->setDateAjout(new \Datetime());
+            $em->persist($lect);
+        }
+        
+        $em->flush();
+        
+        return new Response(1);
     }
     
     public function approVersStockAutreAction($idCommande)

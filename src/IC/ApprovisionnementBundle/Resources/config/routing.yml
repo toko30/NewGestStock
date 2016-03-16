@@ -71,7 +71,13 @@ ic_approvisionnement_vers_lecteur:
     defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockLecteur }
     requirements:
         idCommande: \d{1,10}
-
+        
+ic_approvisionnement_add_lecteur:
+    path:     /Ajout-Stock-Lecteur-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:addLecteur }
+    requirements:
+        idCommande: \d{1,10}
+        
 ic_approvisionnement_vers_autre:
     path:     /Vers-Stock-Autre-{idCommande}
     defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockAutre }

@@ -18,17 +18,28 @@
 {% block page %}
 
     {{ parent() }}
-    
+    <h1 id="pathAjax" data-path="{{ path('ic_approvisionnement_add_lecteur', {'idCommande': appro[0].id}) }}">Sélection du lecteur</h1>
     {% for approLecteur in appro[0].approLecteur %}
+    
         {% if loop.index0 == 0 %}
-            <div id="focus" class="lecteur">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur">{{ approLecteur.quantite }} / {{ approLecteur.quantite }}</span> </div>
+            <div id="focus" class="lecteur" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span></div>
         {% else %}
-            <div class="lecteur">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur">{{ approLecteur.quantite }} / {{ approLecteur.quantite }}</span> </div>
+            <div class="lecteur" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span> </div>
         {% endif %}
+        
     {% endfor %}
-    <input id="inputEnregistrement" type="text">
-    <div id="listeLecteur">
-    </div>
+    
+    <h1 id="titreChange" class="titreListe">Entrer un numéro de série</h1>
+    
+        <input id="inputEnregistrement" type="text">
+        <div id="addLecteur" class="lienValiderCommande">Ajouter les lecteurs au stock</div>
+        
+    <h1 class="titreListe">Liste des lecteurs</h1>
+    
+        <table id="listeLecteur">
+            <tr><td class="titreDesignation">Reférence</td><td class="titreDesignation">Numéro de série</td></tr>
+        </table>
+
 {% endblock %}
 
 {% block javascripts %}
