@@ -80,4 +80,50 @@ class VersionNomenclature
     {
         return $this->id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $produitFiniNomenclature;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->produitFiniNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add produitFiniNomenclature
+     *
+     * @param \IC\ApprovisionnementBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature
+     *
+     * @return VersionNomenclature
+     */
+    public function addProduitFiniNomenclature(\IC\ApprovisionnementBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature)
+    {
+        $this->produitFiniNomenclature[] = $produitFiniNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Remove produitFiniNomenclature
+     *
+     * @param \IC\ApprovisionnementBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature
+     */
+    public function removeProduitFiniNomenclature(\IC\ApprovisionnementBundle\Entity\ProduitFiniNomenclature $produitFiniNomenclature)
+    {
+        $this->produitFiniNomenclature->removeElement($produitFiniNomenclature);
+    }
+
+    /**
+     * Get produitFiniNomenclature
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduitFiniNomenclature()
+    {
+        return $this->produitFiniNomenclature;
+    }
 }

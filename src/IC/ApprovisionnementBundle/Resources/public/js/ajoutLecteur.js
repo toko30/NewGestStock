@@ -1,8 +1,9 @@
 $("#inputEnregistrement").focus();
 
 var finEnregistrement = false;
-var jsonObjects = [];
+var jsonObjects = {'ref': [], 'numSerie': []};
 var arrayNumSerie = [];
+var arrayRef = [];
 
 $('#inputEnregistrement').on('keyup', function(touche, e)
 {
@@ -15,39 +16,46 @@ $('#inputEnregistrement').on('keyup', function(touche, e)
         var valeurRef = $('#focus').attr('name');
         var presence = jQuery.inArray(valeurNumSerie, arrayNumSerie);
         var arrayLignes = $('#listeLecteur');
-        var jsonObj1 = {};
         
-        if(valeurNumSerie.length != 0 && finEnregistrement == false)
+        if(finEnregistrement == false)
         {
-           if(presence == -1)
+            if(valeurNumSerie.length != 0)
             {
-                arrayNumSerie.push(valeurNumSerie);
-                
-                jsonObj1.ref = valeurRef;
-                jsonObj1.numSerie = valeurNumSerie;
-                jsonObjects.push(jsonObj1);
-                
-                arrayLignes.append('<tr><td>' + valeurRef + '</td><td>' + valeurNumSerie + '</td></tr>');     
-                
-                $('#focus').attr('name');
-                $('#focus .compteur .decrement').text(compteur);
-                
-                if(compteur == 0)
+                if(presence == -1)
                 {
-                    $('#focus').attr('class', 'lecteurTermine');
-                    $('#focus').removeAttr('id');
-                    $('.lecteur').attr('id', 'focus');
+                    arrayNumSerie.push(valeurNumSerie);
+                    arrayRef.push(valeurRef);
+                    
+                    jsonObjects.ref.push(valeurRef);
+                    jsonObjects.numSerie.push(valeurNumSerie);
+
+                    arrayLignes.append('<tr><td>' + valeurRef + '</td><td>' + valeurNumSerie + '</td></tr>');
+                    
+                    $('#focus').attr('name');
+                    $('#focus .compteur .decrement').text(compteur);
+                    
+                    if(compteur == 0)
+                    {
+                        $('#focus').attr('class', 'lecteurTermine');
+                        $('#focus').removeAttr('id');
+                        $('.lecteur').attr('id', 'focus');
+                    }
                 }
+                else
+                {         
+                    alert('Le lecteur est déjà renseigné');  
+                }            
             }
             else
-            {         
-                alert('Le lecteur est déjà renseigné');  
+            {
+                alert('Veuillez renseigné un numéro de série'); 
             }            
         }
         else
         {
-            alert('Le lecteur est déjà renseigné'); 
+            alert('Tout les lecteurs on été enregistrés'); 
         }
+        
         var stop = false;
         
         $('.decrement').each(function()
@@ -83,7 +91,158 @@ $('.lecteur').on('click', function(e)
 $('#addLecteur').on('click', function() 
 {
     var path = $("#pathAjax").attr("data-path");
+    var pathPetite = $("#pathAjaxPetite").attr("data-path");
+    var pathMoyenne = $("#pathAjaxMoyenne").attr("data-path");
+    var pathGrande = $("#pathAjaxGrande").attr("data-path");
+    var arrayLecteur = [];
+    var arrayRefPetite = [];
+    var arrayRefMoyenne = [];
+    var arrayRefGrande = [];
+    var arrayNumSeriePetite = [];
+    var arrayNumSerieMoyenne = [];
+    var arrayNumSerieGrande = [];
+    var nbPetite = 0;
+    var printers = dymo.label.framework.getPrinters();
+    var printerName = '';
+    var label = '';
+    var pathXml = '';
     
+    if (printers.length == 0)
+        throw 'No DYMO printers are installed. Install DYMO printers.';
+    else
+    {
+        for (var i = 0; i < printers.length; ++i)
+        {
+            var printer = printers[i];
+            if (printer.printerType == 'LabelWriterPrinter')
+            {
+                printerName = printer.name;
+                break;
+            }
+        }
+        
+        $('.lecteur').each(function()
+        {   
+            arrayLecteur.push($(this));
+        });
+        
+        for(i = 0; i < arrayLecteur.length; i++)
+        {        
+            for(var i1 = 0; i1 < arrayRef.length; i1++)
+            {
+                if(arrayLecteur[i].attr('name') == arrayRef[i1])
+                {               
+                    if(arrayLecteur[i].attr('petite') != 0)
+                    {
+                        for(var i2 = 0; i2 < arrayLecteur[i].attr('petite'); i2++)
+                        {
+                            arrayRefPetite.push(arrayRef[i1]);
+                            arrayNumSeriePetite.push(arrayNumSerie[i1]);
+                        }
+                    }
+                    
+                    if(arrayLecteur[i].attr('moyenne') != 0)
+                    {
+                        for(var i2 = 0; i2 < arrayLecteur[i].attr('moyenne'); i2++)
+                        {
+                            arrayRefMoyenne.push(arrayRef[i1]);
+                            arrayNumSerieMoyenne.push(arrayNumSerie[i1]);
+                        }
+                        
+                    }
+                    
+                    if(arrayLecteur[i].attr('grande') != 0)
+                    {
+                        for(var i2 = 0; i2 < arrayLecteur[i].attr('grande'); i2++)
+                        {
+                            arrayRefGrande.push(arrayRef[i1]);
+                            arrayNumSerieGrande.push(arrayNumSerie[i1]);          
+                        }
+                    }
+                }
+            } 
+        }
+        
+        if(arrayRefPetite.length != 0)
+            alert('Vérifier que les petites etiquettes sont bien dans l\'imprimante');
+        
+        for(i = 0; i < arrayRefPetite.length; i++)
+        {
+            if(i%2 == 0)
+            {
+                var ref1 = arrayRefPetite[i];
+                var numSerie1 = arrayNumSeriePetite[i];
+                
+                if(i + 1 == arrayRefPetite.length)
+                {
+                    pathXml = pathPetite + '_' + ref1 + '_' + numSerie1 + '_XXX_00000000';
+                    
+                    $.ajax({
+                        type: 'GET',
+                        url: pathXml,
+                        success: function(xml) 
+                        { 
+                            label = dymo.label.framework.openLabelXml(xml);
+                            label.print(printerName);
+                        }
+                    }); 
+                    break;   
+                }
+            }
+            else
+            {
+                pathXml = pathPetite + '_' + ref1 + '_' + numSerie1 + '_' + arrayRefPetite[i] + '_' + arrayNumSeriePetite[i];
+                
+                $.ajax({
+                    type: 'GET',
+                    url: pathXml,
+                    success: function(xml) 
+                    { 
+                        label = dymo.label.framework.openLabelXml(xml);
+                        label.print(printerName);
+                    }
+                });
+            }
+
+        }
+        
+        if(arrayRefMoyenne.length != 0)
+            alert('Vérifier que les etiquettes moyennes sont bien dans l\'imprimante');
+        
+        for(i = 0; i < arrayRefMoyenne.length; i++)
+        {
+            pathXml = pathMoyenne + '_' + arrayRefMoyenne[i] + '_' + arrayNumSerieMoyenne[i];
+            
+            $.ajax({
+                type: 'GET',
+                url: pathXml,
+                success: function(xml) 
+                { 
+                    label = dymo.label.framework.openLabelXml(xml);
+                    label.print(printerName);
+                }
+            });
+        }
+        
+        if(arrayRefGrande.length != 0)
+            alert('Vérifier que les grandes etiquettes sont bien dans l\'imprimante');
+        
+        for(i =0; i < arrayRefGrande.length; i++)
+        {
+            pathXml = pathGrande + '_' + arrayRefGrande[i] + '_' + arrayNumSerieGrande[i];
+            
+            $.ajax({
+                type: 'GET',
+                url: pathXml,
+                success: function(xml)
+                {
+                    label = dymo.label.framework.openLabelXml(xml);
+                    label.print(printerName);
+                }
+            });
+        }   
+    }
+              
     $.ajax({
     type: 'POST',
     url: path,
@@ -94,8 +253,8 @@ $('#addLecteur').on('click', function()
     {
         window.location.href =  document.referrer;
     }
-    })
-})
+    });
+});
     
 $('body').on('click', function(e)
 {

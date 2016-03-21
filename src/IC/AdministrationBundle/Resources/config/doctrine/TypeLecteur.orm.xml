@@ -39,7 +39,7 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <one-to-one field="nomenclature" target-entity="Nomenclature">
+    <one-to-one field="nomenclature" target-entity="Nomenclature" inversed-by="typeLecteur">
       <join-column name="id_nomenclature" referenced-column-name="id" />
     </one-to-one>
     <one-to-one field="sousTypeLecteur" target-entity="SousTypeLecteur">

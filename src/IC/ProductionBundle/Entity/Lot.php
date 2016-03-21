@@ -110,4 +110,3 @@ class Lot
         return $this->id;
     }
 }
-

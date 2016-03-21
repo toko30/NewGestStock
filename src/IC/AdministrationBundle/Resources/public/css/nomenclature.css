@@ -15,14 +15,14 @@ tr:hover .versionPlus
 }
 .titreNomenclature
 {
-	background: #00B8D6;
+	background: #00B7D6;
     color:white;
     width:40%;
     font-weight: bold;
 }
 .titreVersion
 {
-    background: #00B8D6;
+    background: #00B7D6;
     color:white;
     font-weight: bold;
     width:10%;
@@ -31,7 +31,7 @@ tr:hover .versionPlus
 {
     text-decoration: underline;
     font-weight: normal;
-    color: #00B8D6;
+    color: #00B7D6;
 }
 tr:hover a, .lienNomenclatureComp:hover, .lienNomenclatureCompModif
 {
@@ -39,21 +39,21 @@ tr:hover a, .lienNomenclatureComp:hover, .lienNomenclatureCompModif
 }
 .titreOptSt
 {	
-    background: #00B8D6;
+    background: #00B7D6;
     color:white;
     width:3%;
     font-weight: bold;
 }
 .titreQteNomenclature
 {
-    background: #00B8D6;
+    background: #00B7D6;
     color:white;
     font-weight: bold;
     width:5%;    
 }
 .titrePositionNomenclature
 {
-    background: #00B8D6;
+    background: #00B7D6;
     color:white;
     font-weight: bold;
     width:20%;    
@@ -73,5 +73,5 @@ tr:hover a, .lienNomenclatureComp:hover, .lienNomenclatureCompModif
 }
 .lienAffNomenclature:hover
 {
-    color: #00B8D6;
+    color: #00B7D6;
 }

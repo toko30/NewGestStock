@@ -171,7 +171,7 @@ class ProductionController extends Controller
         
         //selection de la production à lancer et la nomenclature pour sortir les composants du stock
         $production = $em->getRepository('ICProductionBundle:Production')->findOneBy(array('id' => $idProd));
-        $composantNomenclature = $em->getRepository('ICProductionBundle:ComposantNomenclature')->getComposantNomenclatureProd($production->getIdNomenclature());
+        $composantNomenclature = $em->getRepository('ICProductionBundle:ComposantNomenclature')->getComposantNomenclatureProdMP($production->getIdNomenclature());
         
         //Sortie des composants l'or de production interne
         if($production->getIdLieu() == 0)
@@ -244,9 +244,9 @@ class ProductionController extends Controller
         
         //recupération du lot créé précédement
         $lastLot = $em->getRepository('ICProductionBundle:Lot')->getLastLot();
-        
+        $nbProd = $production->getQuantite();
         //création de la liste de carte à tester ainsi que leurs numéro de série
-        for($i = 0, $i1 = 1; $i < $production->getQuantite(); $i++, $i1++)
+        for($i = 0, $i1 = 1; $i < $nbProd; $i++, $i1++)
         {
             while(true)
             {
@@ -270,7 +270,7 @@ class ProductionController extends Controller
                 }
             }
             
-            if($i1 == 3000 || $production->getQuantite() == $i + 1)
+            if($i1 == 1000 || $i + 1 == $nbProd)
             {
                 $i1 = 0;
                 $em->flush();

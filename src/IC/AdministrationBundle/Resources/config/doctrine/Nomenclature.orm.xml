@@ -11,5 +11,7 @@
     </field>
     <one-to-many field="versionNomenclature" target-entity="VersionNomenclature" mapped-by="nomenclature"/>
     <one-to-many field="firmware" target-entity="Firmware" mapped-by="nomenclature"/>
+    <one-to-one field="typeLecteur" target-entity="TypeLecteur" mapped-by="nomenclature"/>
+      
   </entity>
 </doctrine-mapping>

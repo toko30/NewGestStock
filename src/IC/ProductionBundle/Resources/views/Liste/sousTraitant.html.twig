@@ -23,16 +23,15 @@
             
             <input type="submit" value="Ajouter à la production prévisionnelle" class="inputValid"></a> 
 
-            <table>
+            <table class="tabComposantProduction">
                 <tr>
                     <td class="titreCheckBox"></td>  
                     <td class="titreDesignation">Designation</td>
                     <td class="titreQte">Qte nécessaire</td>
-                    <td class="titreQte">Stock Restant</td>
+                    <td class="titreQte">Stock Manquant</td>
                 </tr>
                 {% for composant in composantNomenclature %}
-                    
-                    <tr class="{% if composant.stock < 0 %}stockInsufisant{% endif %}">
+                    <tr>
                         <td>
                         {% if composant.option == 0 %}
                             <input type="checkbox" name="option[]" value="{{composant.id}}" checked>

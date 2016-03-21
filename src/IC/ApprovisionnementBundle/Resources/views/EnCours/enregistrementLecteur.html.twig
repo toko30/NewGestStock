@@ -18,13 +18,15 @@
 {% block page %}
 
     {{ parent() }}
+    
     <h1 id="pathAjax" data-path="{{ path('ic_approvisionnement_add_lecteur', {'idCommande': appro[0].id}) }}">Sélection du lecteur</h1>
+
     {% for approLecteur in appro[0].approLecteur %}
     
         {% if loop.index0 == 0 %}
-            <div id="focus" class="lecteur" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span></div>
+            <div id="focus" class="lecteur" petite="{{ approLecteur.typeLecteurAutre.petite }}" moyenne="{{ approLecteur.typeLecteurAutre.moyenne }}" grande="{{ approLecteur.typeLecteurAutre.grande }}" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span></div>
         {% else %}
-            <div class="lecteur" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span> </div>
+            <div class="lecteur" petite="{{ approLecteur.typeLecteurAutre.petite }}" moyenne="{{ approLecteur.typeLecteurAutre.moyenne }}" grande="{{ approLecteur.typeLecteurAutre.grande }}" name="{{ approLecteur.typeLecteurAutre.reference }}">{{ approLecteur.typeLecteurAutre.designation }}<span class="compteur"><span class="decrement">{{ approLecteur.quantite }}</span> / {{ approLecteur.quantite }}</span> </div>
         {% endif %}
         
     {% endfor %}
@@ -39,7 +41,9 @@
         <table id="listeLecteur">
             <tr><td class="titreDesignation">Reférence</td><td class="titreDesignation">Numéro de série</td></tr>
         </table>
-
+    <span id="pathAjaxPetite" data-path="{{ path('ic_approvisionnement_petite_label') }}"></span>
+    <span id="pathAjaxMoyenne" data-path="{{ path('ic_approvisionnement_moyenne_label') }}"></span>
+    <span id="pathAjaxGrande" data-path="{{ path('ic_approvisionnement_grande_label') }}"></span>
 {% endblock %}
 
 {% block javascripts %}

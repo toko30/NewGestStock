@@ -1,0 +1,26 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Contrôle Qualité{% endblock %}
+
+{% block entete %}{{ parent() }} Contrôle Qualité{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/controleQualite.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+    
+    <a class="lienChangementPage" href="{{ path('ic_administration_affichage_gestion_qualite') }}">Gestion des Controles Qualité</a>
+
+    {% for nomenclature in listeNomenclatures %}
+        {{ nomenclature.nom}}
+    {% endfor %}
+{% endblock %}

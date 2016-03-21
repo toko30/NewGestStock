@@ -167,5 +167,33 @@ class ProduitFiniNomenclature
     {
         return $this->composant;
     }
-}
+    /**
+     * @var integer
+     */
+    private $idVersion;
 
+
+    /**
+     * Set idVersion
+     *
+     * @param integer $idVersion
+     *
+     * @return ProduitFiniNomenclature
+     */
+    public function setIdVersion($idVersion)
+    {
+        $this->idVersion = $idVersion;
+
+        return $this;
+    }
+
+    /**
+     * Get idVersion
+     *
+     * @return integer
+     */
+    public function getIdVersion()
+    {
+        return $this->idVersion;
+    }
+}

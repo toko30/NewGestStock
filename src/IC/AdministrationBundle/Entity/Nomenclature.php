@@ -18,6 +18,11 @@ class Nomenclature
     private $id;
 
     /**
+     * @var \IC\AdministrationBundle\Entity\TypeLecteur
+     */
+    private $typeLecteur;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $versionNomenclature;
@@ -68,6 +73,30 @@ class Nomenclature
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set typeLecteur
+     *
+     * @param \IC\AdministrationBundle\Entity\TypeLecteur $typeLecteur
+     *
+     * @return Nomenclature
+     */
+    public function setTypeLecteur(\IC\AdministrationBundle\Entity\TypeLecteur $typeLecteur = null)
+    {
+        $this->typeLecteur = $typeLecteur;
+
+        return $this;
+    }
+
+    /**
+     * Get typeLecteur
+     *
+     * @return \IC\AdministrationBundle\Entity\TypeLecteur
+     */
+    public function getTypeLecteur()
+    {
+        return $this->typeLecteur;
     }
 
     /**

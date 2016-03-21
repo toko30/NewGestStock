@@ -59,12 +59,12 @@ width:100%;
 {
     width:25%;
     text-decoration: underline;
-    color: #00B8D6;
+    color: #00B7D6;
     border-left:0;
 }
 .titreNomenclature, .titreQuantite
 {
-    background: #00B8D6;
+    background: #00B7D6;
     width:auto;
     border:0;
     color:white;
@@ -73,11 +73,11 @@ width:100%;
 .titreQuantite
 {
     width:30%;
-    border-right: 1px solid #00B8D6;
+    border-right: 1px solid #00B7D6;
 }
 .ligneHover:hover .caseProd, .ligneHover:hover .caseProd a
 {
-    border: 1px solid  #00B8D6;
+    border: 1px solid  #00B7D6;
     color:white;
 }
 .nom

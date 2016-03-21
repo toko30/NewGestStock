@@ -6,8 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class QualiteController extends Controller
 {
-    public function affichageQualiteAction()
-    {       
-        return $this->render('ICAdministrationBundle:qualite:affichage.html.twig', array('partie' => 'Administration'));
+    public function affichageNomenclatureQualiteAction()
+    {   
+        $em = $this->getDoctrine()->getManager();
+        
+        $listeNomenclatures = $em->getRepository('ICAdministrationBundle:Nomenclature')->findAll();
+        
+        return $this->render('ICAdministrationBundle:qualite:affichageNomenclature.html.twig', array('partie' => 'Administration',
+                                                                                                     'listeNomenclatures' => $listeNomenclatures));
+    }
+    
+    public function affichageGestionQualiteAction()
+    {   
+        $em = $this->getDoctrine()->getManager();
+        
+        $listeNomenclatures = $em->getRepository('ICAdministrationBundle:Etape')->findAll();
+
+        return $this->render('ICAdministrationBundle:qualite:affichageGestion.html.twig', array('partie' => 'Administration',
+                                                                                                'listeNomenclatures' => $listeNomenclatures));
     }
 }

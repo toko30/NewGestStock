@@ -139,4 +139,3 @@ class HistoriqueProd
         return $this->id;
     }
 }
-

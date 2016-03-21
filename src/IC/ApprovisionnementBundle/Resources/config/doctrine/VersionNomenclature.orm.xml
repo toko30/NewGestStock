@@ -14,5 +14,6 @@
         <option name="fixed"/>
       </options>
     </field>
+    <one-to-many field="produitFiniNomenclature" target-entity="ProduitFiniNomenclature" mapped-by="versionNomenclature"/>
   </entity>
 </doctrine-mapping>

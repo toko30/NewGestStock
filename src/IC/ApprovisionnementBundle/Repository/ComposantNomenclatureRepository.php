@@ -10,7 +10,7 @@ namespace IC\ApprovisionnementBundle\Repository;
  */
 class ComposantNomenclatureRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getComposantNomenclature($id)
+    public function getComposantNomenclatureMP($id)
 	{
 		return $this->createQueryBuilder('nc')
 		->join('nc.composant', 'c')

@@ -206,9 +206,13 @@ ic_administration_autre_update:
         idAutre: \d{1,10}
         idType: \d{1,10}   
         
-ic_administration_affichage_qualite:
-    path:     /Controle-Qualite
-    defaults: { _controller: ICAdministrationBundle:Qualite:affichageQualite }
+ic_administration_affichage_nomenclature_qualite:
+    path:     /Controle-Qualite-Nomenclature
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite }
+    
+ic_administration_affichage_gestion_qualite:
+    path:     /Gestion-Controle-Qualite
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionQualite } 
     
 ic_administration_affichage_firmware:
     path:     /Firmware-{idFirmware}
@@ -259,8 +263,7 @@ ic_administration_affichage_type_lecteur:
 ic_administration_affichage_type_autre:
     path:     /Type-Autre
     defaults: { _controller: ICAdministrationBundle:Option:typeAutre }      
- 
-                                                  
+                                         
 ic_ajax_choixFamille:
     path:     /Choix-Famille-{idFamille}
     defaults: { _controller: ICAdministrationBundle:MatierePremiere:choixFamille, idFamille: 0 }

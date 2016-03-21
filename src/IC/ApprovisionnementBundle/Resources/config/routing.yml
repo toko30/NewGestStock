@@ -89,3 +89,33 @@ ic_approvisionnement_vers_sous_traitant:
     defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockSousTraitant }
     requirements:
         idSousTraitant: \d{1,10}
+        
+ic_approvisionnement_petite_label:
+    path:     /Petite-Etiquette_{ref1}_{numSerie1}_{ref2}_{numSerie2}
+    defaults: 
+        _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:petiteLabel 
+        ref1: 0
+        numSerie1: 0
+        ref2: 0
+        numSerie2: 0
+    requirements:
+        numSerie1: \d{0,20}
+        numSerie2: \d{0,20}
+              
+ic_approvisionnement_moyenne_label:
+    path:     /Moyenne-Etiquette_{ref}_{numSerie}
+    defaults: 
+        _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:moyenneLabel
+        ref: 0
+        numSerie: 0
+    requirements:
+        numSerie: \d{0,20}
+        
+ic_approvisionnement_grande_label:
+    path:     /Grande-Etiquette_{ref}_{numSerie}
+    defaults: 
+        _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:grandeLabel
+        ref: 0
+        numSerie: 0
+    requirements:
+        numSerie: \d{0,20}

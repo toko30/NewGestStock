@@ -24,11 +24,12 @@ class ICApprovisionnementMP
         
         foreach($listProduction as $production)
         {
-            $listComposantNomenclature = $doctrine->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclature($production->getIdNomenclature());
+            $listComposantNomenclatureMP = $doctrine->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclatureMP($production->getIdNomenclature());
+            $listComposantNomenclaturePF = $doctrine->getRepository('ICApprovisionnementBundle:ProduitFiniNomenclature')->getComposantNomenclaturePF($production->getIdNomenclature());
             $listComposantSousTraitant = $doctrine->getRepository('ICApprovisionnementBundle:ComposantSousTraitant')->getComposantSt($production->getIdLieu());
             $listComposantUtilise = explode(',', $production->getComposantUtilise());
             
-            foreach($listComposantNomenclature as $composantNomenclature)
+            foreach($listComposantNomenclatureMP as $composantNomenclature)
             {
                 //si le composant fais parti des composants à envoyé au sous traitant ou si la production se fais en interne
                 if(in_array($composantNomenclature->getIdComposant(), $listComposantUtilise) || $production->getIdLieu() == 0)
@@ -105,6 +106,38 @@ class ICApprovisionnementMP
                     }
                 }
             }
+
+            foreach($listComposantNomenclaturePF as $composantNomenclature)
+            {
+                //au premier tour de boucle on créé le premier champ du tableau
+                if(!isset($quantiteCommande[0]['idComposant']))
+                {
+                    $quantiteCommande[0]['idComposant'] = $composantNomenclature->getIdComposant();
+                    $quantiteCommande[0]['quantite'] = ($composantNomenclature->getComposant()->getStockInterne()) - ($composantNomenclature->getQuantite() * $production->getQuantite());
+                }
+                else
+                {
+                    $existe = 0;
+                    //vérification si le composant a déja été renseigner pour une autre nomenclature
+                    for($i = 0; $i < count($quantiteCommande); $i++)
+                    {
+                        //si il l'a été on ajoute simplement la quantité à celle existante
+                        if($quantiteCommande[$i]['idComposant'] == $composantNomenclature->getIdComposant())
+                        {
+                            $existe = 1;
+                            $quantiteCommande[$i]['quantite'] -= $composantNomenclature->getQuantite() * $production->getQuantite();
+                        }
+                    }
+                    
+                    //si il n'existe pas on le créé
+                    if($existe == 0)
+                    {
+                        $next = count($quantiteCommande);
+                        $quantiteCommande[$next]['idComposant'] = $composantNomenclature->getIdComposant();
+                        $quantiteCommande[$next]['quantite'] = $composantNomenclature->getComposant()->getStockInterne() - ($composantNomenclature->getQuantite() * $production->getQuantite());                            
+                    }
+                }
+            }
         }
         return array($quantiteCommande, $composantStockST);
     }
@@ -135,11 +168,7 @@ class ICApprovisionnementMP
             for($i1 = 0; $i1 < count($quantiteCommande); $i1++) 
             {
                 if($quantiteCommande[$i1]['idComposant'] == $composantStockST['idComposant'][$i])
-                {
-
-                    $quantiteCommande[$i1]['quantite'] += $composantStockST['quantite'][$i]; 
-                    
-                }
+                    $quantiteCommande[$i1]['quantite'] += $composantStockST['quantite'][$i];   
             }
         }
         return $quantiteCommande;
@@ -153,9 +182,7 @@ class ICApprovisionnementMP
             for($i = 0; $i < count($quantiteCommande); $i++) 
             {
                 if($quantiteCommande[$i]['idComposant'] == $appro->getIdProduit())
-                {
                     $quantiteCommande[$i]['quantite'] += $appro->getQuantite(); 
-                }
             }
         }    
         return $quantiteCommande;    
@@ -227,7 +254,6 @@ class ICApprovisionnementMP
             $doctrine->remove($lastAppro[0]);
         }
         
-        $doctrine->flush();
-                    
+        $doctrine->flush();           
     }
 }

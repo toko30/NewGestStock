@@ -10,17 +10,17 @@ namespace IC\ProductionBundle\Repository;
  */
 class ComposantNomenclatureRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getComposantNomenclatureProd($id)
+	public function getComposantNomenclatureProdMP($id)
 	{
-		return $this->createQueryBuilder('nc')
-		->join('nc.version', 'v')
+		return $this->createQueryBuilder('cn')
+		->join('cn.version', 'v')
         ->join('v.nomenclature', 'n')
-		->join('nc.composant', 'c')
+		->join('cn.composant', 'c')
 		->join('c.famille', 'f')
 		->join('c.sousFamille', 'sf')
         ->orderBy('c.nom')
 		->addSelect('c', 'v', 'n')
-		->where('nc.idVersion = :id')
+		->where('cn.idVersion = :id')
 		->setParameter('id', $id)
 		->getQuery()
 		->getResult();
