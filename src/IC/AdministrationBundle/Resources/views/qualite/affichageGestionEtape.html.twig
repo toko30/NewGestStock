@@ -19,5 +19,15 @@
 	{{ parent()}}
     
     <a class="lienChangementPage" href="{{ path('ic_administration_affichage_nomenclature_qualite') }}">Gestion des nomenclatures</a>
-
+    
+    {{ form_start(form) }}
+        {{ form_widget(form.nom) }}
+        {{ form_widget(form.submit_etape) }}
+    {{ form_end(form) }}
+    
+    {% if listeEtapes is not empty %}
+        {% for etape in listeEtapes %}
+        
+        {% endfor %}
+    {% endif %}
 {% endblock %}

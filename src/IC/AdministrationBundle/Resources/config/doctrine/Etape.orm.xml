@@ -9,6 +9,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <one-to-many field="listeTest" target-entity="listeTest" mapped-by="etape"/>
+    <one-to-many field="listeTest" target-entity="ListeTest" mapped-by="etape"/>
   </entity>
 </doctrine-mapping>

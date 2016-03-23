@@ -212,8 +212,14 @@ ic_administration_affichage_nomenclature_qualite:
     
 ic_administration_affichage_gestion_qualite:
     path:     /Gestion-Controle-Qualite
-    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionQualite } 
-    
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionQualite, idEtape:0 } 
+    requirements:
+        idEtape: \d{1,10}
+        
+ic_administration_affichage_gestion_qualite_add_etape:
+    path:     /Gestion-Controle-Qualite
+    defaults: { _controller: ICAdministrationBundle:Qualite:addGestionQualite }
+          
 ic_administration_affichage_firmware:
     path:     /Firmware-{idFirmware}
     defaults: { _controller: ICAdministrationBundle:Firmware:affichageFirmware, idFirmware: 0}    

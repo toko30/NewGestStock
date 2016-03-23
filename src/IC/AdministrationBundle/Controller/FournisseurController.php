@@ -73,16 +73,16 @@ class FournisseurController extends Controller
         if ($formFournisseur->handleRequest($request)->isValid())
         {
             $data = $request->get('fournisseur');
-
+            
             $fournisseur = $em->getRepository('ICAdministrationBundle:Fournisseur')->find($idFournisseur); 
-            $typeProduit = $em->getRepository('ICAdministrationBundle:TypeProduit')->find($data['type']);   
+            //$typeProduit = $em->getRepository('ICAdministrationBundle:TypeProduit')->find($data['type']);   
             
             $fournisseur->setNom(strtoupper($data['nom']));
             $fournisseur->setContact($data['contact']);
             $fournisseur->setEmail($data['email']);
             $fournisseur->setNumero($data['numero']);
             $fournisseur->setSite($data['site']);
-            $fournisseur->setTypeProduit($typeProduit);
+            //$fournisseur->setTypeProduit($typeProduit);
             
             $em->persist($fournisseur); 
             $em->flush($fournisseur);     
