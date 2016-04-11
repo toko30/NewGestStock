@@ -206,20 +206,80 @@ ic_administration_autre_update:
         idAutre: \d{1,10}
         idType: \d{1,10}   
         
+ic_administration_affichage_fiche_descriptive:
+    path:     /Fiche-Descriptive
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:affichageFicheDescriptive }
+            
 ic_administration_affichage_nomenclature_qualite:
-    path:     /Controle-Qualite-Nomenclature
-    defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite }
-    
-ic_administration_affichage_gestion_qualite:
-    path:     /Gestion-Controle-Qualite
-    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionQualite, idEtape:0 } 
+    path:     /Controle-Qualite-Nomenclature-{allVersion}
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite, allVersion: 0 }
     requirements:
-        idEtape: \d{1,10}
+        allVersion: 0|1
+        
+ic_administration_affichage_gestion_nomenclature_qualite:
+    path:     /Gestion-Controle-Qualite-Nomenclature-{idVersion}
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionNomenclatureQualite }
+    requirements:
+        idVersion: \d{1,10}
+        
+ic_administration_affichage_gestion_nomenclature_qualite_test:
+    path:     /Affichage-Gestion-test-Nomenclature-{idEtapeNomenclature}-{idEtape}
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionTest}
+    requirements:
+        idEtapeNomenclature: \d{1,10}
+        idEtape: \d{1,10}    
+        
+ic_administration_gestion_nomenclature_qualite_add_etape:
+    path:     /Ajouter-Test-Nomenclature-{idVersion}
+    defaults: { _controller: ICAdministrationBundle:Qualite:addEtapeGestionNomenclatureQualite }
+    requirements:
+        idVersion: \d{1,10}
+        
+ic_administration_gestion_nomenclature_qualite_update_order_etape:
+    path:     /Modifier-Ordre-Etape-Nomenclature-{idEtapeNomenclature}-{plusOuMoins}
+    defaults: { _controller: ICAdministrationBundle:Qualite:updateOrderEtapeGestionNomenclatureQualite }
+    requirements:
+        idEtapeNomenclature: \d{1,10}
+        plusOuMoins: 0|1
+        
+ic_administration_gestion_nomenclature_qualite_gestion_test:
+    path:     /Gestion-Test-Nomenclature-{idEtapeNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Qualite:updateTestGestionNomenclatureQualite }
+    requirements:
+        idEtapeNomenclature: \d{1,10}         
+               
+ic_administration_affichage_gestion_qualite:
+    path:     /Gestion-Controle-Qualite-{idEtape}-{idTest}
+    defaults: 
+        _controller: ICAdministrationBundle:Qualite:affichageGestionQualite
+        idEtape: 0
+        idTest: 0
+    requirements:
+        idEtape: \d{1,3}
+        idTest: \d{1,10}
         
 ic_administration_affichage_gestion_qualite_add_etape:
-    path:     /Gestion-Controle-Qualite
-    defaults: { _controller: ICAdministrationBundle:Qualite:addGestionQualite }
-          
+    path:     /Ajouter-Etape-Controle-Qualite
+    defaults: { _controller: ICAdministrationBundle:Qualite:addEtapeGestionQualite }
+
+ic_administration_affichage_gestion_qualite_update_etape:
+    path:     /Modifier-Etape-Controle-Qualite-{idEtape}
+    defaults: { _controller: ICAdministrationBundle:Qualite:updateEtapeGestionQualite }
+    requirements:
+        idEtape: \d{1,3}
+        
+ic_administration_affichage_gestion_qualite_add_test:
+    path:     /Ajouter-Test-Controle-Qualite-{idEtape}
+    defaults: { _controller: ICAdministrationBundle:Qualite:addTestGestionQualite }
+    requirements:
+        idEtape: \d{1,3}
+        
+ic_administration_affichage_gestion_qualite_update_test:
+    path:     /Modifier-Test-Controle-Qualite-{idTest}
+    defaults: { _controller: ICAdministrationBundle:Qualite:updateTestGestionQualite }
+    requirements:
+        idTest: \d{1,3}
+        
 ic_administration_affichage_firmware:
     path:     /Firmware-{idFirmware}
     defaults: { _controller: ICAdministrationBundle:Firmware:affichageFirmware, idFirmware: 0}    

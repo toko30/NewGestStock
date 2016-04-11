@@ -20,14 +20,14 @@ class Etape
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $listeTest;
+    private $test;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->listeTest = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->test = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -65,37 +65,37 @@ class Etape
     }
 
     /**
-     * Add listeTest
+     * Add test
      *
-     * @param \IC\AdministrationBundle\Entity\listeTest $listeTest
+     * @param \IC\AdministrationBundle\Entity\Test $test
      *
      * @return Etape
      */
-    public function addListeTest(\IC\AdministrationBundle\Entity\listeTest $listeTest)
+    public function addTest(\IC\AdministrationBundle\Entity\Test $test)
     {
-        $this->listeTest[] = $listeTest;
+        $this->test[] = $test;
 
         return $this;
     }
 
     /**
-     * Remove listeTest
+     * Remove test
      *
-     * @param \IC\AdministrationBundle\Entity\listeTest $listeTest
+     * @param \IC\AdministrationBundle\Entity\Test $test
      */
-    public function removeListeTest(\IC\AdministrationBundle\Entity\listeTest $listeTest)
+    public function removeTest(\IC\AdministrationBundle\Entity\Test $test)
     {
-        $this->listeTest->removeElement($listeTest);
+        $this->test->removeElement($test);
     }
 
     /**
-     * Get listeTest
+     * Get test
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getListeTest()
+    public function getTest()
     {
-        return $this->listeTest;
+        return $this->test;
     }
 }
 

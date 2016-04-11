@@ -1,3 +1,3 @@
-ic_produit_fini_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ICProduitFiniBundle:Default:index }
+ic_produit_fini_affichage:
+    path:     /Produit-Fini
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:affichage }

@@ -10,4 +10,25 @@ namespace IC\AdministrationBundle\Repository;
  */
 class EtapeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllEtapeAndTest()
+    {
+        return $this->createQueryBuilder('e')
+        ->leftJoin('e.test', 't')
+        ->getQuery()
+        ->getresult();
+    }
+    
+    public function getEtapeNotUsed($listeEtapeUsed)
+    {
+        $req = $this->createQueryBuilder('e');
+        
+        if(!empty($listeEtapeUsed))
+        {
+            $req->where('e.id NOT IN (:listeEtapeUsed)')
+            ->setParameter('listeEtapeUsed', $listeEtapeUsed)  ;          
+        }
+
+        return $req->getQuery()
+        ->getResult();
+    }
 }

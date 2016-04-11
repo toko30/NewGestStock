@@ -17,7 +17,7 @@ class MenuController extends Controller
         
         //Liste des requètes Doctrine pour les options du menu
         
-        $listSousTraitant = $em->getRepository('ICAffichageBundle:SousTraitant')->findAll();
+        $listSousTraitant = $em->getRepository('ICAffichageBundle:SousTraitant')->getAllSousTraitant();
         $listNomenclature = $em->getRepository('ICAffichageBundle:VersionNomenclature')->getAllNomenclatureLastVersion();
         $listAppro = $em->getRepository('ICAffichageBundle:Appro')->getListStAppro();
         $listProd = $em->getRepository('ICAffichageBundle:Production')->getListStProd();

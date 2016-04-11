@@ -26,6 +26,6 @@ class EtapeType extends AbstractType
         
     public function getName()
     {
-        return 'formEtape';
+        return 'etapeType';
     }
 }

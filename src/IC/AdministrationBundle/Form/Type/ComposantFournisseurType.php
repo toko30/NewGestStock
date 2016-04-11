@@ -40,6 +40,6 @@ class ComposantFournisseurType extends AbstractType
     
     public function getName()
     {
-        return 'formComposantFournisseurType';
+        return 'composantFournisseurType';
     }  
 }

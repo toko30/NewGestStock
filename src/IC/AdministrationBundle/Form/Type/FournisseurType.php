@@ -36,6 +36,6 @@ class FournisseurType extends AbstractType
         
     public function getName()
     {
-        return 'formFournisseurType';
+        return 'fournisseurType';
     }
 }

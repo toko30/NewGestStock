@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ListeTestType extends AbstractType
+class TestType extends AbstractType
 {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -18,21 +18,16 @@ class ListeTestType extends AbstractType
                 
         $builder->add('nom', TextType::class, array('required' => true));
 
-        $builder->add('etape', EntityType::class, array(
-                      'class' => 'IC\AdministrationBundle\Entity\Etape',
-                      'choice_label' => 'nom',
-                      'multiple'  => false));
-
-        $builder->add('submit_liste_test', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));
+        $builder->add('submit_test', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));
     }
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'IC\AdministrationBundle\Entity\ListeTest'));
+        $resolver->setDefaults(array('data_class' => 'IC\AdministrationBundle\Entity\test'));
     }
     
     public function getName()
     {
-        return 'formComposantFournisseurType';
+        return 'testType';
     }  
 }

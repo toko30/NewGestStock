@@ -1,0 +1,61 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Contrôle Qualité{% endblock %}
+
+{% block entete %}{{ parent() }} Contrôle Qualité{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/controleQualite.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent() }}
+    
+    {% if listeNewEtape is not empty %}
+    
+        <form method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_add_etape', {idVersion: versionNomenclature[0].version}) }}">
+            <label for="etape">Ajouter une etape de test</label>
+            <select id="etape" name="etape">
+                {% for etape in listeNewEtape %}
+                    <option value="{{ etape.id }}">{{ etape.nom }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Ajouter">
+        </form>
+        
+    {% endif %}
+    
+    {% if versionNomenclature[0].etapeNomenclature is not empty %}
+    
+        {% if versionNomenclature[0].etapeNomenclature|length == 1 %}
+            <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': versionNomenclature[0].etapeNomenclature[0].id, 'idEtape': versionNomenclature[0].etapeNomenclature[0].idEtape}) }}">{{ versionNomenclature[0].etapeNomenclature[0].etape.nom }}</a>
+        {% else %}
+        
+            {% for etapeNomenclature in versionNomenclature[0].etapeNomenclature %}
+                <div class="ListeEtape">
+                
+                    {{ loop.index }} <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': etapeNomenclature.id, 'idEtape': etapeNomenclature.idEtape}) }}">{{ etapeNomenclature.etape.nom }}</a>
+                    
+                    {% if loop.index != versionNomenclature[0].etapeNomenclature|length %}
+                        <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '0'}) }}">-</a>
+                    {% endif %}
+
+                    {% if loop.index != 1 %}
+                        <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '1'}) }}">+</a>
+                    {% endif %}
+                    
+                </div>
+            {% endfor %}
+            
+        {% endif %}
+    
+    {% endif %}
+      
+{% endblock %}

@@ -18,6 +18,7 @@
       <join-column name="id_nomenclature" referenced-column-name="id" />
     </many-to-one>
     <one-to-many field="composantNomenclature" target-entity="ComposantNomenclature" mapped-by="versionNomenclature"/>
-    <one-to-many field="produitFiniNomenclature" target-entity="ProduitFiniNomenclature" mapped-by="versionNomenclature"/>
+    <one-to-many field="produitFiniNomenclature" target-entity="ProduitFiniNomenclature" mapped-by="versionNomenclature"/>    
+    <one-to-many field="etapeNomenclature" target-entity="EtapeNomenclature" mapped-by="versionNomenclature"/> 
   </entity>
 </doctrine-mapping>

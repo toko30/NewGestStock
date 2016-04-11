@@ -54,6 +54,6 @@ class LecteurType extends AbstractType
     
     public function getName()
     {
-        return 'formTypeLecteurType';
+        return 'lecteurType';
     }
 }

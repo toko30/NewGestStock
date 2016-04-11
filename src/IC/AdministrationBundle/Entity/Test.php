@@ -3,9 +3,9 @@
 namespace IC\AdministrationBundle\Entity;
 
 /**
- * ListeTest
+ * Test
  */
-class ListeTest
+class Test
 {
     /**
      * @var string
@@ -33,7 +33,7 @@ class ListeTest
      *
      * @param string $nom
      *
-     * @return ListeTest
+     * @return Test
      */
     public function setNom($nom)
     {
@@ -57,7 +57,7 @@ class ListeTest
      *
      * @param integer $idEtape
      *
-     * @return ListeTest
+     * @return Test
      */
     public function setIdEtape($idEtape)
     {
@@ -91,7 +91,7 @@ class ListeTest
      *
      * @param \IC\AdministrationBundle\Entity\Etape $etape
      *
-     * @return ListeTest
+     * @return Test
      */
     public function setEtape(\IC\AdministrationBundle\Entity\Etape $etape = null)
     {

@@ -22,8 +22,13 @@ class FirmwareController extends Controller
             $url = $this->generateUrl('ic_administration_add_firmware');
             $firmware = new Firmware();
             
-            foreach($listNomenclatures as $nomenclature)
-                $formFirmware[] = $this->createForm(FirmwareType::class, $firmware, array('action'=> $url))->createView();            
+            if($listNomenclatures == null)
+                $formFirmware[] = null;
+            else
+            {
+                foreach($listNomenclatures as $nomenclature)
+                    $formFirmware[] = $this->createForm(FirmwareType::class, $firmware, array('action'=> $url))->createView();                         
+            }
         }
         else
         {

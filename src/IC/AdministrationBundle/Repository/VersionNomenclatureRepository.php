@@ -56,4 +56,17 @@ class VersionNomenclatureRepository extends \Doctrine\ORM\EntityRepository
         ->getQuery()
         ->getResult();        
     }
+    
+    public function getEtapeNomenclature($idVersionNomenclature)
+    {
+        return $this->createQueryBuilder('vn')
+        ->leftjoin('vn.etapeNomenclature', 'en')
+        ->leftjoin('en.etape', 'e')
+        ->orderBy('en.ordre', 'ASC')
+        ->addSelect('vn', 'en', 'e')
+        ->where('vn.id = :idVersion')
+        ->setParameter('idVersion', $idVersionNomenclature)
+        ->getQuery()
+        ->getResult();
+    }
 }

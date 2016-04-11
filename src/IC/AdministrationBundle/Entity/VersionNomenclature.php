@@ -33,6 +33,11 @@ class VersionNomenclature
     private $produitFiniNomenclature;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $etapeNomenclature;
+
+    /**
      * @var \IC\AdministrationBundle\Entity\Nomenclature
      */
     private $nomenclature;
@@ -44,6 +49,7 @@ class VersionNomenclature
     {
         $this->composantNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
         $this->produitFiniNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->etapeNomenclature = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -170,6 +176,40 @@ class VersionNomenclature
     public function getProduitFiniNomenclature()
     {
         return $this->produitFiniNomenclature;
+    }
+
+    /**
+     * Add etapeNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\EtapeNomenclature $etapeNomenclature
+     *
+     * @return VersionNomenclature
+     */
+    public function addEtapeNomenclature(\IC\AdministrationBundle\Entity\EtapeNomenclature $etapeNomenclature)
+    {
+        $this->etapeNomenclature[] = $etapeNomenclature;
+
+        return $this;
+    }
+
+    /**
+     * Remove etapeNomenclature
+     *
+     * @param \IC\AdministrationBundle\Entity\EtapeNomenclature $etapeNomenclature
+     */
+    public function removeEtapeNomenclature(\IC\AdministrationBundle\Entity\EtapeNomenclature $etapeNomenclature)
+    {
+        $this->etapeNomenclature->removeElement($etapeNomenclature);
+    }
+
+    /**
+     * Get etapeNomenclature
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEtapeNomenclature()
+    {
+        return $this->etapeNomenclature;
     }
 
     /**

@@ -40,6 +40,6 @@ class IdentifiantFournisseurType extends AbstractType
     
     public function getName()
     {
-        return 'IdentifiantFournisseurType';
+        return 'identifiantFournisseurType';
     }  
 }

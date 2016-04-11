@@ -5,13 +5,14 @@
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_nomenclature') }}">Nomenclatures</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_firmware') }}">Firmware</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_nomenclature_qualite') }}">Contrôle Qualité</a><br>
+
         
         {% image 'Resources/public/images/plus.png' %}
             <span id="sousMenu1" class="sousMenu"><img id="sousMenu11" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Produits Finis</span><br>
         {% endimage %}
         
         <div class="divSousMenu" id="sousMenu111">
-            <a class="sousSousMenu" href="{{ path('ic_administration_affichage_produit_fini_lecteur_interne') }}">Lecteurs IDcapt</a><br>
+            <a class="sousSousMenu" href="{{ path('ic_administration_affichage_fiche_descriptive') }}">Fiche Descriptive Lecteur IDcapt</a><br>
             <a class="sousSousMenu" href="{{ path('ic_administration_affichage_produit_fini_identifiant') }}">Identifiants</a><br>
             <a class="sousSousMenu" href="{{ path('ic_administration_affichage_produit_fini_autre') }}">Autres PF</a><br>
         </div>

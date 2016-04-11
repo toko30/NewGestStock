@@ -1,0 +1,54 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Contrôle Qualité{% endblock %}
+
+{% block entete %}{{ parent() }} Contrôle Qualité{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/controleQualite.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent() }}
+    
+    <form method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_gestion_test', {'idEtapeNomenclature': idEtapeNomenclature}) }}">
+    
+        <input type="submit" value="Valider"><br>
+        
+        {% for test in listeTest %}
+        
+            {% if listeTestChecked is not null %}
+            
+                {% set exist = 0 %}
+                
+                {% for testChecked in listeTestChecked %}
+                
+                    {% if testChecked.idTest == test.id %}
+                        <input type="checkbox" name="test[]" value="{{ test.id }}" checked >{{ test.nom }}<br>
+                        {% set exist = 1 %}
+                    {% endif %}
+                    
+                {% endfor %}
+                
+                {% if exist == 0 %}
+                    <input type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
+                {% endif %}
+                
+            {% else %}
+                <input type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
+            {% endif %}
+            
+        {% endfor %}
+        
+        <input type="submit" value="Valider">
+        
+    </form>
+    
+{% endblock %}

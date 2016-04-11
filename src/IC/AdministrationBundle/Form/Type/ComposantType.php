@@ -45,6 +45,6 @@ class ComposantType extends AbstractType
         
     public function getName()
     {
-        return 'formComposant';
+        return 'ComposantType';
     }
 }

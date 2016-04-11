@@ -16,11 +16,28 @@
 
 {% block page %}
 
-	{{ parent()}}
+	{{ parent() }}
     
     <a class="lienChangementPage" href="{{ path('ic_administration_affichage_gestion_qualite') }}">Gestion des Controles Qualité</a>
-
-    {% for nomenclature in listeNomenclatures %}
-        {{ nomenclature.nom }}<br>
+    <br>
+    {% if allVersion == 0 %}
+        <a class="lienAffNomenclature" href="{{ path('ic_administration_affichage_nomenclature_qualite', {allVersion: 1}) }}">Afficher toutes les versions</a>
+    {% else %}
+        <a class="lienAffNomenclature" href="{{ path('ic_administration_affichage_nomenclature_qualite', {allVersion: 0}) }}">Afficher les dernières versions</a>
+    {% endif %}
+    
+    {% set idNomenclature = 0 %} 
+    
+    {% for versionNomenclature in listeNomenclatures %}
+    
+        {% if versionNomenclature.nomenclature.id != idNomenclature or allVersion == 1 %}
+            
+            {% set idNomenclature = versionNomenclature.nomenclature.id %} 
+            
+            <a class="lienNomenclature" href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite', {idVersion: versionNomenclature.version}) }}">{{ versionNomenclature.nomenclature.nom }}-V{{ versionNomenclature.version }}</a>
+        
+        {% endif %}
+        
     {% endfor %}
+    
 {% endblock %}

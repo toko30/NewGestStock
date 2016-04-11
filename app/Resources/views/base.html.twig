@@ -38,13 +38,13 @@
         {% if partie == 'test' %}
             <span class="spanMenu">Contrôle Qualité</span>
         {% else %}  
-            <a href="{{ path('ic_affichage_composant_interne') }}">Contrôle Qualité</a>
+            <a href="{{ path('ic_test_affichage') }}">Contrôle Qualité</a>
         {% endif %}
         
         {% if partie == 'produit_fini' %}
             <span class="spanMenu">Produit Fini</span>
         {% else %}  
-            <a href="{{ path('ic_affichage_composant_interne') }}">Produit Fini</a>
+            <a href="{{ path('ic_produit_fini_affichage') }}">Produit Fini</a>
         {% endif %}
         
         {% if partie == 'Administration' %}
