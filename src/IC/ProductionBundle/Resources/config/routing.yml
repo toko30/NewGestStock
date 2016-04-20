@@ -9,12 +9,13 @@ ic_production_sous_traitant:
         id: \d{1,10}
 
 ic_calcul:
-    path:     /Calcul-{idProducteur}-{idVersion}-{quantite1}-{quantite2}
+    path:     /Calcul-{idProducteur}-{idType}-{idVersion}-{quantite1}-{quantite2}
     defaults:  
         _controller: ICProductionBundle:Production:calcul
         quantite2:   0
     requirements:
         idProducteur: \d{1,10}
+        idType: 0|1
         idVersion:    \d{1,10}
         quantite1:    \d{1,10}
         quantite2:    \d{1,10}
@@ -36,3 +37,9 @@ ic_suppression_previsionnelle:
     defaults: { _controller: ICProductionBundle:Production:suppression }
     requirements:
         idProd: \d{1,10}
+
+ic_ajax_changement_type:
+    path:     /Changement-Type-{idType}
+    defaults: { _controller: ICProductionBundle:Production:changementType, idType: 0 }
+    requirements:
+        idType: \d{1,10}

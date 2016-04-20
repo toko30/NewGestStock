@@ -19,6 +19,7 @@ class EtapeNomenclatureRepository extends \Doctrine\ORM\EntityRepository
         ->getQuery()
         ->getResult();
     }
+    
     public function getEtapeNomenclatureOrder($idVersionNomenclature, $ordre)
     {
         return $this->createQueryBuilder('en')
@@ -28,4 +29,15 @@ class EtapeNomenclatureRepository extends \Doctrine\ORM\EntityRepository
         ->getQuery()
         ->getResult();        
     }
+    
+    public function getAllInfoEtape($idEtape)
+    {
+        return $this->createQueryBuilder('en')
+        ->leftJoin('en.testNomenclature', 'e')
+        ->addSelect('en', 'e')
+        ->where('en.id = :idEtape')   
+        ->setParameter('idEtape', $idEtape)
+        ->getQuery()
+        ->getResult();        
+    }   
 }

@@ -14,6 +14,7 @@ class EtapeRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('e')
         ->leftJoin('e.test', 't')
+        ->where('e.id != -1 AND e.id != -2')
         ->getQuery()
         ->getresult();
     }
@@ -30,5 +31,15 @@ class EtapeRepository extends \Doctrine\ORM\EntityRepository
 
         return $req->getQuery()
         ->getResult();
+    }
+    public function getTestByEtape($idEtape)
+    {
+        return $this->createQueryBuilder('e')
+        ->leftJoin('e.test', 't')
+        ->addSelect('e', 't')
+        ->where('e.id = :idEtape')
+        ->setparameter('idEtape', $idEtape)
+        ->getQuery()
+        ->getresult();
     }
 }

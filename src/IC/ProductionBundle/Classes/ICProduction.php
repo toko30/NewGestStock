@@ -32,6 +32,23 @@ class ICProduction
         return $listLastNomenclature;
     }
     
+    public function listLastFicheDescriptive()
+    {
+        $doctrine = $this->doctrine;
+        
+        $listeAllVersionFicheDescriptive = $doctrine->getRepository('ICProductionBundle:VersionFicheDescriptive')->getAllVersion();
+        $i = 0;
+        foreach($listeAllVersionFicheDescriptive as $versionFicheDescriptive)
+        {
+            if($i != $versionFicheDescriptive->getFicheDescriptiveOption()->getId())
+            {
+                $i = $versionFicheDescriptive->getFicheDescriptiveOption()->getId();
+                $listLastFicheDescriptiveOption[] = $versionFicheDescriptive;
+            }
+        }
+        return $listLastFicheDescriptiveOption;        
+    }
+    
     public function calculQteproduction($nbProdManquant, $calculStockRestant, $composant)
     {
         if($calculStockRestant < 0)
@@ -49,57 +66,78 @@ class ICProduction
         return $nbProdManquant;
     }
     
-    public function getListComposantNomenclatureInterne($data, $idVersion)
+    public function getListComposantNomenclatureInterne($data)
     {
         $doctrine = $this->doctrine;
         
-        //recupération du nom de la nomenclature et les composants qui y sont liés
-        $listeComposantnomenclatureMP = $doctrine->getRepository('ICProductionBundle:ComposantNomenclature')->getComposantNomenclatureProdMP($idVersion);
-        $listeComposantnomenclaturePF = $doctrine->getRepository('ICProductionBundle:ProduitFiniNomenclature')->getComposantNomenclatureProdPF($idVersion);
-
         //déclaration à 0 du nombre de carte qui ne pourront pas être produites
         $tabComposant = array();
-        $nbProdManquant = 0;
+        
         $i = 0;
-        $nomenclature = '';
-        if(!empty($listeComposantnomenclatureMP))
-        {
-            $nomenclature = $listeComposantnomenclatureMP[0]->getVersion()->getNomenclature()->getNom();
-            
-            //Calcul des cartes pouvant etre produites
-            foreach($listeComposantnomenclatureMP as $composant)
-            {
-                $calculStockRestant = $composant->getComposant()->getStockInterne() - ($composant->getQuantite() * $data['quantite']);
-                
-                if($calculStockRestant < 0)
-                {
-                    $tabComposant[$i]['designation'] = $composant->getComposant()->getNom();
-                    $tabComposant[$i]['quantite'] = $composant->getQuantite() * $data['quantite'];             
-                    $tabComposant[$i++]['stock'] = abs($calculStockRestant);
-                }
-                //Mise a jour du nombre de carte qui ne pourront pas etre produite avec le stock actuel
-                $nbProdManquant = self::calculQteproduction($nbProdManquant, $calculStockRestant, $composant);
-            }
-        }
-        
-        if(!empty($listeComposantnomenclaturePF))
-        {            
-            //Calcul des cartes pouvant etre produites
-            foreach($listeComposantnomenclaturePF as $composant)
-            {
-                $calculStockRestant = $composant->getComposant()->getStockInterne() - ($composant->getQuantite() * $data['quantite']);
-                
-                if($calculStockRestant < 0)
-                {
-                    $tabComposant[$i]['designation'] = $composant->getComposant()->getNom();
-                    $tabComposant[$i]['quantite'] = $composant->getQuantite() * $data['quantite'];             
-                    $tabComposant[$i++]['stock'] = abs($calculStockRestant);                    
-                }
 
+        if($data['type'] == 0)
+        {
+            $listVersionFicheDescriptive = $doctrine->getRepository('ICProductionBundle:VersionFicheDescriptive')->getNomenclatureFicheDescriptive($data['versionNomenclature']);  
+            
+            foreach($listVersionFicheDescriptive[0]->getNomenclatureFicheDescriptive() as $versionFicheDescriptive)
+            {
+                $listVersionNomenclature[]['idVersion'] = $versionFicheDescriptive->getIdVersionNomenclature();
+            }          
+        }
+        else
+            $listVersionNomenclature = $doctrine->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);
+            
+        foreach($listVersionNomenclature as $versionNomenclature)
+        {
+            if($data['type'] == 0) $id = $versionNomenclature['idVersion']; else $id = $versionNomenclature->getId();
+
+            //recupération du nom de la nomenclature et les composants qui y sont liés
+            $listeComposantnomenclatureMP = $doctrine->getRepository('ICProductionBundle:ComposantNomenclature')->getComposantNomenclatureProdMP($id);
+            $listeComposantnomenclaturePF = $doctrine->getRepository('ICProductionBundle:ProduitFiniNomenclature')->getComposantNomenclatureProdPF($id);
+            
+            $i1 = 0;
+            $nbProdManquant[$i] = 0;
+            
+            if(!empty($listeComposantnomenclatureMP))
+            {
+                $tabComposant[]['nom'] = $listeComposantnomenclatureMP[0]->getVersion()->getNomenclature()->getNom().'-V'.$listeComposantnomenclatureMP[0]->getVersion()->getVersion();
+                
+                //Calcul des cartes pouvant etre produites
+                foreach($listeComposantnomenclatureMP as $composant)
+                {
+                    $calculStockRestant = $composant->getComposant()->getStockInterne() - ($composant->getQuantite() * $data['quantite']);
+                    
+                    if($calculStockRestant < 0)
+                    {
+                        $tabComposant[$i][$i1]['designation'] = $composant->getComposant()->getNom();
+                        $tabComposant[$i][$i1]['quantite'] = $composant->getQuantite() * $data['quantite'];             
+                        $tabComposant[$i][$i1]['stock'] = abs($calculStockRestant);
+                    }
+                    //Mise a jour du nombre de carte qui ne pourront pas etre produite avec le stock actuel
+                    $nbProdManquant[$i] = self::calculQteproduction($nbProdManquant[$i], $calculStockRestant, $composant);
+                }
             }
+            
+            if(!empty($listeComposantnomenclaturePF))
+            {            
+                //Calcul des cartes pouvant etre produites
+                foreach($listeComposantnomenclaturePF as $composant)
+                {
+                    $calculStockRestant = $composant->getComposant()->getStockInterne() - ($composant->getQuantite() * $data['quantite']);
+                    
+                    if($calculStockRestant < 0)
+                    {
+                        $tabComposant[$i][$i1]['designation'] = $composant->getComposant()->getNom();
+                        $tabComposant[$i][$i1]['quantite'] = $composant->getQuantite() * $data['quantite'];             
+                        $tabComposant[$i][$i1++]['stock'] = abs($calculStockRestant);                    
+                    }
+
+                }
+            } 
+            $i++;        
         }
         
-        return array($tabComposant, $nbProdManquant, $nomenclature);
+        return array($tabComposant, $nbProdManquant);
     }
     
     public function getTabProdInterne()

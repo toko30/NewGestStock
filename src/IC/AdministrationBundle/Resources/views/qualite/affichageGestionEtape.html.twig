@@ -21,8 +21,10 @@
     <a class="lienChangementPage" href="{{ path('ic_administration_affichage_nomenclature_qualite') }}">Gestion des nomenclatures</a>
     
     {% if idEtape == 0 %}
-        {{ form_start(formEtape) }}
-            {{ form_widget(formEtape.nom) }}
+        {{ form_start(formEtape, {attr: {'class': 'formAjout'}}) }}
+            <h2>{{ form_label(formEtape.nom) }}</h2>
+            <br>
+            {{ form_widget(formEtape.nom, {attr: {'class': 'inputAddEtape'}}) }}
             {{ form_widget(formEtape.submit_etape) }}
         {{ form_end(formEtape) }}
     {% endif %}
@@ -44,10 +46,18 @@
             <table class="tabEtape">
                 <tr>
                     {% if idEtape == etape.id %}
+                        <td class="titreDetails"></td>
                         <td class="titreDesignation">{{ form_widget(formEtape.nom) }}</td>
                         <td class="details">{{ form_widget(formEtape.submit_etape) }}</td>
                     {% else %}
-                        <td class="titreDesignation">{{ etape.nom }}</td>
+                        <td class="titreDetails">
+                            {% image 'Resources/public/images/redcroix.png' %}
+                                <a href="">
+                                    <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche haut" />
+                                </a>
+                            {% endimage %}
+                        </td>
+                        <td class="titreDesignation">{{ etape.nom }} </td>
                         <td class="details">
                             {% image 'Resources/public/images/fleche.png' %}
                                 <a href="{{ path('ic_administration_affichage_gestion_qualite', {idEtape: etape.id}) }}">
@@ -59,6 +69,7 @@
                     
                     {% if idTest == 0 and idEtape == 0 %}
                         <tr>
+                            <td class="titreDetails"></td>
                             <td class="titreDesignation">{{ form_widget(formTest[loop.index0].nom) }}</td>
                             <td class="details">{{ form_widget(formTest[loop.index0].submit_test) }}</td>
                         </tr>
@@ -68,12 +79,20 @@
                     
                         {% if idTest == test.id %}
                             <tr>
+                                <td class="titreDetails"></td>
                                 <td class="titreDesignation">{{ form_widget(formTest.nom) }}</td>
                                 <td class="details">{{ form_widget(formTest.submit_test) }}</td>
                             </tr>                        
                         {% else %}
                             <tr>
-                                <td>{{ test.nom }}</td>                        
+                                <td class="titreDetails">
+                                    {% image 'Resources/public/images/redcroix.png' %}
+                                        <a href="">
+                                            <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche haut" />
+                                        </a>
+                                    {% endimage %}
+                                </td>
+                                <td class="designation">{{ test.nom }}</td>                        
                                 <td class="details">
                                     {% image 'Resources/public/images/fleche.png' %}
                                         <a href="{{ path('ic_administration_affichage_gestion_qualite', {idTest: test.id}) }}">

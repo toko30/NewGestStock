@@ -1,8 +1,8 @@
 #menuVertical
 {
 	width:20%;
-	border-right: 1px solid #00B8D6;
-	border-bottom: 1px solid #00B8D6;
+	border-right: 1px solid #00B7D6;
+	border-bottom: 1px solid #00B7D6;
 	float:left;
 	padding: 20px;
 	margin-bottom: 50px;
@@ -19,14 +19,14 @@ table
 }
 tr td, tr th
 {
-	border: 1px solid #00B8D6;
+	border: 1px solid #00B7D6;
 	text-align: center;
 	height: 30px;
 }
 
 tr th
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	letter-spacing: 1.5px;
 	font-size: 18px;
@@ -34,13 +34,13 @@ tr th
 }
 .ligneHover:hover
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 }
 
 .inputCalculer
 {
-    background: #00B8D6;
+    background: #00B7D6;
     padding:3px 5px;
     color: white;
     border: 0;
@@ -52,7 +52,7 @@ tr th
 {
     display: block;
     margin:10px auto;
-    background: #00B8D6;
+    background: #00B7D6;
     color: white;
     border: 0;
     font-size: 20px;
@@ -63,13 +63,13 @@ tr th
 }
 #lienMenuVertical
 {
-	/*border-bottom: 3px solid #00B8D6;*/
+	/*border-bottom: 3px solid #00B7D6;*/
 	width:100%;
 	margin-bottom:20px;
 }
 .titreMenuVertical
 {
-	color: #00B8D6;
+	color: #00B7D6;
 	font-size: 25px;
 	margin:5px 5px 5px 5px;
 }

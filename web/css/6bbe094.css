@@ -1,0 +1,84 @@
+.divOption
+{
+    width:20%;   
+    float:left;
+}
+.addOption
+{
+    cursor: pointer;
+    background:white;
+    color: #00B7D6;
+    width:90%;
+    margin:20px auto 39px auto;
+    padding:5px 0 7px 0;
+    border-radius: 2px;
+}
+.deleteOption
+{
+    padding:5px 10px 7px 10px;
+    border-radius: 2px;    
+    background:white;
+    color: #00B7D6;
+    display: inline-block;
+    cursor: pointer;
+}
+.titreTypeLecteur, .titreNom
+{
+    width:20%;
+    background: #00B7D6;
+    color: white;
+    font-weight:bold;
+}
+.nomenclature
+{
+    background: #00B7D6;
+    color:white;
+    width:30%;
+    margin:10px auto;
+    cursor: pointer;
+}
+.visible
+{
+    width:30%;
+    margin:auto;
+    display:none;
+}
+.titreType
+{
+    width:15%;
+    font-weight:bold;
+	background: #00B7D6;
+	color: white; 
+}
+.titreFrequence
+{
+    width:10%;
+    font-weight:bold;
+	background: #00B7D6;
+	color: white; 
+}
+.titreReference
+{
+    width:15%;
+}
+.titreEtiquette
+{
+    width:2%;
+    font-weight:bold;
+	background: #00B7D6;
+	color: white;     
+}
+.titreReferenceLecteur
+{
+    font-weight:bold;
+	background: #00B7D6;
+	color: white; 
+    width: 7%;
+}
+.titreReferenceAutre
+{
+    font-weight:bold;
+	background: #00B7D6;
+	color: white; 
+    width: 15%;    
+}

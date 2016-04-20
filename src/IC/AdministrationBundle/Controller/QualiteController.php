@@ -51,10 +51,10 @@ class QualiteController extends Controller
         $em = $this->getDoctrine()->getManager();
                 
         $listeTestChecked = $em->getRepository('ICAdministrationBundle:TestNomenclature')->findBy(array('idEtapeNomenclature' => $idEtapeNomenclature));
-        $listeTest = $em->getRepository('ICAdministrationBundle:Test')->findBy(array('idEtape' => $idEtape));   
+        $etape = $em->getRepository('ICAdministrationBundle:Etape')->getTestByEtape($idEtape);
         
         return $this->render('ICAdministrationBundle:qualite:gestionTest.html.twig', array('partie' => 'Administration',
-                                                                                           'listeTest' => $listeTest,
+                                                                                           'etape' => $etape,
                                                                                            'listeTestChecked' => $listeTestChecked,
                                                                                            'idEtapeNomenclature' => $idEtapeNomenclature));        
     }
@@ -66,11 +66,11 @@ class QualiteController extends Controller
         
         $etapeNomenclature = new EtapeNomenclature();
         $nbEtape = $em->getRepository('ICAdministrationBundle:EtapeNomenclature')->getNbEtape($idVersion);
-        $version = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->find($idVersion);
-        $etape = $em->getRepository('ICAdministrationBundle:Etape')->find($data);      
+        $versionNomenclature = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->find($idVersion);
+        $etape = $em->getRepository('ICAdministrationBundle:Etape')->getTestByEtape($data);      
         
-        $etapeNomenclature->setVersionNomenclature($version);
-        $etapeNomenclature->setEtape($etape);
+        $etapeNomenclature->setVersionNomenclature($versionNomenclature);
+        $etapeNomenclature->setEtape($etape[0]);
         $etapeNomenclature->setOrdre($nbEtape[0]['nbEtape'] + 1);
         
         $em->persist($etapeNomenclature);
@@ -79,10 +79,32 @@ class QualiteController extends Controller
         $listeTest = $em->getRepository('ICAdministrationBundle:Test')->findBy(array('idEtape' => $data));   
         $listeTestChecked = null;
         
-        return $this->render('ICAdministrationBundle:qualite:gestionTest.html.twig', array('partie' => 'Administration',
-                                                                                           'listeTest' => $listeTest,
-                                                                                           'listeTestChecked' => $listeTestChecked,
-                                                                                           'idEtapeNomenclature' => $etapeNomenclature->getId()));
+        if($data == -1 || $data == -2)
+            return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite', array('idVersion' => $versionNomenclature->getVersion()));
+        else
+            return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite_test', array('idEtapeNomenclature' => $etapeNomenclature->getId(), 'idEtape' => $data));  
+    }
+    
+    public function deleteEtapeGestionNomenclatureQualiteAction($idEtapeNomenclature)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $etape = $em->getRepository('ICAdministrationBundle:EtapeNomenclature')->getAllInfoEtape($idEtapeNomenclature);   
+
+        $idVersion = $etape[0]->getIdVersionNomenclature();
+        
+        if(!empty($etape[0]->getTestNomenclature()))
+        {
+            foreach ($etape[0]->getTestNomenclature() as $testNomenclature) 
+            {
+                $em->remove($testNomenclature);
+            }            
+        }
+
+        $em->remove($etape[0]);
+        $em->flush();
+        
+         return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite', array('idVersion' => $idVersion));
     }
     
     public function updateOrderEtapeGestionNomenclatureQualiteAction($plusOuMoins, $idEtapeNomenclature)
@@ -140,7 +162,7 @@ class QualiteController extends Controller
                 $em->persist($testNomenclature);
             }
             
-            $em->flush();            
+            $em->flush();
         }
         
         return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite', array('idVersion' => $etapeNomenclature->getIdVersionNomenclature()));

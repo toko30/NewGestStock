@@ -27,4 +27,13 @@ class NomenclatureRepository extends \Doctrine\ORM\EntityRepository
         ->getQuery()
         ->getResult();   
     }
+    
+    public function getAllNomenclature()
+    {
+        return $this->createQueryBuilder('n')
+        ->join('n.versionNomenclature', 'vn')
+        ->orderBy('vn.version', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
 }

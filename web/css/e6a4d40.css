@@ -1,6 +1,6 @@
 .titrePageFournisseur
 {
-    background: #00B8D6;
+    background: #00B7D6;
     color:white;
     font-weight: bold;
     width:auto;
@@ -12,7 +12,7 @@
 }
 .FournisseurSupprimer
 {
-    background: #00B8D6;    
+    background: #00B7D6;    
 }
 .titreFournisseurDetails
 {
@@ -21,5 +21,5 @@
 }
 .FournisseurDetails
 {
-    background: #00B8D6;
+    background: #00B7D6;
 }

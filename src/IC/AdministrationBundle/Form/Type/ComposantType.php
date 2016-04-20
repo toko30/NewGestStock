@@ -28,12 +28,7 @@ class ComposantType extends AbstractType
         $builder->add('sousFamille', EntityType::class, array(
                       'class' => 'IC\AdministrationBundle\Entity\SousFamille',
                       'choice_label' => 'nom',
-                      'multiple'  => false,
-                      'query_builder' => function (SousFamilleRepository $er) 
-                      {
-                        return $er->createQueryBuilder('sf')
-                        ->where('sf.idFamille = 1');
-                      }));
+                      'multiple'  => false));
         
         $builder->add('submit_composant', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));
     }

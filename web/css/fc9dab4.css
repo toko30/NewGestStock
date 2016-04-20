@@ -1,8 +1,8 @@
 #menuVertical
 {
 	width:300px;
-	border-right: 1px solid #00B8D6;
-	border-bottom: 1px solid #00B8D6;
+	border-right: 1px solid #00B7D6;
+	border-bottom: 1px solid #00B7D6;
 	float:left;
 	padding: 20px;
 	margin-bottom: 50px;
@@ -19,13 +19,13 @@ table, .imp
 }
 tr td, tr th
 {
-	border: 1px solid #00B8D6;
+	border: 1px solid #00B7D6;
 	text-align: center;
 	height: 30px;
 }
 tr th
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	letter-spacing: 1.5px;
 	font-size: 18px;
@@ -33,52 +33,52 @@ tr th
 }
 tr:hover
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 }
 tr td
 {
-	border: 1px solid #00B8D6;
+	border: 1px solid #00B7D6;
 	text-align: center;
 	height:30px;
 }
 .titreFamille
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
 .titreReference
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:20%;    
 }
 .titreDesignation
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:auto;
 }
 .titreBoitier
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
 .titreCheckBoxTab
 {
- 	background: #00B8D6;
+ 	background: #00B7D6;
      width:5%;
 }
 .titreStock
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
@@ -91,21 +91,21 @@ tr td
 .titreQte
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;    
 }
 .titreQteNecessaire
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;      
 }
 .titreDate
 {
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
     width:20%;
 }
@@ -116,7 +116,7 @@ tr td
 }
 .details
 {
-	background: #00B8D6;
+	background: #00B7D6;
     width:30px;
 }
 .flecheDetails
@@ -139,20 +139,21 @@ tr td
 {
     width:5%;
 }
+
 #lienMenuVertical
 {
-	border-bottom: 3px solid #00B8D6;
+	border-bottom: 3px solid #00B7D6;
 	width:100%;
 	padding-bottom: 20px;
 	margin-bottom:20px;
 }
 #recherche
 {
-	border-top: 3px solid #00B8D6;
+	border-top: 3px solid #00B7D6;
 }
 .titreMenuVertical
 {
-	color: #00B8D6;
+	color: #00B7D6;
 	font-size: 25px;
 	margin:5px 5px 5px 5px;
 }

@@ -25,7 +25,7 @@
                 <td class="titreFrequence">Fréquence</td>
             </tr>
             <tr>
-                <td class="titreDesignation">{{ form_widget(form.reference) }}</td>
+                <td class="titreDesignation">{{ form_widget(form.reference, {attr: {'class': 'inputDesignation'}}) }}</td>
                 <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
                 <td class="titreDesignation">{{ form_widget(form.sousTypeBadge) }}</td>
                 <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
@@ -41,34 +41,34 @@
 
         <table class="tableDetailFournisseur">
             <tr>
-                <td class="titreSupprimer"></td>
+                <td class="titreDetails"></td>
                 <td class="titreFournisseur">Fournisseur</td>
-                <td class="titreReference">Référence</td>
+                <td class="titreDesignation">Référence</td>
                 <td class="titrePrix">Prix Unitaire</td>
-                <td class="details"></td>
+                <td class="titreDetails"></td>
             </tr>
             
             {% if idIdentifiantFournisseur == 0 %}
                 <tr>
-                    <td class="supprimer"></td>
+                    <td class="titreDetails"></td>
                     <td class="titreFournisseur">{{ form_widget(form1.fournisseur, {'attr': {'class': 'inputListe'}}) }}</td>
-                    <td class="titreReference">{{ form_widget(form1.reference, {'attr': {'class': 'inputDesignation'}}) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form1.reference, {'attr': {'class': 'inputDesignation'}}) }}</td>
                     <td class="titrePrix">{{ form_widget(form1.prix, {'attr': {'class': 'inputQuantite'}}) }}</td>
-                    <td class="details">{{ form_widget(form1.submit_badge_fournisseur) }}</td>
+                    <td class="titreDetails">{{ form_widget(form1.submit_badge_fournisseur) }}</td>
                 </tr>   
             {% endif %}
             
                 {% for badgeFournisseur in badgesFournisseurs %}
                 
                     {% if idIdentifiantFournisseur == badgeFournisseur.id %}
-                        <td class="supprimer"></td>
+                        <td class="titreDetails"></td>
                         <td class="titreFournisseur">{{ form_widget(form1.fournisseur, {'attr': {'class': 'inputListe', }}) }}</td>
-                        <td class="titreReference">{{ form_widget(form1.reference, {'attr': {'class': 'inputDesignation', 'onfocus': 'this.value = ""'}}) }}</td>
+                        <td class="titreDesignation">{{ form_widget(form1.reference, {'attr': {'class': 'inputDesignation', 'onfocus': 'this.value = ""'}}) }}</td>
                         <td class="titrePrix">{{ form_widget(form1.prix, {'attr': {'class': 'inputQuantite', 'onfocus': 'this.value = ""'}}) }}</td>
-                        <td class="details">{{ form_widget(form1.submit_badge_fournisseur) }}</td>
+                        <td class="titreDetails">{{ form_widget(form1.submit_badge_fournisseur) }}</td>
                     {% else %}
                         <tr>
-                            <td class="supprimer">
+                            <td class="titreDetails">
                                 <a href="{{ path('ic_administration_identifiant_fournisseur_delete', {'idBadgeFournisseur': badgeFournisseur.id}) }}">
                                     {% image 'Resources/public/images/redcroix.png' %}
                                         <img class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
@@ -78,7 +78,7 @@
                             <td>{{badgeFournisseur.fournisseur.nom}}</td>
                             <td>{{badgeFournisseur.reference}}</td>
                             <td>{{badgeFournisseur.prix|number_format(4, '.', ' ')}} €</td>
-                            <td class="details">
+                            <td class="titreDetails">
                                 <a href="{{ path('ic_administration_affichage_produit_fini_identifiant_detail', {'idIdentifiant': badgeFournisseur.idTypeBadge,'idBadgeFournisseur': badgeFournisseur.id}) }}">
                                     {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                         <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />

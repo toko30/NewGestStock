@@ -33,8 +33,9 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	
 	{% javascripts
-	'@ICAffichageBundle/Resources/public/js/*' %}
+	'@ICProductionBundle/Resources/public/js/menu_deroulant.js' %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
+	{% endjavascripts %}	
 {% endblock %}

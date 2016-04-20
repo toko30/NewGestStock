@@ -99,7 +99,7 @@ tr td
 }
 .titreDetails
 {
-	background: white;
+	background: #00B7D6;
 	border-top: 0;
 	border-right: 0;
     width:30px;
@@ -182,7 +182,7 @@ tr td
     font-size: 20px;
     padding: 10px;
     cursor: pointer;
-    width:240px;
+    width:20%;
     text-align:center;
 }
 .checkBox
@@ -217,4 +217,18 @@ tr td
     overflow:hidden;
     border:0;
     cursor:pointer;
+}
+
+.buttonAddBlue
+{
+    margin-left:-5px;
+    background:url('../images/whiteplus.png') no-repeat center #00B7D6;
+    text-indent:-9000px;
+    text-transform: capitalize;
+    line-height: -9999px;
+    overflow:hidden;
+    border:0;
+    cursor:pointer;
+    width:22px;
+    height:22px;
 }

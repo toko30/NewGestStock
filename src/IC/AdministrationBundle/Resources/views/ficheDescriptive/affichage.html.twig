@@ -8,7 +8,8 @@
 	{{ parent() }}
     
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/ficheDesciptive.css' %}
+	'@ICAdministrationBundle/Resources/public/css/ficheDesciptive.css'
+     '@ICAdministrationBundle/Resources/public/css/produitFini.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
@@ -17,5 +18,54 @@
 
 	{{ parent()}}
     
-    fiche descriptive
+    <h1>Lecteur IDcapt</h1>
+    
+    {{ form_start(form) }}
+    
+    <table>
+        <tr>
+            <td class="titreReferenceLecteur">Nom</td>
+            <td class="titreDesignation">Désignation</td>
+            <td class="titreFrequence">Fréquence</td>
+            <td class="titreEtiquette">Petite</td>
+            <td class="titreEtiquette">Moyenne</td>
+            <td class="titreEtiquette">Grande</td>
+            <td class="details"></td>
+        </tr>
+        <tr>
+            <td class="titreDesignation">{{ form_widget(form.nom) }}</td>
+            <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+            <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
+            <td class="titreDesignation">{{ form_widget(form.petite) }}</td>
+            <td class="titreDesignation">{{ form_widget(form.moyenne) }}</td>
+            <td class="titreDesignation">{{ form_widget(form.grande) }}</td>
+            <td class="details">{{ form_widget(form.submit_fiche_descriptive, {attr: {'class': 'buttonAdd'}}) }}</td>
+        </tr>
+        
+        {% for ficheDescriptive in listeFicheDescriptive %}           
+            <tr>
+                <td>{{ ficheDescriptive.nom }}</td>
+                <td class="designation">{{ ficheDescriptive.designation }}</td>
+                <td>
+                    {% if ficheDescriptive.frequence == 1 %}
+                        13.56MHz
+                    {% else %}
+                        125KHz
+                    {% endif %}
+                </td>
+                <td>{{ ficheDescriptive.petite }}</td>
+                <td>{{ ficheDescriptive.moyenne }}</td>
+                <td>{{ ficheDescriptive.grande }}</td>
+                <td class="details">
+                    <a href="{{ path('ic_administration_affichage_fiche_descriptive_detail', {'idFiche': ficheDescriptive.id}) }}">
+                        {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                            <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                        {% endimage %}
+                    </a>
+                </td>
+            </tr>           
+        {% endfor %}
+    </table>
+    
+    {{ form_end(form) }}
 {% endblock %}

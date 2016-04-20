@@ -13,6 +13,8 @@ class VersionNomenclatureRepository extends \Doctrine\ORM\EntityRepository
     public function getVersion($id)
     {
         return $this->createQueryBuilder('vn')
+        ->join('vn.nomenclature', 'n')
+        ->addSelect('n', 'vn')
         ->where('vn.id = :id')
         ->setParameter('id', $id)
         ->setMaxResults('1')

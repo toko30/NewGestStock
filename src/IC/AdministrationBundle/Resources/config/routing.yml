@@ -117,23 +117,7 @@ ic_administration_update_produit_fini_nomenclature:
     path:     /Modifier-Nomenclature-Produit-Fini-{idNomenclature}
     defaults: { _controller: ICAdministrationBundle:Nomenclature:modifierNomenclatureProduitFini }      
     requirements:
-        idNomenclature: \d{1,10}
-        
-ic_administration_affichage_produit_fini_lecteur_interne:
-    path:     /Produit-Fini-Lecteur-{idTypeLecteur}
-    defaults: { _controller: ICAdministrationBundle:ProduitFini:affichageProduitFiniLecteurInterne, idTypeLecteur: 0 }
-    requirements:
-        idTypeLecteur: \d{1,10}
-        
-ic_administration_type_lecteur_add:
-    path:     /Ajouter-Produit-Fini-Lecteur
-    defaults: { _controller: ICAdministrationBundle:ProduitFini:addProduitFiniLecteurInterne }
-            
-ic_administration_type_lecteur_update:
-    path:     /Modifier-Produit-Fini-Lecteur-{idTypeLecteur}
-    defaults: { _controller: ICAdministrationBundle:ProduitFini:updateProduitFiniLecteurInterne }
-    requirements:
-        idTypeLecteur: \d{1,10}
+        idNomenclature: \d{1,10}      
         
 ic_administration_affichage_produit_fini_identifiant:
     path:     /Produit-Fini-Identifiant-{idIdentifiant}
@@ -204,15 +188,56 @@ ic_administration_autre_update:
     defaults: { _controller: ICAdministrationBundle:ProduitFini:updateAutre }
     requirements:
         idAutre: \d{1,10}
-        idType: \d{1,10}   
+        idType: \d{1,10}
         
 ic_administration_affichage_fiche_descriptive:
     path:     /Fiche-Descriptive
     defaults: { _controller: ICAdministrationBundle:FicheDescriptive:affichageFicheDescriptive }
+    
+ic_administration_affichage_fiche_descriptive_detail:
+    path:     /Detail-Fiche-Descriptive-{idFiche}-{idFicheOption}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:affichageDetailFicheDescriptive, idFicheOption: 0 }
+    requirements:
+        idFiche: \d{1,10}
+        idFicheOption: \d{1,10}
+        
+ic_administration_affichage_fiche_descriptive_gestion_nomenclature:
+    path:     /Fiche-Descriptive-Gestion-Nomenclature-{idVersionFicheDescriptive}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:affichageFicheDescriptiveGestionNomenclature }
+    requirements:
+        idVersionFicheDescriptive: \d{1,10}
+        
+ic_administration_fiche_descriptive_gestion_nomenclature_update:
+    path:     /Modifier-Fiche-Descriptive-Gestion-Nomenclature-{idVersionFicheDescriptive}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:updateFicheDescriptiveGestionNomenclature }
+    requirements:
+        idVersionFicheDescriptive: \d{1,10}
+                            
+ic_administration_fiche_descriptive_add:
+    path:     /Ajouter-Fiche-Descriptive
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:addFicheDescriptive }
             
+ic_administration_fiche_descriptive_update:
+    path:     /Modifier-Fiche-Descriptive-{idFiche}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:updateFicheDescriptive }
+    requirements:
+        idFiche: \d{1,10}
+        
+ic_administration_fiche_descriptive_option_add:
+    path:     /Ajouter-Fiche-Descriptive-Option-{idFiche}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:addFicheDescriptiveOption }
+    requirements:
+        idFiche: \d{1,10}
+                    
+ic_administration_fiche_descriptive_option_update:
+    path:     /Modifier-Fiche-Descriptive-Option-{idFicheOption}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:updateFicheDescriptiveOption }
+    requirements:
+        idFicheOption: \d{1,10}
+        
 ic_administration_affichage_nomenclature_qualite:
     path:     /Controle-Qualite-Nomenclature-{allVersion}
-    defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite, allVersion: 0 }
+    defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite, allVersion:0 }
     requirements:
         allVersion: 0|1
         
@@ -223,18 +248,24 @@ ic_administration_affichage_gestion_nomenclature_qualite:
         idVersion: \d{1,10}
         
 ic_administration_affichage_gestion_nomenclature_qualite_test:
-    path:     /Affichage-Gestion-test-Nomenclature-{idEtapeNomenclature}-{idEtape}
+    path:     /Gestion-test-Nomenclature-{idEtapeNomenclature}-{idEtape}
     defaults: { _controller: ICAdministrationBundle:Qualite:affichageGestionTest}
     requirements:
         idEtapeNomenclature: \d{1,10}
-        idEtape: \d{1,10}    
+        idEtape: \d{1,10}|-1|-2
         
 ic_administration_gestion_nomenclature_qualite_add_etape:
-    path:     /Ajouter-Test-Nomenclature-{idVersion}
+    path:     /Ajouter-Etape-Nomenclature-{idVersion}
     defaults: { _controller: ICAdministrationBundle:Qualite:addEtapeGestionNomenclatureQualite }
     requirements:
         idVersion: \d{1,10}
         
+ic_administration_gestion_nomenclature_qualite_delete_etape:
+    path:     /Supprimer-Etape-Nomenclature-{idEtapeNomenclature}
+    defaults: { _controller: ICAdministrationBundle:Qualite:deleteEtapeGestionNomenclatureQualite }
+    requirements:
+        idEtapeNomenclature: \d{1,10}
+                
 ic_administration_gestion_nomenclature_qualite_update_order_etape:
     path:     /Modifier-Ordre-Etape-Nomenclature-{idEtapeNomenclature}-{plusOuMoins}
     defaults: { _controller: ICAdministrationBundle:Qualite:updateOrderEtapeGestionNomenclatureQualite }

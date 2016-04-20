@@ -1,0 +1,44 @@
+.lecteur
+{
+    width: 70%;
+    margin:0 15% 20px 15%;
+    border: 1px solid #00B7D6;
+    padding: 10px;
+    cursor: pointer;
+}
+.lecteurTermine
+{
+    width: 70%;
+    margin:0 15% 20px 15%;
+    border: 1px solid green;
+    background: green;
+    color: white;
+    padding: 10px;
+    cursor: default;
+}
+.compteur
+{
+    display:inline-block;
+    float: right;
+}
+#focus
+{
+    background: #00B7D6;
+    color:white;
+    cursor: default;
+}
+.titreListe
+{
+    text-align: center;
+    margin: 27px 0 0 0;
+}
+#inputEnregistrement
+{
+    outline: 0;
+    margin: 10px 35% 23px 35%;
+    width: 30%;
+}
+#listeLecteur
+{
+    width:50%;
+}

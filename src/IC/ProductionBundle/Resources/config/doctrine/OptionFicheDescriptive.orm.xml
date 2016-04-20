@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="IC\ProductionBundle\Entity\OptionFicheDescriptive" repository-class="IC\ProductionBundle\Repository\OptionFicheDescriptiveRepository" table="option_fiche_descriptive">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="idFicheDescriptiveOption" type="integer" column="id_fiche_descriptive_option" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idOptionProduitFini" type="integer" column="id_option_produit_fini" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="ficheDescriptiveOption" target-entity="FicheDescriptiveOption" inversed-by="optionFicheDescriptive">
+      <join-column name="id_fiche_descriptive_option" referenced-column-name="id" />
+    </many-to-one>
+    <one-to-one field="optionProduitFini" target-entity="OptionProduitFini" >
+        <join-column name="id_option_produit_fini" referenced-column-name="id" />
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

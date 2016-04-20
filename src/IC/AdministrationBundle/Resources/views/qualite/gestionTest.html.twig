@@ -18,37 +18,47 @@
 
 	{{ parent() }}
     
-    <form method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_gestion_test', {'idEtapeNomenclature': idEtapeNomenclature}) }}">
+    <h1>{{ etape[0].nom }}</h1>
     
-        <input type="submit" value="Valider"><br>
+    {% if etape[0].test is not empty %}
+    
+        <form class="formTest" method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_gestion_test', {'idEtapeNomenclature': idEtapeNomenclature}) }}">
         
-        {% for test in listeTest %}
-        
-            {% if listeTestChecked is not null %}
+            <input class="inputValider" type="submit" value="Valider"><br>
+
+            {% for test in etape[0].test %}
             
-                {% set exist = 0 %}
+                {% if listeTestChecked is not empty %}
                 
-                {% for testChecked in listeTestChecked %}
-                
-                    {% if testChecked.idTest == test.id %}
-                        <input type="checkbox" name="test[]" value="{{ test.id }}" checked >{{ test.nom }}<br>
-                        {% set exist = 1 %}
+                    {% set exist = 0 %}
+                    
+                    {% for testChecked in listeTestChecked %}
+                    
+                        {% if testChecked.idTest == test.id %}
+                        
+                            <input class="checkBoxTest" type="checkbox" name="test[]" value="{{ test.id }}" checked >{{ test.nom }}<br>
+                            {% set exist = 1 %}
+                            
+                        {% endif %}
+                        
+                    {% endfor %}
+                    
+                    {% if exist == 0 %}
+                        <input class="checkBoxTest" type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
                     {% endif %}
                     
-                {% endfor %}
-                
-                {% if exist == 0 %}
-                    <input type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
+                {% else %}
+                    <input class="checkBoxTest" type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
                 {% endif %}
                 
-            {% else %}
-                <input type="checkbox" name="test[]" value="{{ test.id }}">{{ test.nom }}<br>
-            {% endif %}
+            {% endfor %}
             
-        {% endfor %}
-        
-        <input type="submit" value="Valider">
-        
-    </form>
+            <input class="inputValider" type="submit" value="Valider">
+            
+        </form>
+    
+    {% else %}
+        <div>Aucun test n'est renseigné pour cette étape</div>
+    {% endif %}
     
 {% endblock %}

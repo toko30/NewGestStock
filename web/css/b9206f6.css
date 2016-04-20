@@ -11,21 +11,21 @@
 }
 .tabComposantProduction
 {
-    width:50%;
+    width:70%;
 }
 .titreDesignation
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:auto;
 }
 .titreQte
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
-	width:15%;    
+	width:20%;    
 }
 .designation
 {
@@ -33,7 +33,7 @@
 }
 .titreCheckBox
 {
-	background: #00B8D6;
+	background: #00B7D6;
     width:30px;
 }
 .lienRetour
@@ -42,5 +42,5 @@
 }
 .lienRetour:hover
 {
-    color: #00B8D6;
+    color: #00B7D6;
 }

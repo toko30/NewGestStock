@@ -1,0 +1,243 @@
+
+#menuVertical
+{
+	width:20%;
+	border-right: 1px solid #00B7D6;
+	border-bottom: 1px solid #00B7D6;
+	float:left;
+	padding: 20px;
+	margin-bottom: 50px;
+}
+
+h1, h2
+{
+	text-align: center;	
+}
+table
+{
+	border-collapse: collapse;
+	margin: 10px auto 20px auto;
+}
+tr td, tr th
+{
+	border: 1px solid #00B7D6;
+	text-align: center;
+	height: 30px;
+}
+
+tr th
+{
+	background: #00B7D6;
+	color: white;
+	letter-spacing: 1.5px;
+	font-size: 18px;
+	padding: 5px 10px;
+}
+.ligneHover:hover
+{
+	background: #00B7D6;
+	color: white;
+}
+
+.inputCalculer
+{
+    background: #00B7D6;
+    padding:3px 5px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    text-align:center;
+    font-weight:bold;
+}
+.inputValid
+{
+    display: block;
+    margin:10px auto;
+    background: #00B7D6;
+    color: white;
+    border: 0;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    width:450px;
+    text-align:center;
+}
+.stockInsufisant td
+{
+	background: red;
+	border: 1px solid red;
+	color: white;
+}
+.stockInsufisant:hover td
+{
+	background: darkred;
+	border: 1px solid darkred;
+}
+.tabComposantProduction
+{
+    width:70%;
+}
+.titreDesignation
+{
+	font-weight:bold;
+	background: #00B7D6;
+	color: white;
+	width:auto;
+}
+.titreQte
+{
+	font-weight:bold;
+	background: #00B7D6;
+	color: white;
+	width:20%;    
+}
+.designation
+{
+    text-align:left;
+}
+.titreCheckBox
+{
+	background: #00B7D6;
+    width:30px;
+}
+.lienRetour
+{
+    text-decoration: underline;
+}
+.lienRetour:hover
+{
+    color: #00B7D6;
+}
+#lienMenuVertical
+{
+	/*border-bottom: 3px solid #00B7D6;*/
+	width:100%;
+	margin-bottom:20px;
+}
+.titreMenuVertical
+{
+	color: #00B7D6;
+	font-size: 25px;
+	margin:5px 5px 5px 5px;
+}
+.decalageNoPlus
+{
+	padding-left:17px;
+}
+.imgFlecheliste
+{
+	width:14px;
+	height:14px;
+	margin-right:2px
+}
+.divSousMenu
+{
+	display: none;
+	margin-left:50px;
+}
+.divSousMenu a:hover
+{
+	font-weight: bold;
+}
+a
+{
+	color:black;
+	text-decoration: none;
+}
+.sousMenu
+{
+	cursor: pointer;
+	margin:5px 15px;
+	font-size:20px;
+		
+}
+.productionImpossible, .productionImpossible a, .productionImpossible td
+{
+    background: red;
+    border: 1px solid red;
+    color: white;
+}
+
+.productionImpossible:hover a, .productionImpossible a:hover, .productionImpossible:hover, .productionImpossible:hover td
+{
+    background: darkred;
+    border: 1px solid darkred;
+}
+.productionImpossible a
+{
+    text-decoration: underline;
+}
+
+.imgcross
+{
+    margin-top:5px;
+    width:15px;
+    height:15px;
+}
+
+.productionImpossible .croix
+{
+    background:white;
+}
+
+form
+{
+    text-align: center;    
+}
+
+.divTableProduction
+{
+    float:left;
+    margin: 0 5%;
+    width:40%;
+}
+table
+{
+width:100%;    
+}
+.caseVideSup
+{
+    border:0;
+    width:5%
+}
+.caseVideProd
+{
+    border:0;
+}
+.ligneCaseVideSup
+{
+    border-right: 0;
+}
+.caseProd, .caseProd a
+{
+    width:25%;
+    text-decoration: underline;
+    color: #00B7D6;
+    border-left:0;
+}
+.titreNomenclature, .titreQuantite
+{
+    background: #00B7D6;
+    width:auto;
+    border:0;
+    color:white;
+    font-weight: bold;
+}
+.titreQuantite
+{
+    width:30%;
+    border-right: 1px solid #00B7D6;
+}
+.ligneHover:hover .caseProd, .ligneHover:hover .caseProd a
+{
+    border: 1px solid  #00B7D6;
+    color:white;
+}
+.nom
+{
+    border-left: 0;
+}
+.ChoixRecherche
+{
+    height:21px;
+}

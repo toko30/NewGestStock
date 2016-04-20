@@ -25,6 +25,6 @@
     <one-to-one field="etape" target-entity="Etape" >
       <join-column name="id_etape" referenced-column-name="id" />
     </one-to-one>
-    <one-to-many field="testNomenclature" target-entity="TestNomenclature" mapped-by="etapeNomenclature"/> 
+    <one-to-many field="testNomenclature" target-entity="TestNomenclature" mapped-by="etapeNomenclature" on-delete="CASCADE"/> 
   </entity>
 </doctrine-mapping>

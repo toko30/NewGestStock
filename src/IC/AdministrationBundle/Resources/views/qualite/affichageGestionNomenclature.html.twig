@@ -18,16 +18,18 @@
 
 	{{ parent() }}
     
+    <h1>{{ versionNomenclature[0].nomenclature.nom }}-V{{ versionNomenclature[0].version }}</h1>
+    
     {% if listeNewEtape is not empty %}
     
-        <form method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_add_etape', {idVersion: versionNomenclature[0].version}) }}">
-            <label for="etape">Ajouter une etape de test</label>
-            <select id="etape" name="etape">
+        <form class="formAjout" method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_add_etape', {idVersion: versionNomenclature[0].version}) }}">
+            <label for="etape"><h2>Ajouter une etape de test</h2></label><br>
+            <select class="selectEtape" id="etape" name="etape">
                 {% for etape in listeNewEtape %}
                     <option value="{{ etape.id }}">{{ etape.nom }}</option>
                 {% endfor %}
             </select>
-            <input type="submit" value="Ajouter">
+            <input class="buttonAddBlue" type="submit" value="Ajouter">
         </form>
         
     {% endif %}
@@ -35,23 +37,56 @@
     {% if versionNomenclature[0].etapeNomenclature is not empty %}
     
         {% if versionNomenclature[0].etapeNomenclature|length == 1 %}
-            <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': versionNomenclature[0].etapeNomenclature[0].id, 'idEtape': versionNomenclature[0].etapeNomenclature[0].idEtape}) }}">{{ versionNomenclature[0].etapeNomenclature[0].etape.nom }}</a>
+        
+            <div class="ListeEtape">
+                {% image 'Resources/public/images/redcroix.png' %}
+                    <a href="{{ path('ic_administration_gestion_nomenclature_qualite_delete_etape', {'idEtapeNomenclature': versionNomenclature[0].etapeNomenclature[0].id}) }}">
+                        <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche haut" />
+                    </a>
+                {% endimage %}
+                    
+                <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': versionNomenclature[0].etapeNomenclature[0].id, 'idEtape': versionNomenclature[0].etapeNomenclature[0].idEtape}) }}">
+                    {{ versionNomenclature[0].etapeNomenclature[0].etape.nom }}
+                </a>
+            </div>
+            
         {% else %}
         
             {% for etapeNomenclature in versionNomenclature[0].etapeNomenclature %}
+            
                 <div class="ListeEtape">
                 
-                    {{ loop.index }} <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': etapeNomenclature.id, 'idEtape': etapeNomenclature.idEtape}) }}">{{ etapeNomenclature.etape.nom }}</a>
+                    {% image 'Resources/public/images/redcroix.png' %}
+                        <a href="{{ path('ic_administration_gestion_nomenclature_qualite_delete_etape', {'idEtapeNomenclature': etapeNomenclature.id}) }}">
+                            <img id="" class="flecheDetails suppr" src="{{ asset_url }}" alt="Fleche haut" />
+                        </a>
+                    {% endimage %}
+                    {% if etapeNomenclature.etape.id != -1 and etapeNomenclature.etape.id != -2 %}
+                        <a href="{{ path('ic_administration_affichage_gestion_nomenclature_qualite_test', {'idEtapeNomenclature': etapeNomenclature.id, 'idEtape': etapeNomenclature.idEtape}) }}">
+                            {{ etapeNomenclature.etape.nom }}
+                        </a>
+                    {% else %}
+                        <span class="spanNonClick">{{ etapeNomenclature.etape.nom }}</span>                    
+                    {% endif %}
                     
                     {% if loop.index != versionNomenclature[0].etapeNomenclature|length %}
-                        <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '0'}) }}">-</a>
+                        {% image 'Resources/public/images/fleche_white_bas.png' %}
+                            <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '0'}) }}">
+                                <img id="" class="flecheDetails upAndDown" src="{{ asset_url }}" alt="Fleche haut" />
+                            </a>
+                            {% endimage %}
                     {% endif %}
 
                     {% if loop.index != 1 %}
-                        <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '1'}) }}">+</a>
+                        {% image 'Resources/public/images/fleche_white_haut.png' %}
+                            <a href="{{ path('ic_administration_gestion_nomenclature_qualite_update_order_etape', {'idEtapeNomenclature': etapeNomenclature.id, 'plusOuMoins': '1'}) }}">
+                                <img id="" class="flecheDetails upAndDown" src="{{ asset_url }}" alt="Fleche haut" />
+                            </a>
+                        {% endimage %}
                     {% endif %}
                     
                 </div>
+                
             {% endfor %}
             
         {% endif %}

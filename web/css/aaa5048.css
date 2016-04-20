@@ -1,8 +1,8 @@
 #menuVertical
 {
 	width:300px;
-	border-right: 1px solid #00B8D6;
-	border-bottom: 1px solid #00B8D6;
+	border-right: 1px solid #00B7D6;
+	border-bottom: 1px solid #00B7D6;
 	float:left;
 	padding: 20px;
 	margin-bottom: 50px;
@@ -24,14 +24,14 @@ table
 }
 tr td, tr th
 {
-	border: 1px solid #00B8D6;
+	border: 1px solid #00B7D6;
 	text-align: center;
 	height: 30px;
 }
 
 tr th
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	letter-spacing: 1.5px;
 	font-size: 18px;
@@ -39,14 +39,14 @@ tr th
 }
 tr:hover
 {
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 }
 
 
 tr td
 {
-	border: 1px solid #00B8D6;
+	border: 1px solid #00B7D6;
 	text-align: center;
 	height:30px;
 }
@@ -59,7 +59,7 @@ tr td
 .titreFamille
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
@@ -67,39 +67,39 @@ tr td
 .titreReference
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:auto;    
 }
 .titreDesignation
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:auto;
 }
 .titreBoitier
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
 .titreCheckBoxTab
 {
- 	background: #00B8D6;
+ 	background: #00B7D6;
      width:5%;
 }
 .titreStock
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;
 }
 .titreDetails
 {
-	background: white;
+	background: #00B7D6;
 	border-top: 0;
 	border-right: 0;
     width:30px;
@@ -107,14 +107,14 @@ tr td
 .titreQte
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;    
 }
 .titreQteNecessaire
 {
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;
 	width:10%;      
 }
@@ -122,12 +122,19 @@ tr td
 {
     width:20%; 
 	font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
+	color: white;    
+}
+.titrePrix
+{
+    width:15%;
+    font-weight:bold;
+	background: #00B7D6;
 	color: white;    
 }
 .supprimer
 {
-	background: #00B8D6;       
+	background: #00B7D6;       
 }
 .designation
 {
@@ -136,7 +143,7 @@ tr td
 }
 .details
 {
-	background: #00B8D6;
+	background: #00B7D6;
     width:30px;
 }
 .flecheDetails
@@ -152,7 +159,7 @@ tr td
 .inputQuantite
 {
     text-align: center;
-    width: 60%;
+    width: 50px;
     margin: 0 10px;
 }
 .inputDesignation
@@ -165,24 +172,31 @@ tr td
     margin: 0 5px;
     height:21px;
 }
+.inputValider
+{
+    display: block;
+    margin:10px auto;
+    background: #00B7D6;
+    color: white;
+    border: 0;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    width:240px;
+    text-align:center;
+}
 .checkBox
 {
     width:5%;
 }
-.titrePrix
-{
-    width:15%;
-    font-weight:bold;
-	background: #00B8D6;
-	color: white;    
-}
+
 .buttonUpdate
 {
     margin:0 4px 0 0;
     display: inline-block;
     width:20px;
     height:20px;
-    background:url('../Resources/public/img/whitevalid.png') top left no-repeat;
+    background:url('../Resources/public/images/whitevalid.png') top left no-repeat;
     text-indent:-9000px;
     text-transform: capitalize;
     line-height: -9999px;
@@ -196,7 +210,7 @@ tr td
     display: inline-block;
     width:20px;
     height:20px;
-    background:url('../Resources/public/img/whiteplus.png') top left no-repeat;
+    background:url('../Resources/public/images/whiteplus.png') top left no-repeat;
     text-indent:-9000px;
     text-transform: capitalize;
     line-height: -9999px;
@@ -204,39 +218,34 @@ tr td
     border:0;
     cursor:pointer;
 }
-.inputValider
+
+.buttonAddBlue
 {
-    display: block;
-    margin:10px auto;
-    background: #00B8D6;
-    color: white;
-    border: 0;
-    font-size: 20px;
-    padding: 10px;
-    cursor: pointer;
-    width:240px;
-    text-align:center;
-}
-.inputQuantite
-{
-    text-align: center;
-    width: 50px;
-    margin: 0 10px;
+    margin-left:-5px;
+    background:url('../Resources/public/images/whiteplus.png') no-repeat center #00B7D6;
+    text-indent:-9000px;
+    text-transform: capitalize;
+    line-height: -9999px;
+    overflow:hidden;
+    border:0;
+    cursor:pointer;
+    width:22px;
+    height:22px;
 }
 #lienMenuVertical
 {
-	border-bottom: 3px solid #00B8D6;
+	border-bottom: 3px solid #00B7D6;
 	width:100%;
 	padding-bottom: 20px;
 	margin-bottom:20px;
 }
 #recherche
 {
-	border-top: 3px solid #00B8D6;
+	border-top: 3px solid #00B7D6;
 }
 .titreMenuVertical
 {
-	color: #00B8D6;
+	color: #00B7D6;
 	font-size: 25px;
 	margin:5px 5px 5px 5px;
 }

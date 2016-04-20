@@ -14,9 +14,9 @@ class EtapeType extends AbstractType
    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
-        $builder->add('nom', TextType::class, array('required' => true));
+        $builder->add('nom', TextType::class, array('required' => true, 'label' => 'Ajouter une étape'));
         
-        $builder->add('submit_etape', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));
+        $builder->add('submit_etape', SubmitType::class, array('attr' => array('class' => 'buttonAddBlue')));
     }
     
     public function configureOptions(OptionsResolver $resolver)

@@ -1,0 +1,152 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Fiche Descriptive{% endblock %}
+
+{% block entete %}{{ parent() }} Fiche Descriptive{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/ficheDesciptive.css'
+     '@ICAdministrationBundle/Resources/public/css/produitFini.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+    
+    <h1>Lecteur IDcapt</h1>
+    
+    {{ form_start(formFicheDescriptive) }}
+    
+        <table>
+            <tr>
+                <td class="titreReferenceLecteur">Nom</td>
+                <td class="titreDesignation">Désignation</td>
+                <td class="titreFrequence">Fréquence</td>
+                <td class="titreEtiquette">Petite</td>
+                <td class="titreEtiquette">Moyenne</td>
+                <td class="titreEtiquette">Grande</td>
+            </tr>
+            <tr>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.nom) }}</td>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.frequence) }}</td>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.petite) }}</td>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.moyenne) }}</td>
+                <td class="titreDesignation">{{ form_widget(formFicheDescriptive.grande) }}</td>
+            </tr>  
+        </table>
+        
+        {{ form_widget(formFicheDescriptive.submit_fiche_descriptive, {attr: {'value': 'Modifier Lecteur'}}) }}
+    
+    {{ form_end(formFicheDescriptive) }}
+    
+    <h2>Liste des options du lecteur</h2>
+    
+    {{ form_start(formFicheDescriptiveOptionType) }}
+    
+        {% if idFicheOption == 0 %}
+
+            <table>
+                <tr>
+                    <td class="titreDesignation">Désignation</td>
+                    <td class="titreFrequence">Type de lecteur</td>
+                </tr>
+                <tr>
+                    <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                    <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.type) }}</td>
+                </tr> 
+                <tr>
+                    <td class="titreDesignation" colspan="2">Options</td>
+                </tr> 
+                <tr>
+                    <td class="titreDesignation" colspan="2">{{ form_widget(formFicheDescriptiveOptionType.optionFicheDescriptive) }}</td>
+                </tr> 
+            </table>
+            {{ form_widget(formFicheDescriptiveOptionType.submit_fiche_descriptive) }}
+        {% endif %}
+        
+        {% for ficheDesciptiveOption in  listeFicheDescriptiveOption %}
+        
+            {% set nom = nomFiche %}
+            
+            {% for optionFicheDescriptive in ficheDesciptiveOption.optionFicheDescriptive %}
+                {% set nom = nom|upper ~'-'~ optionFicheDescriptive.optionProduitfini.abreviation|upper %}
+            {% endfor %}
+            
+            <table>
+                <tr>
+                    <td class="titreNom">Nom</td>
+                    <td class="titreDesignation">Designation</td>
+                    <td class="titreTypeLecteur">Type de lecteur</td>
+                    <td class="titreDetails"></td>
+                </tr>
+                
+                    {% if ficheDesciptiveOption.id == idFicheOption %}
+                        <tr>
+                            <td class="titreNom">{{ nom }}</td>
+                            <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                            <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.type) }}</td>
+                            <td class="titreDetails"></td>
+                        </tr> 
+                        <tr>
+                            <td class="titreDesignation" colspan="3">Options</td>
+                            <td class="titreDetails"></td>
+                        </tr> 
+                        <tr>
+                            <td class="titreDesignation" colspan="3">{{ form_widget(formFicheDescriptiveOptionType.optionFicheDescriptive) }}</td>
+                            <td class="titreDetails"></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ nom }}</td>
+                            <td>{{ficheDesciptiveOption.designation}}</td>
+                            <td>{{ficheDesciptiveOption.sousTypeLecteur.nom}}</td>    
+                            <td class="titreDetails">
+                                <a href="{{ path('ic_administration_affichage_fiche_descriptive_detail', {'idFiche': idFiche, 'idFicheOption': ficheDesciptiveOption.id}) }}">
+                                    {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                        <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                                    {% endimage %}
+                                </a>
+                            </td>
+                        </tr> 
+                    {% endif %}          
+                
+                <tr>
+                    <td class="titreDesignation" colspan="3">Liste des versions</td>
+                    <td class="titreDetails"></td>
+                </tr>
+                {% for versionFicheDescriptive in ficheDesciptiveOption.versionFicheDescriptive %}
+                    <tr>
+                        <td>Version {{ versionFicheDescriptive.version}}</td>
+                        <td colspan ="2">Aucune Nomenclature Liée</td>
+                        <td class="titreDetails">
+                            <a href="{{ path('ic_administration_affichage_fiche_descriptive_gestion_nomenclature', {'idVersionFicheDescriptive': versionFicheDescriptive.id}) }}">
+                                {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                    <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                                {% endimage %}
+                            </a>
+                        </td>
+                    <tr>
+                {% endfor %}
+                
+            </table>
+            
+        {% endfor %}
+        
+    {{ form_end(formFicheDescriptiveOptionType) }}    
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+    
+	{% javascripts '@ICAdministrationBundle/Resources/public/js/addOptionFicheTech.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+    
+{% endblock %}

@@ -12,11 +12,23 @@ class ProductionType extends AbstractType
 {   
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        foreach ($options['data']['listLastnomenclature'] as $key => $value) 
+       
+        
+        foreach ($options['data']['listLastFicheDescriptive'] as $value) 
         {
-            $lisLastNom[$value->getNomenclature()->getNom().'-V'.$value->getVersion()] = $value->getId();
+
+            $option = '';
+            foreach ($value->getFicheDescriptiveOption()->getOptionFicheDescriptive() as $value1) 
+            {
+                $option .= $value1->getOptionProduitFini()->getAbreviation().'-';
+            }
+            $option = trim($option, '-');
+            
+            $lisLastNom[$value->getFicheDescriptiveOption()->getFicheDescriptive()->getNom().'-'.$option.'-V'.$value->getVersion()] = $value->getId();
         }
         
+        $builder->add('type', ChoiceType::class, array('choices' => array('Fiche Descriptive' => 0, 'Nomenclature' => 1)));
+         
         $builder->add('quantite', TextType::class, array('required' => false));
                       
         $builder->add('versionNomenclature', ChoiceType::class, array('choices' => $lisLastNom,

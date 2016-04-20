@@ -1,0 +1,78 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Fiche Descriptive{% endblock %}
+
+{% block entete %}{{ parent() }} Fiche Descriptive{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/ficheDesciptive.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+    
+    <form method="post" action="{{ path('ic_administration_fiche_descriptive_gestion_nomenclature_update', {idVersionFicheDescriptive: idVersionFicheDescriptive}) }}">
+        <input class="inputValider" type="submit" value="Enregistrer"/>
+        <br>
+        <br>
+        {% for nomenclature in listNomenclature %}
+        
+            <h2 class="nomenclature" id="Nomenclature{{ nomenclature.id }}" class="nomenclature">{{ nomenclature.nom }}</h2>
+            
+            {% set tourDeboucle = loop.index0 %}
+            {% set noNomenclature = 1 %}
+            
+            <div class="visible"  id="Nomenclature{{ nomenclature.id }}1">         
+                
+                {% for versionNomenclature in nomenclature.versionNomenclature %}
+                
+                    {% set exist = 0 %}
+                    
+                    {% for nomenclatureFichedescriptive in listNomenclatureFichedescriptive %}
+                    
+                        {% if nomenclatureFichedescriptive.idVersionNomenclature == versionNomenclature.id %}
+                        
+                            {% set exist = 1 %}
+                            {% set noNomenclature = 0 %}
+                            
+                            <label><input type="radio" name="versionNomenclature{{ tourDeboucle }}" value="{{ versionNomenclature.id }}" checked>{{ versionNomenclature.nomenclature.nom }}-V{{ versionNomenclature.version }}</label><br><br>
+
+                        {% endif %}
+                        
+                    {% endfor %}
+                    
+                    {% if exist == 0 %}
+                        <label><input type="radio" name="versionNomenclature{{ tourDeboucle }}" value="{{ versionNomenclature.id }}">{{ versionNomenclature.nomenclature.nom }}-V{{ versionNomenclature.version }}</label><br><br>
+                    {% endif %}
+                    
+                {% endfor %}
+                
+                {% if noNomenclature == 1 %}
+                    <label><input type="radio" name="versionNomenclature{{ tourDeboucle }}" value="0" checked>Aucune version de cette nomenclature</label><br><br>
+                {% else %}
+                    <label><input type="radio" name="versionNomenclature{{ tourDeboucle }}" value="0" >Aucune version de cette nomenclature</label><br><br>
+                {% endif %}
+                
+            </div>
+            
+        {% endfor %}
+        
+    </form>
+    
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}  
+    
+	{% javascripts '@ICAdministrationBundle/Resources/public/js/menuDeroulantNomenclature.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}   
+     
+{% endblock %}

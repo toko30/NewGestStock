@@ -2,14 +2,14 @@
 {
     width:15%;
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white; 
 }
 .titreFrequence
 {
     width:10%;
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white; 
 }
 .titreReference
@@ -20,20 +20,20 @@
 {
     width:2%;
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white;     
 }
 .titreReferenceLecteur
 {
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white; 
     width: 7%;
 }
 .titreReferenceAutre
 {
     font-weight:bold;
-	background: #00B8D6;
+	background: #00B7D6;
 	color: white; 
     width: 15%;    
 }

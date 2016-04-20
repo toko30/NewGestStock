@@ -3,6 +3,7 @@ namespace IC\ProductionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use IC\ProductionBundle\Form\Type\ProductionType;
 use IC\ProductionBundle\Entity\Production;
 use IC\ProductionBundle\Entity\Lot;
@@ -16,26 +17,22 @@ class ProductionController extends Controller
         $data = $request->get('production');
 
         //AFFICHAGE LISTE COMPOSANT NOMENCLATURE
-        if('POST' == $request->getMethod() && isset($data['versionNomenclature']))
+        if('POST' == $request->getMethod())
         {
-            //Récupération de la derniere version de la nomenclature
-            $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);
-
-            $idVersion = $version[0]->getId();
-            $version = $version[0]->getVersion();
-            
+        
             //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
-            $info = $this->container->get('ic_production')->getListComposantNomenclatureInterne($data, $idVersion);
-            list($tabComposant, $nbProdManquant, $nomenclature) = $info;
+            $info = $this->container->get('ic_production')->getListComposantNomenclatureInterne($data);
+            list($tabComposant, $nbProdManquant) = $info;                
+
+            
             
             //génération de la vue avec les info de la carte et ses composants calculés précédement
             return $this->render('ICProductionBundle:Liste:interne.html.twig', array('partie' => 'production',
                                                                                      'quantite' => $data['quantite'], 
-                                                                                     'composantNomenclature' => $tabComposant,
-                                                                                     'nomenclature' => $nomenclature,
-                                                                                     'idVersion' => $idVersion,
-                                                                                     'version' => $version,
-                                                                                     'nbProdManquant' => $nbProdManquant));            
+                                                                                     'listeNomenclature' => $tabComposant,
+                                                                                     'idType' =>  $data['type'],
+                                                                                     'idVersion' => $data['versionNomenclature'],
+                                                                                     'nbProdManquant' => $nbProdManquant));        
         }
         //AFFICHAGE DES TABLEAUX PREVISIONNEL ET PROD EN COURS
         else
@@ -45,10 +42,10 @@ class ProductionController extends Controller
             list($listeEnCours, $listePrevisionnelle) = $info;
             
             //Listage des dernières nomenclatures
-            $listLastNomenclature = $this->container->get('ic_production')->listLastNomenclature();
-
+            $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
+            
             //Création du formulaire et affichage de la vue
-            $formOptions = array('listLastnomenclature' => $listLastNomenclature);
+            $formOptions = array('listLastFicheDescriptive' => $listLastFicheDescriptive);
             $form = $this->createForm(ProductionType::class, $formOptions);
             
             return $this->render('ICProductionBundle:Production:interne.html.twig', array('partie' => 'production',
@@ -66,15 +63,22 @@ class ProductionController extends Controller
         //AFFICHAGE LISTE COMPOSANT NOMENCLATURE
         if('POST' == $request->getMethod())
         {
-            //Récupération de la derniere version de la nomenclature
-            $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);   
-            $idVersion = $version[0]->getId();
-            $version = $version[0]->getVersion();
+            if($data['type'] == 0)
+            {
+                
+            }
+            else
+            {
+                //Récupération de la derniere version de la nomenclature
+                $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);   
+                $idVersion = $version[0]->getId();
+                $version = $version[0]->getVersion();
+                
+                //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
+                $info = $this->container->get('ic_production')->getListComposantNomenclatureSousTraitant($data, $idVersion, $id);
+                list($tabComposant, $nbProdManquant, $nomenclature) = $info;            
+            } 
             
-            //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
-            $info = $this->container->get('ic_production')->getListComposantNomenclatureSousTraitant($data, $idVersion, $id);
-            list($tabComposant, $nbProdManquant, $nomenclature) = $info;            
-           
             return $this->render('ICProductionBundle:Liste:sousTraitant.html.twig', array('partie' => 'production',
                                                                                           'id' => $id,
                                                                                           'quantite' => $data['quantite'],
@@ -82,8 +86,7 @@ class ProductionController extends Controller
                                                                                           'nomenclature' => $nomenclature,
                                                                                           'idVersion' => $idVersion,
                                                                                           'version' => $version,
-                                                                                          'nbProdManquant' => $nbProdManquant));   
-                   
+                                                                                          'nbProdManquant' => $nbProdManquant));
         }
         //AFFICHAGE DES TABLEAUX PREVISIONNEL ET EN PROD EN COURS
         else
@@ -92,10 +95,10 @@ class ProductionController extends Controller
             list($listeEnCours, $listePrevisionnelle) = $info;
             
             //Listage des dernières nomenclatures
-            $listLastNomenclature = $this->container->get('ic_production')->listLastNomenclature();
+            $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
 
             //Création du formulaire et affichage de la vue
-            $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastnomenclature' => $listLastNomenclature)));
+            $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listLastFicheDescriptive)));
             
             return $this->render('ICProductionBundle:Production:sousTraitant.html.twig', array('partie' => 'production',
                                                                                                'form' => $form->createView(),
@@ -104,59 +107,122 @@ class ProductionController extends Controller
         }
     }
     
-    public function calculAction(request $request, $idProducteur, $idVersion, $quantite1, $quantite2)
+    public function calculAction(request $request, $idProducteur, $idType, $idVersion, $quantite1, $quantite2)
     {
-        if($quantite1 != 0)
+        //Connexion doctrine
+        $em = $this->getDoctrine()->getManager();
+        
+        if($idType == 0)
         {
-            //Connexion doctrine
-            $em = $this->getDoctrine()->getManager();
-            $option = $request->get('option');
+            $em->getRepository('ICProductionBundle:VersionFicheDescriptive')->getNomenclatureFicheDescriptive($idVersion);
             
-            //récupération des entitées pour les Jointures 
-            $lieu = $em->getRepository('ICProductionBundle:SousTraitant')->findOneBy(array('id' => $idProducteur));
-            $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->findOneBy(array('id' => $idVersion));
-            
-            $prod = new Production();
-            
-            //déclaration des jointures (mise a jour auto de idLieu et idNomenclature)
-            $prod->setSousTraitant($lieu);
-            $prod->setVersion($version);
-            
-            $prod->setQuantite($quantite1 - $quantite2);
-            $prod->setEtape(1);
-            $prod->setDateProd(new \Datetime());
-            
-            if(isset($option))
+            foreach($VersionFicheDescriptive->getNomenclature() as $versionNomenclature)
             {
-                $listeComposant = '';
-                
-                foreach ($option as $value)
-                    $listeComposant .= $value.',';
-                
-                $listeComposant = trim($listeComposant, ',');
-                
-                $prod->setComposantUtilise($listeComposant);
+                if($quantite1 != 0)
+                {
+                    
+                    $option = $request->get('option');
+                    
+                    //récupération des entitées pour les Jointures 
+                    $lieu = $em->getRepository('ICProductionBundle:SousTraitant')->findOneBy(array('id' => $idProducteur));
+                    $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->findOneBy(array('id' => $versionNomenclature->getId()));
+                    
+                    $prod = new Production();
+                    
+                    //déclaration des jointures (mise a jour auto de idLieu et idNomenclature)
+                    $prod->setSousTraitant($lieu);
+                    $prod->setVersion($version);
+                    
+                    $prod->setQuantite($quantite1 - $quantite2);
+                    $prod->setEtape(1);
+                    $prod->setDateProd(new \Datetime());
+                    
+                    if(isset($option))
+                    {
+                        $listeComposant = '';
+                        
+                        foreach ($option as $value)
+                            $listeComposant .= $value.',';
+                        
+                        $listeComposant = trim($listeComposant, ',');
+                        
+                        $prod->setComposantUtilise($listeComposant);
+                    }
+                    
+                    $em->persist($prod);
+                    
+                    if($quantite2 != 0)
+                    {
+                        $prod1 = new Production();
+                        
+                        //déclaration des jointures (mise a jour auto de idLieu et idNomenclature)
+                        $prod1->setSousTraitant($lieu);
+                        $prod1->setVersion($version);
+                        
+                        $prod1->setQuantite($quantite2);
+                        $prod1->setEtape(1);
+                        $prod1->setDateProd(new \Datetime());
+                        
+                        $em->persist($prod1);
+                    }             
+                }                            
             }
             
-            $em->persist($prod);
-            
-            if($quantite2 != 0)
+        }
+        else
+        {
+            if($quantite1 != 0)
             {
-                $prod1 = new Production();
+                //Connexion doctrine
+                $em = $this->getDoctrine()->getManager();
+                $option = $request->get('option');
+                
+                //récupération des entitées pour les Jointures 
+                $lieu = $em->getRepository('ICProductionBundle:SousTraitant')->findOneBy(array('id' => $idProducteur));
+                $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->findOneBy(array('id' => $idVersion));
+                
+                $prod = new Production();
                 
                 //déclaration des jointures (mise a jour auto de idLieu et idNomenclature)
-                $prod1->setSousTraitant($lieu);
-                $prod1->setVersion($version);
+                $prod->setSousTraitant($lieu);
+                $prod->setVersion($version);
                 
-                $prod1->setQuantite($quantite2);
-                $prod1->setEtape(1);
-                $prod1->setDateProd(new \Datetime());
+                $prod->setQuantite($quantite1 - $quantite2);
+                $prod->setEtape(1);
+                $prod->setDateProd(new \Datetime());
                 
-                $em->persist($prod1);
-            }
-            
-            $em->flush();            
+                if(isset($option))
+                {
+                    $listeComposant = '';
+                    
+                    foreach ($option as $value)
+                        $listeComposant .= $value.',';
+                    
+                    $listeComposant = trim($listeComposant, ',');
+                    
+                    $prod->setComposantUtilise($listeComposant);
+                }
+                
+                $em->persist($prod);
+                
+                if($quantite2 != 0)
+                {
+                    $prod1 = new Production();
+                    
+                    //déclaration des jointures (mise a jour auto de idLieu et idNomenclature)
+                    $prod1->setSousTraitant($lieu);
+                    $prod1->setVersion($version);
+                    
+                    $prod1->setQuantite($quantite2);
+                    $prod1->setEtape(1);
+                    $prod1->setDateProd(new \Datetime());
+                    
+                    $em->persist($prod1);
+                }             
+            }            
         }
+        $em->flush();   
+        
         
         if($idProducteur == 0)
             return $this->redirectToRoute('ic_production_interne');
@@ -304,5 +370,46 @@ class ProductionController extends Controller
             return $this->redirectToRoute('ic_production_interne');
         else
             return $this->redirectToRoute('ic_production_sous_traitant', array('id' => $idProducteur));
+    }
+    
+    public function changementTypeAction($idType)
+    {
+        $i = 0;
+        $req = '';
+        if($idType == 0)
+        {
+            $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
+            
+            foreach ($listLastFicheDescriptive as $value) 
+            {
+
+                $option = '';
+                foreach ($value->getFicheDescriptiveOption()->getOptionFicheDescriptive() as $value1) 
+                {
+                    $option .= $value1->getOptionProduitFini()->getAbreviation().'-';
+                }
+                $option = trim($option, '-');
+                
+                $lastVersion[$i]['nom'] = $value->getFicheDescriptiveOption()->getFicheDescriptive()->getNom().'-'.$option.'-V'.$value->getVersion();
+                $lastVersion[$i++]['id'] = $value->getId();
+            }
+        }
+        else
+        {
+            $listLastNomenclature = $this->container->get('ic_production')->listLastNomenclature();
+            
+            foreach ($listLastNomenclature as $value) 
+            {               
+                $lastVersion[$i]['nom'] = $value->getNomenclature()->getNom().'-V'.$value->getVersion();
+                $lastVersion[$i++]['id'] = $value->getId();
+            }
+        }
+        
+        foreach ($lastVersion as $version) 
+        {
+            $req .= '<option value="'.$version['id'].'" >'.$version['nom'].'</option>';
+        }   
+        
+        return new Response($req);   
     }
 }
