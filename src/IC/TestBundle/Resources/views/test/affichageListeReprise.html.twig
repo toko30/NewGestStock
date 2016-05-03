@@ -1,0 +1,35 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+    
+    {% if listeCarteReprise is not null %}
+        
+        {% for carteReprise in listeCarteReprise  %}
+            <a class="lienListeCarte" href="{{ path('ic_test_reprise', {'numSerie': carteReprise.numSerie}) }}" >{{ carteReprise.numSerie }}</a>
+        {% endfor %}
+        
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+	'@ICTestBundle/Resources/public/js/DymoLabelFramework.js'
+	'@ICTestBundle/Resources/public/js/labelPrinter.js'
+	'@ICTestBundle/Resources/public/js/impressionLabelNomenclature.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}	
+{% endblock %}

@@ -14,6 +14,11 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <field name="numSerie" type="integer" column="num_serie" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="commentaire" type="text" column="commentaire" length="65535" nullable="false">
       <options>
         <option name="fixed"/>

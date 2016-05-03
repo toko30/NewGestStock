@@ -1,0 +1,49 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+	
+	<form class="formTest" method="post" action="{{ path('ic_test_update_reprise', {'numSerie': numSerie}) }}">
+	
+		<input class="inputValidListeTest" type="submit" value="Valider"><a class="inputValidListeTest" href="{{ path('ic_test_carte_hs_reprise', {'numSerie': numSerie}) }}">Carte HS</a><br><br>
+		
+		<textarea class="commentaireTest" name="commentaire" id="" cols="40" rows="7" placeholder="laisser un commentaire..."></textarea><br>
+		
+		{% if reprise[0].reprise == 1 %}
+			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème règlé lors de la {{ reprise[0].reprise }}er reprise</label><br>
+		{% else %}
+			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème règlé lors de la {{ reprise[0].reprise }}eme reprise</label><br>
+		{% endif %}
+		
+		{% for test in listeTest[0].testNomenclature %}
+		
+			<label><input class="inputRadioTest" type="radio" name="reprise" value="{{ test.test.id }}">{{ test.test.nom }}</label><br>
+
+		{% endfor %}
+		
+		<input class="inputValidListeTest" type="submit" value="Valider"><a class="inputValidListeTest" href="{{ path('ic_test_carte_hs_reprise', {'numSerie': numSerie}) }}">Carte HS</a>
+	</form>
+	
+{% endblock %}
+
+{% block javascripts %}
+	
+	{{ parent() }}
+	
+	{% javascripts %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+{% endblock %}

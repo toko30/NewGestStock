@@ -10,7 +10,7 @@ class ProduitFiniNomenclature
     /**
      * @var integer
      */
-    private $idNomenclature;
+    private $idVersion;
 
     /**
      * @var integer
@@ -39,27 +39,27 @@ class ProduitFiniNomenclature
 
 
     /**
-     * Set idNomenclature
+     * Set idVersion
      *
-     * @param integer $idNomenclature
+     * @param integer $idVersion
      *
      * @return ProduitFiniNomenclature
      */
-    public function setIdNomenclature($idNomenclature)
+    public function setIdVersion($idVersion)
     {
-        $this->idNomenclature = $idNomenclature;
+        $this->idVersion = $idVersion;
 
         return $this;
     }
 
     /**
-     * Get idNomenclature
+     * Get idVersion
      *
      * @return integer
      */
-    public function getIdNomenclature()
+    public function getIdVersion()
     {
-        return $this->idNomenclature;
+        return $this->idVersion;
     }
 
     /**
@@ -166,34 +166,5 @@ class ProduitFiniNomenclature
     public function getComposant()
     {
         return $this->composant;
-    }
-    /**
-     * @var integer
-     */
-    private $idVersion;
-
-
-    /**
-     * Set idVersion
-     *
-     * @param integer $idVersion
-     *
-     * @return ProduitFiniNomenclature
-     */
-    public function setIdVersion($idVersion)
-    {
-        $this->idVersion = $idVersion;
-
-        return $this;
-    }
-
-    /**
-     * Get idVersion
-     *
-     * @return integer
-     */
-    public function getIdVersion()
-    {
-        return $this->idVersion;
     }
 }

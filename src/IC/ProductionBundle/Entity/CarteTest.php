@@ -20,7 +20,7 @@ class CarteTest
     /**
      * @var integer
      */
-    private $etat;
+    private $etape;
 
     /**
      * @var boolean
@@ -82,27 +82,27 @@ class CarteTest
     }
 
     /**
-     * Set etat
+     * Set etape
      *
-     * @param integer $etat
+     * @param integer $etape
      *
      * @return CarteTest
      */
-    public function setEtat($etat)
+    public function setEtape($etape)
     {
-        $this->etat = $etat;
+        $this->etape = $etape;
 
         return $this;
     }
 
     /**
-     * Get etat
+     * Get etape
      *
      * @return integer
      */
-    public function getEtat()
+    public function getEtape()
     {
-        return $this->etat;
+        return $this->etape;
     }
 
     /**

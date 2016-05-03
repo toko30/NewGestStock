@@ -1,3 +1,127 @@
 ic_test_affichage:
-    path:     /Controle-Qualité
-    defaults: { _controller: ICTestBundle:Test:affichage }
+    path:     /Controle-Qualite-{idLot}
+    defaults: { _controller: ICTestBundle:Test:affichageImpression, idLot: 0}
+    requirements:
+        idLot: \d{1,10}
+        
+ic_test_etape:
+    path:     /Etape-Controle-Qualite-{idLot}
+    defaults: { _controller: ICTestBundle:Test:etapeTest }
+    requirements:
+        idLot: \d{0,20}
+        
+ic_test_test:
+    path:     /Test-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:test, numSerie: 0 }
+    requirements:
+        numSerie: \d{8}
+        
+ic_test_update_test:
+    path:     /Update-Test-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:updateCarteTest }
+    requirements:
+        numSerie: \d{8}
+        
+ic_test_assemblage_test:
+    path:     /Assemblage-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:assemblageCarteTest }
+    requirements:
+        numSerie: \d{8}
+        
+ic_test_firmware_test:
+    path:     /Ajout-Firmware-Controle-Qualite-{numSerie}-{numSerieProduitFini}
+    defaults: { _controller: ICTestBundle:Test:firmwareCarteTest }
+    requirements:
+        numSerie: \d{8}
+        numSerieProduitFini: \d{8}  
+                                      
+ic_test_liste_carte:
+    path:     /Liste-Carte-Etape-Controle-Qualite-{idLot}-{etapeNomenclature}
+    defaults: { _controller: ICTestBundle:Test:listeCarteTest }
+    requirements:
+        idLot: \d{0,20}
+        etapeNomenclature: \d{0,20}
+        
+ic_test_liste_carte_reprise:
+    path:     /Liste-Carte-Reprise-Controle-Qualite-{idLot}
+    defaults: { _controller: ICTestBundle:Test:listeCarteReprise }
+    requirements:
+        idLot: \d{0,20}
+
+ic_test_reprise:
+    path:     /Reprise-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:reprise }
+    requirements:
+        numSerie: \d{8}
+        
+ic_test_update_reprise:
+    path:     /Update-Reprise-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:updateCarteReprise }
+    requirements:
+        numSerie: \d{8}
+
+ic_test_carte_hs_reprise:
+    path:     /Carte-HS-Controle-Qualite-{numSerie}
+    defaults: { _controller: ICTestBundle:Test:carteHS }
+    requirements:
+        numSerie: \d{8}
+        
+ic_test_relancer_prod_carte_hs:
+    path:     /Relancer Production-Carte-HS-Controle-Qualite-{idLot}-{quantite}
+    defaults: { _controller: ICTestBundle:Test:relancerProd }
+    requirements:
+        idLot: \d{0,10}
+        quantite: \d{0,10}
+        
+ic_test_lancement_test:
+    path:     /Lancement-Controle-Qualite-{idLot}
+    defaults: { _controller: ICTestBundle:Test:lancementTest }
+    requirements:
+        idLot: \d{0,10}
+
+ic_test_liste_produit_fini:
+    path:     /Liste-Produit-Fini-Controle-Qualite
+    defaults: { _controller: ICTestBundle:Test:listePF }
+
+ic_test_assemblage_produit_fini:
+    path:     /Assemblage-Produit-Fini-Controle-Qualite-{idFicheDescriptive}
+    defaults: { _controller: ICTestBundle:Test:assemblagePF }
+    requirements:
+        idFicheDescriptive: \d{0,10}
+
+ic_test_recherche_pf:
+    path:     /Recherche-Produit-Fini
+    defaults: { _controller: ICTestBundle:Test:rechercheProduitFini }    
+
+ic_approvisionnement_add_produit_fini:
+    path:     /Ajout-Produit-Fini
+    defaults: { _controller: ICTestBundle:Test:addProduitFini }
+            
+ic_test_petite_label:
+    path:     /Petite-Etiquette_{ref}_{numSerie1}_{numSerie2}
+    defaults: 
+        _controller: ICTestBundle:Test:petiteLabel 
+        ref: 0
+        numSerie1: 0
+        numSerie2: 0
+    requirements:
+        numSerie1: \d{0,20}
+        numSerie2: \d{0,20}
+        
+ic_test_moyenne_label:
+    path:     /Moyenne-Etiquette_{ref}_{numSerie}
+    defaults: 
+        _controller: ICTestBundle:Test:moyenneLabel
+        ref: 0
+        numSerie: 0
+    requirements:
+        numSerie: \d{0,20}
+        
+ic_test_grande_label:
+    path:     /Grande-Etiquette_{ref}_{numSerie}
+    defaults:
+        _controller: ICTestBundle:Test:grandeLabel
+        ref: 0
+        numSerie: 0
+    requirements:
+        numSerie: \d{0,20}

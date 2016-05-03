@@ -1,0 +1,98 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Test{% endblock %}
+
+{% block entete %}{{ parent() }} Test{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+	
+	{% if etapeSortieNomenclaturePF == 1 %}
+		<a class="lienButtonMilieu" href="{{ path('ic_test_assemblage_test', {'numSerie': numSerie}) }}">Sortir les composants produit fini du stock</a>
+	{% else %}
+	
+		{% if listeFirwmware != 0 %}
+		
+			<div class="numSeriePF">
+				Numéro de série Produit Fini<br>
+				{{numSerieProduitFini}}
+			</div>
+			
+			<form class="center" method="post" action="{{ path('ic_test_firmware_test', {'numSerie': numSerie, 'numSerieProduitFini': numSerieProduitFini}) }}">
+			
+				<select id="firmware" name="firmware">
+					<option class="0" value="0">Choisissez un firmware</option>
+					
+					{% for firmware in listeFirwmware %}
+
+						<option class="{{ firmware.numSerie }}" value="{{ firmware.id }}">{{ firmware.nom }}</option>
+						
+					{% endfor %}
+				
+				</select>
+				<br>
+				<input class="inputValidListeTest3" type="submit" value="Valider le Firmware">
+				
+			</form>
+			
+		{% else %}
+		
+			{% if listeTest[0] is defined %}
+			
+				<form class="formTest" method="post" id="test" action="{{ path('ic_test_update_test', {'numSerie': numSerie}) }}">
+				
+					{% if nextEtape == 1 %}
+						<input class="inputValidListeTest1" type="submit" name="sortieStock" value="Sortir composants pour assemblage">
+						<input class="inputValidListeTest1" type="submit" name="attenteAssemblage" value="Mettre en attente avant assemblage"><br><br>
+					{% elseif nextEtape == 2 %}
+						<input class="inputValidListeTest2" type="submit" name="attenteAssemblage" value="Mettre en attente avant assemblage (matière première manquante)"><br><br>
+					{% else %}
+						<input class="inputValidListeTest" type="submit" name="nextStep" value="Valider"><br><br>
+					{% endif %}
+					
+					<textarea class="commentaireTest" name="commentaire" id="" cols="40" rows="7" placeholder="laisser un commentaire..."></textarea><br>
+					
+					<label><input class="inputRadioTest" type="radio" name="test" value="0" checked >Aucun Problème lors du test</label><br>
+					
+					{% for test in listeTest[0].testNomenclature %}
+					
+						<label><input class="inputRadioTest" type="radio" name="test" value="{{ test.test.id }}">{{ test.test.nom }}</label><br>
+
+					{% endfor %}
+					
+					{% if nextEtape == 1 %}
+						<input class="inputValidListeTest1" type="submit" name="sortieStock" value="Sortir composants pour assemblage">
+						<input class="inputValidListeTest1" type="submit" name="attenteAssemblage" value="Mettre en attente avant assemblage"><br><br>
+					{% elseif nextEtape == 2 %}
+						<input class="inputValidListeTest2" type="submit" name="attenteAssemblage" value="Mettre en attente avant assemblage (matière première manquante)"><br><br>
+					{% else %}
+						<input class="inputValidListeTest" type="submit" name="nextStep" value="Valider"><br><br>
+					{% endif %}
+					
+				</form>
+				
+			{% endif %}
+			
+		{% endif %}
+		
+	{% endif %}
+	
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	{% javascripts '@ICTestBundle/Resources/public/js/numSerieFirmware.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+		
+{% endblock %}

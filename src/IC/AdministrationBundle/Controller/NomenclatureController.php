@@ -60,13 +60,10 @@ class NomenclatureController extends Controller
             $nomenclature = new Nomenclature();
             $nomenclature->setNom($request->get('nomenclature'));
             $em->persist($nomenclature);
-            $em->flush();
-            
-            $lastNomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->getLastNomenclature();
             
             $versionNomenclature = new VersionNomenclature();
-            $versionNomenclature->setNomenclature($lastNomenclature[0]);
-            $versionNomenclature->setVersionNomenclature(1);
+            $versionNomenclature->setNomenclature($nomenclature);
+            $versionNomenclature->setVersion(1);
             $em->persist($versionNomenclature);
             $em->flush();
         }

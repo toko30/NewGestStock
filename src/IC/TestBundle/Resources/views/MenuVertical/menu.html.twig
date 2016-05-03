@@ -1,0 +1,29 @@
+<nav id="lienMenuVertical">
+
+	<span class="titreMenuVertical">Lot de test</span><br>
+
+	{% if listeLot is not empty %}
+		
+		<div>
+		
+			{% for lot in listeLot %}
+			
+				<a class="sousMenu" href="{{ path('ic_test_affichage', {'idLot': lot.id}) }}">Lot n° {{ lot.id }} : {{ lot.versionNomenclature.nomenclature.nom }}-V{{ lot.versionNomenclature.version }}</a><br>
+					
+			{% endfor %}
+		
+		</div>
+		
+	{% else %}
+	
+		<div class="">Aucun lot en attente de test</div>
+		
+	{% endif %}	
+	
+	<span class="titreMenuVertical">Assemblage & Impression</span><br>
+		<a class="sousMenu" href="{{ path('ic_test_liste_produit_fini') }}">Assemblage Nomenclature</a><br>	
+		<a class="sousMenu" href="{{ path('ic_test_recherche_pf') }}">Recherche Numéro de Série</a><br>
+	<span class="titreMenuVertical">Historique</span><br>
+		<a class="sousMenu" href="">Histo Reprise</a><br>
+		<a class="sousMenu" href="">Histo Carte HS</a><br>
+</nav>

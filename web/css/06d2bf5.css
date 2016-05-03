@@ -9,7 +9,7 @@ body
     display: inline-block;
     width: 200px;
 	height:40px;
-    color: #00B7D6;
+    color: #7b7c7e;
 	background: white;
     font-size: 20px;
 	padding-top: 10px;
@@ -18,6 +18,8 @@ body
 #entete img
 {
 	margin: 10px 0;
+	width: 188px;
+	height:100px;
 }
 #entete div
 {
@@ -29,7 +31,7 @@ body
 #menuHorizontal
 {
 	width: 100%;
-	background:#00B7D6;
+	background:#7b7c7e;
 	text-align: center;
 }
 #menuHorizontal a
@@ -46,7 +48,7 @@ body
 }
 #menuHorizontal a:hover
 {
-	color: #00B7D6;
+	color: #7b7c7e;
 	background: white;
 }
 

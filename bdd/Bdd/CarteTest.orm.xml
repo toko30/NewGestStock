@@ -9,12 +9,17 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="numSerieProduitFini" type="string" column="num_serie_produit_fini" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
     <field name="idLot" type="integer" column="id_lot" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="etat" type="boolean" column="etat" nullable="false"/>
+    <field name="etape" type="boolean" column="etape" nullable="false"/>
     <field name="assemble" type="boolean" column="assemble" nullable="false"/>
   </entity>
 </doctrine-mapping>

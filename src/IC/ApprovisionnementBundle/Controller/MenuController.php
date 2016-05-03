@@ -20,7 +20,7 @@ class MenuController extends Controller
         
         foreach($listProdSousTraitant as $prodSousTraitant)
         {
-            $listComposantNomenclature = $em->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclature($prodSousTraitant->getIdNomenclature());
+            $listComposantNomenclature = $em->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclatureMP($prodSousTraitant->getIdNomenclature());
             $listComposantSousTraitant = $em->getRepository('ICApprovisionnementBundle:ComposantSousTraitant')->getComposantSt($prodSousTraitant->getIdLieu());
             
             $listComposantUtilise = explode(',', $prodSousTraitant->getComposantUtilise());

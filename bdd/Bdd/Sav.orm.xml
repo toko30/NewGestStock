@@ -9,22 +9,12 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="test" type="integer" column="test" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
-    <field name="etat" type="integer" column="etat" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
-    <field name="dateReception" type="date" column="date_reception" nullable="false"/>
-    <field name="dateRenvoi" type="date" column="date_renvoi" nullable="false"/>
     <field name="commentaire" type="text" column="commentaire" length="65535" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
+    <field name="dateReception" type="date" column="date_reception" nullable="false"/>
+    <field name="dateRenvoi" type="date" column="date_renvoi" nullable="false"/>
   </entity>
 </doctrine-mapping>

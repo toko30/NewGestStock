@@ -53,13 +53,13 @@
             {% if nomenclature[0].designation is defined %}
             
                 <h2 class="titreTabComposantManquant">Liste des composants manquants</h2>
+                
                 <table class="tabComposantProduction">
                     <tr>
                         <td class="titreDesignation">Designation</td>
                         <td class="titreQte">Qte nécessaire</td>
                         <td class="titreQte">Stock Manquant</td>
                     </tr>
-                    {% set tour = loop.index0 %}
                     
                     {% for composant in nomenclature %} 
                     
@@ -74,6 +74,7 @@
                     {% endfor %}
                 
                 </table>
+                
             {% endif %}
             
             <hr>

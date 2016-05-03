@@ -29,6 +29,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="IdversionFicheDescriptive" type="integer" column="id_version_fiche_descriptive" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="dateProd" type="date" column="date_prod" nullable="true" />
     <one-to-one field="sousTraitant" target-entity="SousTraitant">
       <join-column name="id_lieu" referenced-column-name="id" />

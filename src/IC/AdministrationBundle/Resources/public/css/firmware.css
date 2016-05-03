@@ -9,3 +9,19 @@
     height:60px;
     resize: none;
 }
+.numSerie
+{
+    width:15%;
+}
+.titrenumSerie
+{
+    width:15%;
+    color:white;
+    font-weight:bold;
+    background: #7b7c7e;
+}
+.inputNumSerie
+{
+    height:21px;
+    width:97%;
+}

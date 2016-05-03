@@ -14,7 +14,7 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="etat" type="integer" column="etat" nullable="false">
+    <field name="etape" type="integer" column="etape" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>

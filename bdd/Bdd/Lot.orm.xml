@@ -4,14 +4,14 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="idNomenclature" type="integer" column="id_nomenclature" nullable="false">
+    <field name="idVersionNomenclature" type="integer" column="id_version_nomenclature" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
     <field name="dateProd" type="date" column="date_prod" nullable="false"/>
     <field name="dateTest" type="date" column="date_test" nullable="false"/>
-    <field name="idFicheDescriptive" type="integer" column="id_fiche_descriptive" nullable="false">
+    <field name="idVersionFicheDescriptive" type="integer" column="id_version_fiche_descriptive" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>

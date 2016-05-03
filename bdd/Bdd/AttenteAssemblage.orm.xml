@@ -14,9 +14,14 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="idFicheDescriptive" type="integer" column="id_fiche_descriptive" nullable="false">
+    <field name="idOptionFicheDescriptive" type="integer" column="id_option_fiche_descriptive" nullable="false">
       <options>
         <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="numSerieProduitFini" type="string" column="num_serie_produit_fini" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
       </options>
     </field>
   </entity>

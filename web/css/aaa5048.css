@@ -1,8 +1,8 @@
 #menuVertical
 {
 	width:300px;
-	border-right: 1px solid #00B7D6;
-	border-bottom: 1px solid #00B7D6;
+	border-right: 1px solid #7b7c7e;
+	border-bottom: 1px solid #7b7c7e;
 	float:left;
 	padding: 20px;
 	margin-bottom: 50px;
@@ -24,14 +24,14 @@ table
 }
 tr td, tr th
 {
-	border: 1px solid #00B7D6;
+	border: 1px solid #7b7c7e;
 	text-align: center;
 	height: 30px;
 }
 
 tr th
 {
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	letter-spacing: 1.5px;
 	font-size: 18px;
@@ -39,14 +39,14 @@ tr th
 }
 tr:hover
 {
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 }
 
 
 tr td
 {
-	border: 1px solid #00B7D6;
+	border: 1px solid #7b7c7e;
 	text-align: center;
 	height:30px;
 }
@@ -59,7 +59,7 @@ tr td
 .titreFamille
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:10%;
 }
@@ -67,39 +67,39 @@ tr td
 .titreReference
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:auto;    
 }
 .titreDesignation
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:auto;
 }
 .titreBoitier
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:10%;
 }
 .titreCheckBoxTab
 {
- 	background: #00B7D6;
+ 	background: #7b7c7e;
      width:5%;
 }
 .titreStock
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:10%;
 }
 .titreDetails
 {
-	background: #00B7D6;
+	background: #7b7c7e;
 	border-top: 0;
 	border-right: 0;
     width:30px;
@@ -107,14 +107,14 @@ tr td
 .titreQte
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:10%;    
 }
 .titreQteNecessaire
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:10%;      
 }
@@ -122,19 +122,19 @@ tr td
 {
     width:20%; 
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;    
 }
 .titrePrix
 {
     width:15%;
     font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;    
 }
 .supprimer
 {
-	background: #00B7D6;       
+	background: #7b7c7e;       
 }
 .designation
 {
@@ -143,7 +143,7 @@ tr td
 }
 .details
 {
-	background: #00B7D6;
+	background: #7b7c7e;
     width:30px;
 }
 .flecheDetails
@@ -176,20 +176,19 @@ tr td
 {
     display: block;
     margin:10px auto;
-    background: #00B7D6;
+    background: #7b7c7e;
     color: white;
     border: 0;
     font-size: 20px;
     padding: 10px;
     cursor: pointer;
-    width:240px;
+    width:20%;
     text-align:center;
 }
 .checkBox
 {
     width:5%;
 }
-
 .buttonUpdate
 {
     margin:0 4px 0 0;
@@ -218,11 +217,10 @@ tr td
     border:0;
     cursor:pointer;
 }
-
 .buttonAddBlue
 {
     margin-left:-5px;
-    background:url('../Resources/public/images/whiteplus.png') no-repeat center #00B7D6;
+    background:url('../Resources/public/images/whiteplus.png') no-repeat center #7b7c7e;
     text-indent:-9000px;
     text-transform: capitalize;
     line-height: -9999px;
@@ -234,14 +232,14 @@ tr td
 }
 #lienMenuVertical
 {
-	border-bottom: 3px solid #00B7D6;
+	border-bottom: 3px solid #7b7c7e;
 	width:100%;
 	padding-bottom: 20px;
 	margin-bottom:20px;
 }
 #recherche
 {
-	border-top: 3px solid #00B7D6;
+	border-top: 3px solid #7b7c7e;
 }
 .titreMenuVertical
 {

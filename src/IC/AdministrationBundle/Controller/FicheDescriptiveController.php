@@ -65,7 +65,7 @@ class FicheDescriptiveController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $listNomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->getAllNomenclature();
-        $listNomenclatureFichedescriptive = $em->getRepository('ICAdministrationBundle:NomenclatureFicheDescriptive')->findAll($idVersionFicheDescriptive);
+        $listNomenclatureFichedescriptive = $em->getRepository('ICAdministrationBundle:NomenclatureFicheDescriptive')->findBy(array('idVersionFicheDescriptive' => $idVersionFicheDescriptive));
 
         return $this->render('ICAdministrationBundle:ficheDescriptive:gestionNomenclature.html.twig', array('partie' => 'Administration',
                                                                                                             'idVersionFicheDescriptive' => $idVersionFicheDescriptive,
@@ -203,8 +203,8 @@ class FicheDescriptiveController extends Controller
         $em->persist($ficheDescriptiveOption);
         $em->flush();
         
-        $listOptionfichedescriptive = $em->getRepository('ICAdministrationBundle:OptionFicheDescriptive')->findAll($ficheDescriptiveOption->getId());
-        
+        $listOptionfichedescriptive = $em->getRepository('ICAdministrationBundle:OptionFicheDescriptive')->findBy(array('idFicheDescriptiveOption' => $ficheDescriptiveOption->getId()));
+
         foreach ($listOptionfichedescriptive as $optionfichedescriptiveDel)
         {
             $em->remove($optionfichedescriptiveDel);
@@ -220,7 +220,7 @@ class FicheDescriptiveController extends Controller
             
             $em->persist($optionFicheDescriptive);
         }
-                
+        
         $em->flush();
         
         return $this->redirectToRoute('ic_administration_affichage_fiche_descriptive_detail', array('idFiche' => $ficheDescriptive->getId()));         

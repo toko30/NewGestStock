@@ -63,29 +63,16 @@ class ProductionController extends Controller
         //AFFICHAGE LISTE COMPOSANT NOMENCLATURE
         if('POST' == $request->getMethod())
         {
-            if($data['type'] == 0)
-            {
-                
-            }
-            else
-            {
-                //Récupération de la derniere version de la nomenclature
-                $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->getVersion($data['versionNomenclature']);   
-                $idVersion = $version[0]->getId();
-                $version = $version[0]->getVersion();
-                
-                //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
-                $info = $this->container->get('ic_production')->getListComposantNomenclatureSousTraitant($data, $idVersion, $id);
-                list($tabComposant, $nbProdManquant, $nomenclature) = $info;            
-            } 
+            //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
+            $info = $this->container->get('ic_production')->getListComposantNomenclatureSousTraitant($data, $id);
+            list($tabComposant, $nbProdManquant) = $info;  
             
             return $this->render('ICProductionBundle:Liste:sousTraitant.html.twig', array('partie' => 'production',
                                                                                           'id' => $id,
                                                                                           'quantite' => $data['quantite'],
-                                                                                          'composantNomenclature' => $tabComposant,       
-                                                                                          'nomenclature' => $nomenclature,
-                                                                                          'idVersion' => $idVersion,
-                                                                                          'version' => $version,
+                                                                                          'listeNomenclature' => $tabComposant,
+                                                                                          'idType' =>  $data['type'],
+                                                                                          'idVersion' => $data['versionNomenclature'],
                                                                                           'nbProdManquant' => $nbProdManquant));
         }
         //AFFICHAGE DES TABLEAUX PREVISIONNEL ET EN PROD EN COURS
@@ -114,18 +101,39 @@ class ProductionController extends Controller
         
         if($idType == 0)
         {
-            $em->getRepository('ICProductionBundle:VersionFicheDescriptive')->getNomenclatureFicheDescriptive($idVersion);
+            $VersionFicheDescriptive = $em->getRepository('ICProductionBundle:VersionFicheDescriptive')->getNomenclatureFicheDescriptive($idVersion);
             
-            foreach($VersionFicheDescriptive->getNomenclature() as $versionNomenclature)
+            foreach($VersionFicheDescriptive[0]->getNomenclatureFicheDescriptive() as $versionNomenclature)
             {
+                
+                if($idProducteur != 0)
+                {
+                    $nomenclatureProdSt = $request->get('lieu');
+                    
+                    $lieuProd = 0;
+                    foreach($nomenclatureProdSt as $prodSt)
+                    {
+                        if($versionNomenclature->getIdVersionNomenclature() == $prodSt)
+                        {
+                            $lieuProd = 1;
+                            $idProd = $idProducteur;
+                        }
+                    }
+                    if($lieuProd == 0)
+                        $idProd = 0;
+                }
+                else
+                {
+                    $idProd = 0;
+                }
+           
                 if($quantite1 != 0)
                 {
-                    
                     $option = $request->get('option');
                     
                     //récupération des entitées pour les Jointures 
-                    $lieu = $em->getRepository('ICProductionBundle:SousTraitant')->findOneBy(array('id' => $idProducteur));
-                    $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->findOneBy(array('id' => $versionNomenclature->getId()));
+                    $lieu = $em->getRepository('ICProductionBundle:SousTraitant')->findOneBy(array('id' => $idProd));
+                    $version = $em->getRepository('ICProductionBundle:VersionNomenclature')->findOneBy(array('id' => $versionNomenclature->getVersionNomenclature()->getId()));
                     
                     $prod = new Production();
                     
@@ -133,10 +141,10 @@ class ProductionController extends Controller
                     $prod->setSousTraitant($lieu);
                     $prod->setVersion($version);
                     
-                    $prod->setQuantite($quantite1 - $quantite2);
+                    $prod->setQuantite($quantite1);
                     $prod->setEtape(1);
                     $prod->setDateProd(new \Datetime());
-                    
+                    $prod->setIdversionFicheDescriptive($idVersion);
                     if(isset($option))
                     {
                         $listeComposant = '';
@@ -162,12 +170,12 @@ class ProductionController extends Controller
                         $prod1->setQuantite($quantite2);
                         $prod1->setEtape(1);
                         $prod1->setDateProd(new \Datetime());
+                        $prod1->setIdversionFicheDescriptive($idVersion);
                         
                         $em->persist($prod1);
                     }             
                 }                            
             }
-            
         }
         else
         {
@@ -187,9 +195,10 @@ class ProductionController extends Controller
                 $prod->setSousTraitant($lieu);
                 $prod->setVersion($version);
                 
-                $prod->setQuantite($quantite1 - $quantite2);
+                $prod->setQuantite($quantite1);
                 $prod->setEtape(1);
                 $prod->setDateProd(new \Datetime());
+                $prod->setIdversionFicheDescriptive(0);
                 
                 if(isset($option))
                 {
@@ -216,11 +225,12 @@ class ProductionController extends Controller
                     $prod1->setQuantite($quantite2);
                     $prod1->setEtape(1);
                     $prod1->setDateProd(new \Datetime());
-                    
+                    $prod1->setIdversionFicheDescriptive(0);
                     $em->persist($prod1);
                 }             
             }            
         }
+        
         $em->flush();   
         
         
@@ -297,22 +307,24 @@ class ProductionController extends Controller
         
         //sélection de la production qui vient d'être terminée
         $production = $em->getRepository('ICProductionBundle:Production')->findOneBy(array('id' => $idProd));
+        $versionFicheDescriptive = $em->getRepository('ICProductionBundle:VersionFicheDescriptive')->findOneBy(array('id' => $production->getIdVersionFicheDescriptive()));
         $idProducteur = $production->getIdLieu();
-        
+        echo $production->getIdVersionFicheDescriptive() ;
         //création du lot de lecteur
         $lot = new Lot();
-        $lot->setIdnomenclature($production->getVersion()->getVersion());
+        $lot->setIdVersionNomenclature($production->getVersion()->getId());
         $lot->setDateProd($production->getDateProd());
         $lot->setDateTest(new \Datetime());
-        
+        $lot->setVersionFicheDescriptive($versionFicheDescriptive);
         $em->persist($lot);
         $em->flush();
         
         //recupération du lot créé précédement
         $lastLot = $em->getRepository('ICProductionBundle:Lot')->getLastLot();
         $nbProd = $production->getQuantite();
+        
         //création de la liste de carte à tester ainsi que leurs numéro de série
-        for($i = 0, $i1 = 1; $i < $nbProd; $i++, $i1++)
+        for($i = 0; $i < $nbProd; $i++)
         {
             while(true)
             {
@@ -321,25 +333,19 @@ class ProductionController extends Controller
                 //vérification que le numéro généré n'est pas déja utilisé
                 $verifDispoLecteur = $em->getRepository('ICProductionBundle:Lecteur')->findOneBy(array('numSerie' => $rand));
                 $verifDispoCarteTest = $em->getRepository('ICProductionBundle:CarteTest')->findOneBy(array('numSerie' => $rand));
-                
+                $verifDispoHistoVenteLecteur = $em->getRepository('ICProductionBundle:HistoVenteLecteur')->findOneBy(array('numSerie' => $rand));
                 //s'il n'est pas utilisé on ajoute le ligne dans CarteTest
-                if(empty($verifDispoLecteur) && empty($verifDispoCarteTest))
+                if(empty($verifDispoLecteur) && empty($verifDispoCarteTest) && empty($verifDispoHistoVenteLecteur))
                 {
                     $lecteurTest = new CarteTest();  
                     $lecteurTest->setNumSerie($rand);
                     $lecteurTest->setIdLot($lastLot[0]->getId());
-                    $lecteurTest->setEtat(1);
+                    $lecteurTest->setEtape(0);
                     $lecteurTest->setAssemble(0);
                     
                     $em->persist($lecteurTest);
                     break;
                 }
-            }
-            
-            if($i1 == 1000 || $i + 1 == $nbProd)
-            {
-                $i1 = 0;
-                $em->flush();
             }
         }
         

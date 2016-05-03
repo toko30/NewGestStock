@@ -46,7 +46,7 @@ class FournisseurController extends Controller
         {
             $data = $request->get('fournisseur');
 
-            $typeProduit = $em->getRepository('ICAdministrationBundle:TypeProduit')->find($data['type']);
+            $typeProduit = $em->getRepository('ICAdministrationBundle:TypeProduit')->find($data['typeProduit']);
 
             $fournisseur = new Fournisseur();
             

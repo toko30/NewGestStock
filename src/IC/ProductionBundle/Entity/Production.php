@@ -33,6 +33,11 @@ class Production
     private $composantUtilise;
 
     /**
+     * @var integer
+     */
+    private $IdversionFicheDescriptive;
+
+    /**
      * @var \DateTime
      */
     private $dateProd;
@@ -171,6 +176,30 @@ class Production
     public function getComposantUtilise()
     {
         return $this->composantUtilise;
+    }
+
+    /**
+     * Set idversionFicheDescriptive
+     *
+     * @param integer $idversionFicheDescriptive
+     *
+     * @return Production
+     */
+    public function setIdversionFicheDescriptive($idversionFicheDescriptive)
+    {
+        $this->IdversionFicheDescriptive = $idversionFicheDescriptive;
+
+        return $this;
+    }
+
+    /**
+     * Get idversionFicheDescriptive
+     *
+     * @return integer
+     */
+    public function getIdversionFicheDescriptive()
+    {
+        return $this->IdversionFicheDescriptive;
     }
 
     /**

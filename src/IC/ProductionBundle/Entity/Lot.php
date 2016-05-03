@@ -10,7 +10,12 @@ class Lot
     /**
      * @var integer
      */
-    private $idNomenclature;
+    private $idVersionNomenclature;
+
+    /**
+     * @var integer
+     */
+    private $IdversionFicheDescriptive;
 
     /**
      * @var \DateTime
@@ -27,29 +32,58 @@ class Lot
      */
     private $id;
 
+    /**
+     * @var \IC\ProductionBundle\Entity\VersionFicheDescriptive
+     */
+    private $versionFicheDescriptive;
+
 
     /**
-     * Set idNomenclature
+     * Set idVersionNomenclature
      *
-     * @param integer $idNomenclature
+     * @param integer $idVersionNomenclature
      *
      * @return Lot
      */
-    public function setIdNomenclature($idNomenclature)
+    public function setIdVersionNomenclature($idVersionNomenclature)
     {
-        $this->idNomenclature = $idNomenclature;
+        $this->idVersionNomenclature = $idVersionNomenclature;
 
         return $this;
     }
 
     /**
-     * Get idNomenclature
+     * Get idVersionNomenclature
      *
      * @return integer
      */
-    public function getIdNomenclature()
+    public function getIdVersionNomenclature()
     {
-        return $this->idNomenclature;
+        return $this->idVersionNomenclature;
+    }
+
+    /**
+     * Set idversionFicheDescriptive
+     *
+     * @param integer $idversionFicheDescriptive
+     *
+     * @return Lot
+     */
+    public function setIdversionFicheDescriptive($idversionFicheDescriptive)
+    {
+        $this->IdversionFicheDescriptive = $idversionFicheDescriptive;
+
+        return $this;
+    }
+
+    /**
+     * Get idversionFicheDescriptive
+     *
+     * @return integer
+     */
+    public function getIdversionFicheDescriptive()
+    {
+        return $this->IdversionFicheDescriptive;
     }
 
     /**
@@ -108,5 +142,29 @@ class Lot
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set versionFicheDescriptive
+     *
+     * @param \IC\ProductionBundle\Entity\VersionFicheDescriptive $versionFicheDescriptive
+     *
+     * @return Lot
+     */
+    public function setVersionFicheDescriptive(\IC\ProductionBundle\Entity\VersionFicheDescriptive $versionFicheDescriptive = null)
+    {
+        $this->versionFicheDescriptive = $versionFicheDescriptive;
+
+        return $this;
+    }
+
+    /**
+     * Get versionFicheDescriptive
+     *
+     * @return \IC\ProductionBundle\Entity\VersionFicheDescriptive
+     */
+    public function getVersionFicheDescriptive()
+    {
+        return $this->versionFicheDescriptive;
     }
 }

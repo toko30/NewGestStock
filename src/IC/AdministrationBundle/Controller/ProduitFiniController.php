@@ -54,10 +54,10 @@ class ProduitFiniController extends Controller
         $formTypeIdentifiantFournisseur = $this->createForm(IdentifiantFournisseurType::class, $badgeFournisseur, array('action' => $url))->createView();
         
         return $this->render('ICAdministrationBundle:PF:affichageDetailIdentifiant.html.twig', array('partie' => 'Administration',
-                                                                                               'form' => $formTypeIdentifiant,
-                                                                                               'form1' => $formTypeIdentifiantFournisseur,
-                                                                                               'idIdentifiantFournisseur' => $idBadgeFournisseur,
-                                                                                               'badgesFournisseurs' => $listBadgeFournisseur));
+                                                                                                     'form' => $formTypeIdentifiant,
+                                                                                                     'form1' => $formTypeIdentifiantFournisseur,
+                                                                                                     'idIdentifiantFournisseur' => $idBadgeFournisseur,
+                                                                                                     'badgesFournisseurs' => $listBadgeFournisseur));
     }
         
     public function addIdentifiantAction(request $request)
@@ -182,6 +182,9 @@ class ProduitFiniController extends Controller
         
         $listLecteurAutre = $em->getRepository('ICAdministrationBundle:Fournisseur')->getFournisseurByType(3);
         $listAutre = $em->getRepository('ICAdministrationBundle:Fournisseur')->getFournisseurByType(4);
+        
+        $formLecteurAutre = '';
+        $formAutre = '';
         
         $nbLecteurAutre = count($listLecteurAutre);
         $nbAutre = count($listAutre);

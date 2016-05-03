@@ -14,12 +14,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="idLecteur" type="integer" column="id_lecteur" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
-    <field name="dateProd" type="date" column="date_prod" nullable="false"/>
     <field name="dateVente" type="date" column="date_vente" nullable="false"/>
   </entity>
 </doctrine-mapping>

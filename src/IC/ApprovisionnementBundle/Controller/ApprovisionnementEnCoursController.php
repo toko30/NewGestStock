@@ -48,7 +48,7 @@ class ApprovisionnementEnCoursController extends Controller
 
         foreach($listProdSousTraitant as $prodSousTraitant)
         {
-            $listComposantNomenclature = $em->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclature($prodSousTraitant->getIdNomenclature());        
+            $listComposantNomenclature = $em->getRepository('ICApprovisionnementBundle:ComposantNomenclature')->getComposantNomenclatureMP($prodSousTraitant->getIdNomenclature());        
             
             $listComposantUtilise = explode(',', $prodSousTraitant->getComposantUtilise());
             
@@ -401,7 +401,7 @@ class ApprovisionnementEnCoursController extends Controller
                     <Rotation>Rotation0</Rotation>
                     <IsMirrored>False</IsMirrored>
                     <IsVariable>True</IsVariable>
-                    <Text>'.$numSerie1.'</Text>
+                    <Text>'.$numSerie2.'</Text>
                     <Type>Code128Auto</Type>
                     <Size>Small</Size>
                     <TextPosition>Bottom</TextPosition>

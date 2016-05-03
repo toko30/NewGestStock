@@ -17,10 +17,12 @@
 
 	{{ parent()}}
     
-    {% if form[0] is not null %}
+    {% if form[0] is defined or form is defined %}
+    
         {% for nomenclature in nomenclatures %}
         
             {% if idFirmware != 0 %}
+                {% set formend = 0 %}
                 {{ form_start(form) }}
             {% else %}
                 {{ form_start(form[loop.index0]) }}
@@ -28,29 +30,43 @@
             
                 <table class="tabFirmware">
                     <tr>
-                        <td class="titreDesignation">{{ nomenclature.nom }}</td><td class="details"></td>
+                        <td class="titreDesignation">{{ nomenclature.nom }}</td>
+                        <td class="titrenumSerie">Num Série</td>
+                        <td class="details"></td>
                     </tr>
                     
                     {% if idFirmware == 0 %}
                         <tr>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].nom, {attr : {'class':'inputDesignation'}}) }}</td><td class="details" rowspan="2">{{ form_widget(form[loop.index0].submit_firmware) }}</td>
+                            <td class="titreDesignation">{{ form_widget(form[loop.index0].nom, {attr : {'class':'inputDesignation'}}) }}</td>
+                            <td class="titrenumSerie">{{ form_widget(form[loop.index0].numSerie, {attr : {'class':'inputNumSerie'}}) }}</td>
+                            <td class="details" rowspan="2">{{ form_widget(form[loop.index0].submit_firmware) }}</td>
                         </tr>
                         <tr>
-                            <td class="titreDesignation">{{ form_widget(form[loop.index0].commentaire, {attr : {'class':'inputDesignation inputTextarea', 'placeholder': 'Commentaires...'}}) }}</td>
+                            <td colspan="2" class="titreDesignation">{{ form_widget(form[loop.index0].commentaire, {attr : {'class':'inputDesignation inputTextarea', 'placeholder': 'Commentaires...'}}) }}</td>
                         </tr>
                     {% endif %}
                     
                     {% for firmware in nomenclature.firmware %}
                         {% if idFirmware == firmware.id %}
+                            {% set formend = 1 %}
                             <tr>
-                                <td class="titreDesignation">{{ form_widget(form.nom, {attr : {'class':'inputDesignation'}}) }}</td><td class="details" rowspan="2">{{ form_widget(form.submit_firmware, {'attr': {'class': 'buttonUpdate'}}) }}</td>
+                                <td class="titreDesignation">{{ form_widget(form.nom, {attr : {'class':'inputDesignation'}}) }}</td>
+                                <td class="titrenumSerie">{{ form_widget(form.numSerie, {attr : {'class':'inputNumSerie'}}) }}</td>
+                                <td class="details" rowspan="2">{{ form_widget(form.submit_firmware, {'attr': {'class': 'buttonUpdate'}}) }}</td>
                             </tr>
                             <tr>
-                                <td class="titreDesignation">{{ form_widget(form.commentaire, {attr : {'class':'inputDesignation inputTextarea', 'placeholder': 'Commentaires...'}}) }}</td>
+                                <td colspan="2" class="titreDesignation">{{ form_widget(form.commentaire, {attr : {'class':'inputDesignation inputTextarea', 'placeholder': 'Commentaires...'}}) }}</td>
                             </tr>
                         {% else %}
                             <tr>
                                 <td class="designation">{{ firmware.nom }}</td>
+                                <td class="numSerie">
+                                    {% if firmware.numSerie == 1 %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                </td>
                                 <td class="details">
                                     <a href="{{ path('ic_administration_affichage_firmware', {'idFirmware': firmware.id}) }}">
                                         {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
@@ -63,13 +79,16 @@
                     {% endfor %}
                 </table>
                 
-            {% if idFirmware != 0 %}
+            {% if idFirmware != 0 and formend == 1 %}
                 {{ form_widget(form.idNomenclature, {attr : {'value': nomenclature.id}}) }}
                 {{ form_end(form) }}
-            {% else %}
+            {% elseif idFirmware == 0 %}
                 {{ form_widget(form[loop.index0].idNomenclature, {attr : {'value': nomenclature.id}}) }}
                 {{ form_end(form[loop.index0]) }}
             {% endif %}
+            
         {% endfor %}
+        
     {% endif %}
+    
 {% endblock %}

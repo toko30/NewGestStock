@@ -1,0 +1,49 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+	
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+    {{ form_start(formNumSerie, {'attr': {'class': 'formRechercheNumSerie'}}) }}
+        {{ form_widget(formNumSerie.numSerie, {'attr': {'class': 'inputRechercheNumSerie'}}) }}
+    {{ form_end(formNumSerie) }}
+    
+    {% if NumSeriePF != '' and listeNumSerieNomenclature != '' %}
+        <table>
+            <tr>
+                <td>Produit Fini</td><td>{{ NumSeriePF.numSerie }}</td>
+            </tr>
+            {% for NumSerieNomenclature in listeNumSerieNomenclature %}
+                <tr>
+                    <td>nomenclature</td><td>{{ NumSerieNomenclature.numSerie }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    
+{% endblock %}
+
+{% block javascripts %}
+	
+	{{ parent() }}
+	
+	{% javascripts '@ICTestBundle/Resources/public/js/assemblagePF.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+{% endblock %}

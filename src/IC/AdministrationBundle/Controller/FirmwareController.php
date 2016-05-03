@@ -53,6 +53,7 @@ class FirmwareController extends Controller
         $nomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->find($data['idNomenclature']);
        
         $firmware->setNom($data['nom']);
+        $firmware->setNumSerie($data['numSerie']);
         $firmware->setCommentaire($data['commentaire']);
         $firmware->setNomenclature($nomenclature);
         
@@ -71,6 +72,7 @@ class FirmwareController extends Controller
         $nomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->find($data['idNomenclature']);
        
         $firmware->setNom($data['nom']);
+        $firmware->setNumSerie($data['numSerie']);
         $firmware->setCommentaire($data['commentaire']);
         $firmware->setNomenclature($nomenclature);
         

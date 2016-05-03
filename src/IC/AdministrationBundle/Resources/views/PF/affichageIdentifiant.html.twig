@@ -1,7 +1,7 @@
 {% extends "ICAdministrationBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} - Nomenclature{% endblock %}
+{% block title %}{{ parent() }} - Identifiants{% endblock %}
 
-{% block entete %}{{ parent() }} Nomenclature{% endblock %}
+{% block entete %}{{ parent() }} Identifiants{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -14,7 +14,7 @@
 {% block page %}
 
 	{{ parent()}}
-    
+    <h1>Identifiants</h1>
     {% if identifiants is not empty %}
     
         {{ form_start(form) }}
@@ -59,6 +59,25 @@
         {{ form_end(form) }}
         
     {% else %}
-        <div>Aucun fournisseur enregistré</div>
+        
+        {{ form_start(form) }}
+            <table>
+                <tr>
+                    <td class="titreReference">Reference</td>
+                    <td class="titreDesignation">Désignation</td>
+                    <td  class="titreType">Type</td>
+                    <td class="titreFrequence">Fréquence</td>
+                    <td class="details"></td>
+                </tr>
+                <tr>
+                    <td class="titreDesignation">{{ form_widget(form.reference) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.sousTypeBadge) }}</td>
+                    <td class="titreDesignation">{{ form_widget(form.frequence) }}</td>
+                    <td class="details">{{ form_widget(form.submit_identifiant, {attr: {'class': 'buttonAdd'}}) }}</td>
+                </tr>
+            </table>
+        {{ form_end(form) }}
+        
     {% endif %}
 {% endblock %}

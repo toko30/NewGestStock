@@ -1,0 +1,90 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Liste Etape{% endblock %}
+
+{% block entete %}{{ parent() }} Liste Etape{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+    
+    <h1>Controle Qualité du Lot n° {{lot[0].id}} : {{lot[0].versionNomenclature.nomenclature.nom}}-V{{ lot[0].versionNomenclature.version}}</h1>
+    
+    {{ form_start(formNumSerie, {'attr': {'class': 'formRechercheNumSerie'}}) }}
+        {{ form_widget(formNumSerie.numSerie, {'attr': {'class': 'inputRechercheNumSerie'}}) }}
+    {{ form_end(formNumSerie) }}
+    
+    {% for etapeNomenclature in listeEtapeNomenclature %}
+    
+        <a class="lienEtape" href="{{ path('ic_test_liste_carte', {'idLot': lot[0].id, 'etapeNomenclature': etapeNomenclature.ordre}) }}">
+            Etape n° {{ etapeNomenclature.ordre }} {{ etapeNomenclature.etape.nom }}
+            
+            {% set nbCarte = 0 %}
+            
+            {% for carteTest in listeCarteTest %}
+            
+                {% if carteTest.etape == etapeNomenclature.ordre %}
+                
+                    {% set nbCarte = nbCarte + 1 %}
+                    
+                {% endif %}
+                
+            {% endfor %}
+            
+            <div class="nbCarte"> {{ nbCarte }} </div>
+            
+        </a>
+        
+    {% endfor %}
+    <br>
+    <hr>
+    <br>
+    <a class="lienEtape" href="{{ path('ic_test_liste_carte_reprise', {'idLot': lot[0].id}) }}">   
+        Reprise
+        
+        {% set nbCarte = 0 %}
+        
+        {% for reprise in listeReprise %}
+                {% set nbCarte = nbCarte + 1 %}
+        {% endfor %}
+        
+        <div class="nbCarte"> {{ nbCarte }} </div>
+        
+    </a>
+    
+    {% if carteHs[0].quantite is defined %}
+    
+        <a class="lienEtape" href="{{ path('ic_test_relancer_prod_carte_hs', {'idLot': lot[0].id, 'quantite': carteHs[0].quantite}) }}">   
+            Relancer la production des cartes HS           
+            <div class="nbCarte"> {{ carteHs[0].quantite }} </div>       
+        </a>
+        
+    {% endif %}
+    <br><br>
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+		<script type="text/javascript">
+        $("#num_serie_numSerie").focus();
+        
+        $('body').on('click', function(e)
+        {
+            $("#num_serie_numSerie").focus();
+        });
+        </script>
+	{% javascripts %}
+		<script type="text/javascript" src="{{ asset_url }}">
+ 
+        </script>
+	{% endjavascripts %}
+    	
+{% endblock %}

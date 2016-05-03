@@ -33,7 +33,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="ficheDescriptive" type="integer" column="fiche_descriptive" nullable="false">
+    <field name="idVersionFicheDescriptive" type="integer" column="id_version_fiche_descriptive" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>

@@ -1,0 +1,40 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}	
+	
+    {% if listeAssemblage[0].id is defined %}
+    
+        {% for assemblage in listeAssemblage %}
+			<a class="lienEtape" href="{{ path('ic_test_assemblage_produit_fini', {'idFicheDescriptive': assemblage.id}) }}">   
+            {{assemblage.nom}}          
+            <div class="nbCarte"> {{assemblage.quantite}} </div>       
+        	</a>
+        {% endfor %}
+    {% else %}
+        <div class="divLotClick">Aucun produit fini à assembler</div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	
+	{{ parent() }}
+	
+	{% javascripts %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+{% endblock %}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="IC\TestBundle\Entity\CarteTest" repository-class="IC\TestBundle\Repository\CarteTestRepository" table="carte_test">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="numSerie" type="string" column="num_serie" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="numSerieProduitFini" type="string" column="num_serie_produit_fini" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="idLot" type="integer" column="id_lot" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idFirmware" type="integer" column="id_firmware" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="etape" type="integer" column="etape" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="assemble" type="boolean" column="assemble" nullable="false"/>
+    <many-to-one field="lot" target-entity="Lot" inversed-by="carteTest">
+      <join-column name="id_lot" referenced-column-name="id"/>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

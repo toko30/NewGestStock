@@ -16,14 +16,14 @@
 .titreDesignation
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:auto;
 }
 .titreQte
 {
 	font-weight:bold;
-	background: #00B7D6;
+	background: #7b7c7e;
 	color: white;
 	width:20%;    
 }
@@ -33,7 +33,7 @@
 }
 .titreCheckBox
 {
-	background: #00B7D6;
+	background: #7b7c7e;
     width:30px;
 }
 .lienRetour
@@ -42,5 +42,9 @@
 }
 .lienRetour:hover
 {
-    color: #00B7D6;
+    color: #7b7c7e;
+}
+.titreTabComposantManquant
+{
+	color: #7b7c7e;
 }

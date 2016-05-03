@@ -4,12 +4,20 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="idNomenclature" type="integer" column="id_nomenclature" nullable="false">
+    <field name="idVersionNomenclature" type="integer" column="id_version_nomenclature" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="IdversionFicheDescriptive" type="integer" column="id_version_fiche_descriptive" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
     <field name="dateProd" type="date" column="date_prod" nullable="false"/>
     <field name="dateTest" type="date" column="date_test" nullable="false"/>
+    <one-to-one field="versionFicheDescriptive" target-entity="VersionFicheDescriptive">
+      <join-column name="id_version_fiche_descriptive" referenced-column-name="id" />
+    </one-to-one>
   </entity>
 </doctrine-mapping>

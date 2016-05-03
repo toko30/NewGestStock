@@ -1,0 +1,70 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+	
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+
+	{% set listOption = "" %}
+	{% for option in listeFicheDescriptive[0].ficheDescriptiveOption.optionFicheDescriptive %}
+		{% set listOption = listOption~'-'~option.optionProduitFini.abreviation %}
+	{% endfor %}
+	
+	<h1 id="etiquette" petite="{{ listeFicheDescriptive[0].ficheDescriptiveOption.ficheDescriptive.petite }}" moyenne="{{ listeFicheDescriptive[0].ficheDescriptiveOption.ficheDescriptive.moyenne }}" grande="{{ listeFicheDescriptive[0].ficheDescriptiveOption.ficheDescriptive.grande }}">{{ listeFicheDescriptive[0].ficheDescriptiveOption.ficheDescriptive.nom }}{{ listOption }}-V{{ listeFicheDescriptive[0].version }}</h1>
+	
+	<span id="pathAjax" data-path="{{ path('ic_approvisionnement_add_produit_fini') }}"></span>
+	<span id="pathAjaxPetite" data-path="{{ path('ic_test_petite_label') }}"></span>
+	<span id="pathAjaxMoyenne" data-path="{{ path('ic_test_moyenne_label') }}"></span>
+	<span id="pathAjaxGrande" data-path="{{ path('ic_test_grande_label') }}"></span>
+	
+	<div class="formNumSerie">
+		<input id="inputNumSerie" type="text" name="numSerie"><br>
+	</div>
+	
+	<div id="buttonAddPF" numseriepf="" refpf="{{ listeFicheDescriptive[0].id }}">Ajouter au produit fini</div>
+	{% for nomenclatureFicheDescriptive in listeFicheDescriptive[0].nomenclatureFicheDescriptive %}
+		<div class="listeNumSerie">
+		
+			<div class="enteteNumSerie" id="{{nomenclatureFicheDescriptive.versionNomenclature.id}}"></div>
+			
+			<h2>{{ nomenclatureFicheDescriptive.versionNomenclature.nomenclature.nom }}-V{{ nomenclatureFicheDescriptive.versionNomenclature.version }}</h2>
+		
+			{% for nomenclature in listeNomenclature %}
+			
+				{% if nomenclature.idVersionNomenclature == nomenclatureFicheDescriptive.versionNomenclature.id %}
+					<div class="numSerieAssemblage {{nomenclatureFicheDescriptive.versionNomenclature.id}}" id="{{ nomenclature.numSerieProduitFini }}">{{ nomenclature.numSerie }}</div>
+				{% endif %}
+				
+			{% endfor %}
+		</div>
+		
+	{% endfor %}
+	
+{% endblock %}
+
+{% block javascripts %}
+	
+	{{ parent() }}
+	
+	{% javascripts 
+	'@ICTestBundle/Resources/public/js/DymoLabelFramework.js'
+	'@ICTestBundle/Resources/public/js/labelPrinter.js'
+	'@ICTestBundle/Resources/public/js/assemblagePF.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+{% endblock %}

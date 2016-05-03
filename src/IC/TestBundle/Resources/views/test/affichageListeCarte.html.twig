@@ -1,0 +1,38 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Liste Carte{% endblock %}
+
+{% block entete %}{{ parent() }} Liste Carte{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+    {% if listeCarteTest is not null %}
+        
+        {% for carteTest in listeCarteTest  %}
+            <a class="lienListeCarte" href="{{ path('ic_test_test', {'numSerie': carteTest.numSerie}) }}" >{{ carteTest.numSerie }}</a>
+        {% endfor %}
+        
+    {% endif %}
+    
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+	'@ICTestBundle/Resources/public/js/DymoLabelFramework.js'
+	'@ICTestBundle/Resources/public/js/labelPrinter.js'
+	'@ICTestBundle/Resources/public/js/impressionLabelNomenclature.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}	
+{% endblock %}

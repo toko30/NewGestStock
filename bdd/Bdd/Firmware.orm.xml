@@ -9,6 +9,7 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="numSerie" type="boolean" column="num_serie" nullable="false"/>
     <field name="idNomenclature" type="integer" column="id_nomenclature" nullable="false">
       <options>
         <option name="unsigned"/>

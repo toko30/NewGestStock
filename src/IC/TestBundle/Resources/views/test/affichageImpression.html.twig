@@ -1,0 +1,45 @@
+{% extends 'ICTestBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Stock Interne{% endblock %}
+
+{% block entete %}{{ parent() }} Stock Interne{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICTestBundle/Resources/public/css/test.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+    
+	{% if idLot != 0 %}
+		<div class="buttonImpression" id="{{ lot[0].versionNomenclature.nomenclature.nom}}-V{{ lot[0].versionNomenclature.version }}" data-path="{{ path('ic_test_petite_label') }}" data-path="{{ path('ic_test_petite_label') }}">
+			Lancer l'impression des etiquettes
+		</div>
+		
+		{% if listeCarteTest is not empty %}
+			
+			{% for carteTest in listeCarteTest %}
+				<span class="numSerie">{{ carteTest.numSerie }}</span>
+			{% endfor %}
+		{% endif %}
+		
+	{% else %}
+		<div class="divLotClick">Veuillez choisir un lot à tester</div>
+	{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+	'@ICTestBundle/Resources/public/js/DymoLabelFramework.js'
+	'@ICTestBundle/Resources/public/js/labelPrinter.js'
+	'@ICTestBundle/Resources/public/js/impressionLabelNomenclature.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}	
+{% endblock %}

@@ -18,6 +18,11 @@ class Firmware
     private $idNomenclature;
 
     /**
+     * @var integer
+     */
+    private $numSerie;
+
+    /**
      * @var string
      */
     private $commentaire;
@@ -79,6 +84,30 @@ class Firmware
     public function getIdNomenclature()
     {
         return $this->idNomenclature;
+    }
+
+    /**
+     * Set numSerie
+     *
+     * @param integer $numSerie
+     *
+     * @return Firmware
+     */
+    public function setNumSerie($numSerie)
+    {
+        $this->numSerie = $numSerie;
+
+        return $this;
+    }
+
+    /**
+     * Get numSerie
+     *
+     * @return integer
+     */
+    public function getNumSerie()
+    {
+        return $this->numSerie;
     }
 
     /**

@@ -46,17 +46,9 @@
             <table class="tabEtape">
                 <tr>
                     {% if idEtape == etape.id %}
-                        <td class="titreDetails"></td>
                         <td class="titreDesignation">{{ form_widget(formEtape.nom) }}</td>
                         <td class="details">{{ form_widget(formEtape.submit_etape) }}</td>
                     {% else %}
-                        <td class="titreDetails">
-                            {% image 'Resources/public/images/redcroix.png' %}
-                                <a href="">
-                                    <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche haut" />
-                                </a>
-                            {% endimage %}
-                        </td>
                         <td class="titreDesignation">{{ etape.nom }} </td>
                         <td class="details">
                             {% image 'Resources/public/images/fleche.png' %}
@@ -69,7 +61,6 @@
                     
                     {% if idTest == 0 and idEtape == 0 %}
                         <tr>
-                            <td class="titreDetails"></td>
                             <td class="titreDesignation">{{ form_widget(formTest[loop.index0].nom) }}</td>
                             <td class="details">{{ form_widget(formTest[loop.index0].submit_test) }}</td>
                         </tr>
@@ -79,19 +70,11 @@
                     
                         {% if idTest == test.id %}
                             <tr>
-                                <td class="titreDetails"></td>
                                 <td class="titreDesignation">{{ form_widget(formTest.nom) }}</td>
                                 <td class="details">{{ form_widget(formTest.submit_test) }}</td>
                             </tr>                        
                         {% else %}
-                            <tr>
-                                <td class="titreDetails">
-                                    {% image 'Resources/public/images/redcroix.png' %}
-                                        <a href="">
-                                            <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche haut" />
-                                        </a>
-                                    {% endimage %}
-                                </td>
+                            <tr>                               
                                 <td class="designation">{{ test.nom }}</td>                        
                                 <td class="details">
                                     {% image 'Resources/public/images/fleche.png' %}

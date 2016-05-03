@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class FirmwareType extends AbstractType
 {
@@ -18,7 +19,8 @@ class FirmwareType extends AbstractType
         
         $builder->add('nom', TextType::class, array('required' => true));
         $builder->add('commentaire', TextareaType::class, array('required' => false));        
-                      
+        $builder->add('numSerie', ChoiceType::class, array('required' => false, 'choices' => array('Oui' => 1, 'Non' => 0)));        
+               
         $builder->add('idNomenclature', HiddenType::class);
         
         $builder->add('submit_firmware', SubmitType::class, array('attr' => array('class' => 'buttonAdd')));

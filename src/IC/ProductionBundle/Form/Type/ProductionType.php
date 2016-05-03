@@ -14,24 +14,32 @@ class ProductionType extends AbstractType
     {
        
         
-        foreach ($options['data']['listLastFicheDescriptive'] as $value) 
+        if(!empty($options['data']['listLastFicheDescriptive']))
         {
-
-            $option = '';
-            foreach ($value->getFicheDescriptiveOption()->getOptionFicheDescriptive() as $value1) 
+            foreach ($options['data']['listLastFicheDescriptive'] as $value) 
             {
-                $option .= $value1->getOptionProduitFini()->getAbreviation().'-';
-            }
-            $option = trim($option, '-');
-            
-            $lisLastNom[$value->getFicheDescriptiveOption()->getFicheDescriptive()->getNom().'-'.$option.'-V'.$value->getVersion()] = $value->getId();
+
+                $option = '';
+                foreach ($value->getFicheDescriptiveOption()->getOptionFicheDescriptive() as $value1) 
+                {
+                    $option .= $value1->getOptionProduitFini()->getAbreviation().'-';
+                }
+                $option = trim($option, '-');
+                
+                $listLastNom[$value->getFicheDescriptiveOption()->getFicheDescriptive()->getNom().'-'.$option.'-V'.$value->getVersion()] = $value->getId();
+            }            
         }
+        else
+        {
+            $listLastNom = array('Aucune Fiche Descriptive' => 0);  
+        }
+        
         
         $builder->add('type', ChoiceType::class, array('choices' => array('Fiche Descriptive' => 0, 'Nomenclature' => 1)));
          
         $builder->add('quantite', TextType::class, array('required' => false));
                       
-        $builder->add('versionNomenclature', ChoiceType::class, array('choices' => $lisLastNom,
+        $builder->add('versionNomenclature', ChoiceType::class, array('choices' => $listLastNom,
                         'multiple' => false,
                         'expanded' => false));
         $builder->add('calculer', SubmitType::class);

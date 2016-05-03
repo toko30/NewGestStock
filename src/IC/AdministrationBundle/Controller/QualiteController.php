@@ -80,7 +80,7 @@ class QualiteController extends Controller
         $listeTestChecked = null;
         
         if($data == -1 || $data == -2)
-            return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite', array('idVersion' => $versionNomenclature->getVersion()));
+            return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite', array('idVersion' => $versionNomenclature->getId()));
         else
             return $this->redirectToRoute('ic_administration_affichage_gestion_nomenclature_qualite_test', array('idEtapeNomenclature' => $etapeNomenclature->getId(), 'idEtape' => $data));  
     }
@@ -172,6 +172,7 @@ class QualiteController extends Controller
     {   
         $em = $this->getDoctrine()->getManager();
         $listeEtapes = $em->getRepository('ICAdministrationBundle:Etape')->getAllEtapeAndTest();
+        $formTest = '';
         
         if($idEtape != 0 && $idTest == 0)
         {
@@ -183,7 +184,7 @@ class QualiteController extends Controller
             $etape = new Etape();
             $formEtape = $this->createForm(EtapeType::class, $etape, array('action' => $this->generateUrl('ic_administration_affichage_gestion_qualite_add_etape')))->createView();            
         }
-        
+
         if ($idTest !=0)
         {
             $test = $em->getRepository('ICAdministrationBundle:Test')->find($idTest);

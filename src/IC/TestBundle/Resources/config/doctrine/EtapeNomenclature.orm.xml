@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="IC\TestBundle\Entity\EtapeNomenclature" repository-class="IC\TestBundle\Repository\EtapeNomenclatureRepository" table="etape_nomenclature">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="idVersionNomenclature" type="integer" column="id_version_nomenclature" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idEtape" type="integer" column="id_etape" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="ordre" type="integer" column="ordre" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="etape" target-entity="Etape" >
+      <join-column name="id_etape" referenced-column-name="id" />
+    </one-to-one>
+    <one-to-many field="testNomenclature" target-entity="TestNomenclature" mapped-by="etapeNomenclature"/> 
+  </entity>
+</doctrine-mapping>

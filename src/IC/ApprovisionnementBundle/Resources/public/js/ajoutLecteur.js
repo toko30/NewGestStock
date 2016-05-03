@@ -121,6 +121,11 @@ $('#addLecteur').on('click', function()
             }
         }
         
+        $('.lecteurTermine').each(function()
+        {   
+            arrayLecteur.push($(this));
+        });
+        
         $('.lecteur').each(function()
         {   
             arrayLecteur.push($(this));
@@ -160,7 +165,7 @@ $('#addLecteur').on('click', function()
                         }
                     }
                 }
-            } 
+            }
         }
         
         if(arrayRefPetite.length != 0)
@@ -242,7 +247,7 @@ $('#addLecteur').on('click', function()
             });
         }   
     }
-              
+      
     $.ajax({
     type: 'POST',
     url: path,

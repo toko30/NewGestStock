@@ -22,7 +22,7 @@
     
     {% if listeNewEtape is not empty %}
     
-        <form class="formAjout" method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_add_etape', {idVersion: versionNomenclature[0].version}) }}">
+        <form class="formAjout" method="post" action="{{ path('ic_administration_gestion_nomenclature_qualite_add_etape', {idVersion: versionNomenclature[0].id}) }}">
             <label for="etape"><h2>Ajouter une etape de test</h2></label><br>
             <select class="selectEtape" id="etape" name="etape">
                 {% for etape in listeNewEtape %}
