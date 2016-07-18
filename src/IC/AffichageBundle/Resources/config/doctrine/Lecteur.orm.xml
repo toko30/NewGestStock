@@ -4,11 +4,6 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="etat" type="integer" column="etat" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="numSerie" type="string" column="num_serie" length="100" nullable="false">
       <options>
         <option name="fixed"/>
@@ -19,9 +14,14 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <field name="vendu" type="integer" column="vendu" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="dateCreation" type="date" column="date_creation" nullable="true"/>
-    <one-to-one field="typeLecteur" target-entity="TypeLecteur" >
+    <many-to-one field="versionFicheDescriptive" target-entity="VersionFicheDescriptive" inversed-by="lecteur">
       <join-column name="id_lecteur" referenced-column-name="id" />
-    </one-to-one>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

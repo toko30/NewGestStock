@@ -1,19 +1,66 @@
 {% extends "ICAdministrationBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} - Sous Famille{% endblock %}
+{% block title %}{{ parent() }} - Type Autre Produit Fini{% endblock %}
 
-{% block entete %}{{ parent() }} Sous Famille{% endblock %}
+{% block entete %}{{ parent() }} Type Autre Produit Fini{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/optionSousFamille.css' %}
+	'@ICAdministrationBundle/Resources/public/css/option.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
 
 {% block page %}
 
-	{{ parent()}}
-    autre
-
+	{{ parent() }}
+	
+	{% if idTypeAutre == 0 %}
+    	<form id="TypeAutre" method="post" action="{{ path('ic_administration_add_type_autre') }}">
+	{% else %}
+		<form id="TypeAutre" method="post" action="{{ path('ic_administration_update_type_autre', {'idTypeAutre': idTypeAutre}) }}">
+	{% endif %}
+	
+		<table class="tabOption">
+			<tr>
+				<td class="titreDesignation">Nom</td>
+				<td class="details"></td>
+			</tr>
+			
+			{% if idTypeAutre == 0 %}
+				<tr>
+					<td class="titreDesignation"><input type="text" name="nom"></td>
+					<td class="titreDesignation"><input class="buttonAdd" type="submit" value=""></td>
+				</tr>
+			{% endif %}
+		
+			{% if listeTypeAutre is not empty %}
+			
+				{% for typeAutre in listeTypeAutre %}
+				
+					{% if idTypeAutre == typeAutre.id %}
+						<tr>
+							<td class="titreDesignation"><input type="text" name="nom" value="{{ typeAutre.nom }}"></td>
+							<td class="titreDesignation"><input class="buttonUpdate" type="submit" value=""></td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ typeAutre.nom }}</td>
+							<td class="details">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<a href="{{ path('ic_administration_affichage_type_autre', {'idTypeAutre': typeAutre.id}) }}">
+										<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+									</a>
+								{% endimage %}
+							</td>							
+						</tr>					
+					{% endif %}
+					
+				{% endfor %}
+						
+			{% endif %}
+		
+		</table>
+	</form>
+	
 {% endblock %}

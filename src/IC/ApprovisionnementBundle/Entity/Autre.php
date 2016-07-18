@@ -225,4 +225,91 @@ class Autre
     {
         return $this->fournisseur;
     }
+    /**
+     * @var integer
+     */
+    private $petite;
+
+    /**
+     * @var integer
+     */
+    private $moyenne;
+
+    /**
+     * @var integer
+     */
+    private $grande;
+
+
+    /**
+     * Set petite
+     *
+     * @param integer $petite
+     *
+     * @return Autre
+     */
+    public function setPetite($petite)
+    {
+        $this->petite = $petite;
+
+        return $this;
+    }
+
+    /**
+     * Get petite
+     *
+     * @return integer
+     */
+    public function getPetite()
+    {
+        return $this->petite;
+    }
+
+    /**
+     * Set moyenne
+     *
+     * @param integer $moyenne
+     *
+     * @return Autre
+     */
+    public function setMoyenne($moyenne)
+    {
+        $this->moyenne = $moyenne;
+
+        return $this;
+    }
+
+    /**
+     * Get moyenne
+     *
+     * @return integer
+     */
+    public function getMoyenne()
+    {
+        return $this->moyenne;
+    }
+
+    /**
+     * Set grande
+     *
+     * @param integer $grande
+     *
+     * @return Autre
+     */
+    public function setGrande($grande)
+    {
+        $this->grande = $grande;
+
+        return $this;
+    }
+
+    /**
+     * Get grande
+     *
+     * @return integer
+     */
+    public function getGrande()
+    {
+        return $this->grande;
+    }
 }

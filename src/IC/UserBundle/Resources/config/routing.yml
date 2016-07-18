@@ -1,0 +1,11 @@
+ic_user_redirection:
+    path:     /Redirection
+    defaults: { _controller: ICUserBundle:Redirect:redirection }
+
+ic_user_affichage_change_password:
+    path:     /Changer-Mot-de-Passe
+    defaults: { _controller: ICUserBundle:Redirect:affichageChangePassword }
+
+ic_user_change_password:
+    path:     /Ex-Changer-Mot-de-Passe
+    defaults: { _controller: ICUserBundle:Redirect:changePassword }

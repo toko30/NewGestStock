@@ -1,0 +1,42 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Gestion SAV{% endblock %}
+
+{% block entete %}{{ parent() }} Gestion SAV{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/sav.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+	
+    <table>
+		<tr>
+			<td class="titreClient">Client</td>
+			<td class="titreLecteur">Lecteur</td>
+			<td class="titreNumSerie">Num Série</td>
+			<td class="titreDate">Date Réception</td>
+			<td class="titreDetails"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td class="titreDetails">
+				<a href="{{ path('ic_produit_fini_detail_sav', {'idSAV': 0}) }}">                        
+					{% image 'Resources/public/images/fleche.png' %}
+						<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+					{% endimage %}
+				</a>				
+			</td>
+		</tr>
+	</table>
+
+{% endblock %}

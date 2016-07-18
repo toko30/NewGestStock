@@ -176,7 +176,7 @@ $('#buttonAddPF').on('click', function()
             }
             
             //IMPRESSION ETIQUETTE
-            /*if(arrayNumSeriePetite.length != 0)
+            if(arrayNumSeriePetite.length != 0)
                 alert('Vérifier que les petites etiquettes sont bien dans l\'imprimante');
             
             for(i = 0; i < arrayNumSeriePetite.length; i++)
@@ -252,22 +252,21 @@ $('#buttonAddPF').on('click', function()
                         label.print(printerName);
                     }
                 });
-            }*/
+            }
             
-            setTimeout(function () 
+            alert('veuillez attendre la fin de l\'impression avant de valider');
+
+            $.ajax({
+            type: 'POST',
+            url: path,
+            data: {arrayNumSerie : arrayNumSerie, arrayNumSeriePF: arrayNumSeriePF},
+            timeout: 30000,
+            success: function(data) 
             {
-                $.ajax({
-                type: 'POST',
-                url: path,
-                data: {arrayNumSerie : arrayNumSerie, arrayNumSeriePF: arrayNumSeriePF},
-                timeout: 30000,
-                success: function(data) 
-                {
-                    //window.location.href =  document.referrer;
-                    alert(document.referrer);
-                }
-                });
-            },6000);
+                //window.location.href =  document.referrer;
+                alert(document.referrer);
+            }
+            });
         }
     }
     else

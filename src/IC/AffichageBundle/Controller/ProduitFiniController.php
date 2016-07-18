@@ -15,8 +15,26 @@ class ProduitFiniController extends Controller
             $nbLecteur = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Lecteur')->countLecteur($formProduitFiniLecteur);
         else
             $nbLecteur = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Lecteur')->countLecteur(0);
-            
-        return $this->render('ICAffichageBundle:produitFini:lecteur.html.twig', array('partie' => 'affichage', 'lecteur' => $nbLecteur));
+
+        foreach ($nbLecteur as $key => $lecteur) 
+        {
+            $ficheDesc = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:VersionFicheDescriptive')->getFicheById($lecteur[0]->getIdLecteur());
+
+            $version = $ficheDesc[0]->getVersion();
+            $nom = $ficheDesc[0]->getFicheDescriptiveOption()->getFicheDescriptive()->getNom();
+
+            $listeOption = '';
+            foreach ($ficheDesc[0]->getFicheDescriptiveOption()->getOptionFicheDescriptive() as $option) 
+            {
+                $listeOption .= '-'.$option->getOptionProduitFini()->getAbreviation();
+            }
+
+            $listeLecteur[$key]['nom'] = $nom.$listeOption.'-V'.$version;
+            $listeLecteur[$key]['description'] = $ficheDesc[0]->getFicheDescriptiveOption()->getDesignation();
+            $listeLecteur[$key]['nbProduit'] = $lecteur['nbProduit']; 
+        }
+
+        return $this->render('ICAffichageBundle:produitFini:lecteur.html.twig', array('partie' => 'affichage', 'lecteur' => $listeLecteur));
     }
 
     public function produitFiniIdentifiantAction(request $request)
@@ -40,8 +58,8 @@ class ProduitFiniController extends Controller
         else
             $nbLecteur = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:LecteurAutre')->countLecteur(0); 
             
-        $autres = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:Autre')->findAll(); 
-                   
+        $autres = $this->getDoctrine()->getManager()->getRepository('ICAffichageBundle:ProduitFiniAutre')->countAutre(); 
+
         return $this->render('ICAffichageBundle:produitFini:autre.html.twig', array('partie' => 'affichage', 'lecteur' => $nbLecteur, 'autres' => $autres));
     }
 }

@@ -58,16 +58,16 @@
                     <tr>
                         <td class="titreDesignation">Designation</td>
                         <td class="titreQte">Qte nécessaire</td>
-                        <td class="titreQte">Stock Manquant</td>
+                        <td class="titreQte">Stock restant</td>
                     </tr>
                     
                     {% for composant in nomenclature %} 
                     
                         {% if loop.index != 1 %}         
-                            <tr>
-                                <td class="designation">{{composant.designation}}</td>
-                                <td>{{composant.quantite}}</td>
-                                <td>{{composant.stock}}</td>
+                            <tr class="{% if composant.stock < 0 %}stockInsufisant{% endif %}">
+                                <td class="designation">{{ composant.designation }}</td>
+                                <td>{{ composant.quantite }}</td>
+                                <td>{{ composant.stock }}</td>
                             </tr>
                         {% endif %}
                         

@@ -1,0 +1,20 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Historique Prêt{% endblock %}
+
+{% block entete %}{{ parent() }} Historique Prêt{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/pret.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+
+    histo pret
+
+{% endblock %}

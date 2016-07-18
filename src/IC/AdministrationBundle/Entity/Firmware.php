@@ -168,4 +168,3 @@ class Firmware
         return $this->nomenclature;
     }
 }
-

@@ -10,4 +10,14 @@ namespace IC\AdministrationBundle\Repository;
  */
 class NomenclatureFicheDescriptiveRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNomenlatures($idFiche)
+    {
+        return $this->createQuerybuilder('nfd')
+        ->join('nfd.versionNomenclature', 'vn')
+        ->addSelect('nfd', 'vn')
+        ->where('nfd.idVersionFicheDescriptive = :idFiche')
+        ->setParameter('idFiche', $idFiche)
+        ->getQuery()
+        ->getResult();
+    }
 }

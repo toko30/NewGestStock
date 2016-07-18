@@ -24,12 +24,13 @@
 			<td class="titreDesignation">Désignation</td>
 			<td class="titreStock">Quantité</td>
 		</tr>
+
 		{% for lect in lecteur %}
-		<tr>
-			<td>{{lect.nom}}</td>
-			<td class="designation">{{lect.designation}}</td>
-			<td>{{lect.nbProduit}}</td>
-		</tr>
+			<tr>
+				<td class="reference">{{ lect.nom }}</td>
+				<td class="designation">{{ lect.description }}</td>
+				<td class="stock">{{ lect.nbProduit }}</td>
+			</tr>
 		{% endfor %}
 	</table>
 {% endblock %}

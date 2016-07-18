@@ -1,0 +1,102 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Gestion Prêt{% endblock %}
+
+{% block entete %}{{ parent() }} Gestion Prêt{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/pret.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+	<span id="pathAjax" data-path="{{ path('ic_produit_ajax_modif_remarque') }}"></span>
+	{% if is_granted('ROLE_PRODUCTION') %}
+    {{ parent() }}
+	
+	{{ form_start(formPret, {attr: {'class': 'formPret'}}) }}
+		{{ form_widget(formPret.client, {attr: {'class': 'inputSelect'}}) }}
+		{{ form_widget(formPret.contact) }}
+		{{ form_widget(formPret.numSerie) }}
+		{{ form_widget(formPret.dateEnvoi) }}		
+		{{ form_widget(formPret.remarque, {attr: {'class': 'inputRemarque'}}) }}
+		{{ form_widget(formPret.enregistrer_le_pret, {attr: {'class': 'inputSend'}}) }}
+	{{ form_end(formPret) }}
+	{% endif %}
+	
+	
+	{% if listePret is not empty %}
+	
+		<h1>Liste des prêts en cours</h1>
+	
+		<table>
+			<tr>
+				<td class="titreClient">Client</td>
+				<td class="titreLecteur">Lecteur</td>
+				<td class="titreNumSerie">Num Série</td>
+				<td class="titreDate">Date Expedition</td>
+				{% if is_granted('ROLE_PRODUCTION') %}
+				<td class="titreDetails">Retourné</td>
+				<td class="titreDetails">Vendu</td>
+				{% endif %}
+			</tr>
+			{% for pret in listePret %}
+				
+				{% set nom = pret.versionFichedescriptive.ficheDescriptiveOption.ficheDescriptive.nom %}
+				
+				{% for option in pret.versionFichedescriptive.ficheDescriptiveOption.optionFicheDescriptive %}
+					{% set nom = nom|upper ~'-'~ option.optionProduitfini.abreviation|upper %}
+				{% endfor %}
+				
+				{% if pret.dateEnvoi|date_modify("+1 Month") >= date() %}
+					<tr id="{{loop.index}}" class="lignePret">
+				{% else %}
+					<tr id="{{loop.index}}" class="lignePret erreurPret">
+				{% endif %}
+				
+					<td class="client"><abbr title="{{ pret.contact }}">{{ pret.client.nom }}</abbr></td>
+					<td class="lecteur">{{ nom }}-V{{ pret.versionFichedescriptive.version }}</td>
+					<td class="numSerie">{{ pret.numSerie }}</td>
+					<td class="date">{{ pret.dateEnvoi|date("d/m/Y") }}</td>
+					{% if is_granted('ROLE_PRODUCTION') %}
+					<td {% if pret.dateEnvoi|date_modify("+1 Month") >= date() %} class="titreDetails" {% endif %}>
+						<a href="{{ path('ic_produit_fini_retour_pret', {'idPret': pret.id}) }}">							
+							{% image 'Resources/public/images/retour.png' %}
+								<img id="" class="imgRetour" src="{{ asset_url }}" alt="Fleche Détail" />
+							{% endimage %}
+						</a>
+					</td>
+					<td {% if pret.dateEnvoi|date_modify("+1 Month") >= date() %} class="titreDetails" {% endif %}>
+						<a href="{{ path('ic_produit_fini_vendu_pret', {'idPret': pret.id}) }}">                        
+							{% image 'Resources/public/images/caddie.png' %}
+								<img id="" class="imgCaddie" src="{{ asset_url }}" alt="Fleche Détail" />
+							{% endimage %}
+						</a>
+					</td>
+				</tr>	
+				{% endif %}			
+				<tr id="ligne_remarque{{loop.index}}" class="remarque">
+					<td colspan="6"><textarea rows="5" class="textRemarque" name="textareaRemarque_{{ pret.id }}">{% if pret.remarque is not empty %}{{ pret.remarque }}{% endif %}</textarea></td>
+				</tr>				
+			{% endfor %}
+		</table>	
+	{% else %}
+		<br><br><div class="infoPageVide">Aucun prêt en cour</div>
+	{% endif %}	
+	
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	{% javascripts 
+	'@ICProduitFiniBundle/Resources/public/js/remarque.js' 
+	'@ICProduitFiniBundle/Resources/public/js/cleanInputZapette.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+		
+{% endblock %}

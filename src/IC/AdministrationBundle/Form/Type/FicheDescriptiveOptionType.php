@@ -19,16 +19,14 @@ class FicheDescriptiveOptionType extends AbstractType
     {                
         $builder->add('designation', TextType::class, array('required' => true));                                             
                                               
-        $builder->add('type', EntityType::class, array(
-                      'class' => 'IC\AdministrationBundle\Entity\SousTypelecteur',
+        $builder->add('sousTypeLecteur', EntityType::class, array(
+                      'class' => 'IC\AdministrationBundle\Entity\SousTypeLecteur',
                       'choice_label' => 'nom',
                       'multiple'  => false));
                       
         $builder->add('optionFicheDescriptive', CollectionType::class, array(
                       'entry_type' => OptionFicheDescriptiveType::class,
-                      'allow_add' => true));    
-                                                              
-        $builder->add('submit_fiche_descriptive', SubmitType::class);
+                      'allow_add' => true));                                                            
     }
     
     public function configureOptions(OptionsResolver $resolver)

@@ -7,8 +7,10 @@ class LecteurAutreRepository extends \Doctrine\ORM\EntityRepository
     public function countLecteur($critere)
    {
         $req = $this->createQueryBuilder('l')
-        ->select('COUNT(l.idLecteurAutre) as nbProduit, t.reference, t.designation')
+        ->select('COUNT(l.idLecteurAutre) as nbProduit')
         ->join('l.typeLecteurAutre', 't')
+        ->addSelect('l', 't')
+        ->where('l.vendu = 0')
         ->groupBy('l.idLecteurAutre');        
         
        if(!empty($critere['recherche']))

@@ -1,5 +1,3 @@
-
-
 $('#firmware').on('change', function()
 { 
     if($('select option:selected').attr('class') == 0)

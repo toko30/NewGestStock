@@ -1,0 +1,109 @@
+.titreClient
+{
+    background: #7b7c7e;
+    color:white;
+    font-weight: bold;
+}
+.titreLecteur
+{
+    background: #7b7c7e;
+    color:white; 
+    width: 20%;
+    font-weight: bold;
+}
+.titreNumSerie
+{
+    background: #7b7c7e;
+    color:white;   
+    width: 15%; 
+    font-weight: bold;
+}
+.titreDate
+{
+    background: #7b7c7e;
+    color:white;  
+    width: 15%;  
+    font-weight: bold;
+}
+.titreDetails
+{
+    font-weight: bold;
+    color:white;
+	background: #7b7c7e;
+    border : 1px solid #7b7c7e;
+    width:7.5%;
+}
+.formPret
+{
+    text-align:center;
+    width:100%;
+}
+input[type="text"]
+{
+    height:18px;
+}
+.inputSelect
+{
+       height:24px; 
+}
+.inputRemarque
+{
+    width: 50%;
+    height:50px;
+    margin-top: 10px;
+}
+.remarque
+{
+    display: none;
+    text-align:left;
+    background: #7b7c7e;
+}
+.inputSend
+{
+    display: block;
+    margin:10px auto;
+    background: #7b7c7e;
+    color: white;
+    border: 0;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    width:200px;
+    text-align:center;    
+}
+.erreurPret td
+{
+    background: red;
+    color:white;
+    border:1px solid red;
+}
+.erreurPret:hover td
+{
+    background: darkred;
+    color:white;
+    border:1px solid darkred;    
+}
+.erreurPret td a
+{
+    color: white;
+}
+td a
+{
+    text-decoration: underline;
+}
+.imgCaddie
+{
+    width:25px;
+    height:20px;
+}
+.imgRetour
+{
+    width:20px;
+    height:20px;
+}
+.textRemarque
+{
+    margin-top:4px;
+    min-width:99%;
+    max-width:99%;
+}

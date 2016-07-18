@@ -18,9 +18,9 @@ class Lecteur
     private $idLecteur;
 
     /**
-     * @var \DateTime
+     * @var integer
      */
-    private $dateProd;
+    private $vendu;
 
     /**
      * @var \DateTime
@@ -82,27 +82,27 @@ class Lecteur
     }
 
     /**
-     * Set dateProd
+     * Set vendu
      *
-     * @param \DateTime $dateProd
+     * @param integer $vendu
      *
      * @return Lecteur
      */
-    public function setDateProd($dateProd)
+    public function setVendu($vendu)
     {
-        $this->dateProd = $dateProd;
+        $this->vendu = $vendu;
 
         return $this;
     }
 
     /**
-     * Get dateProd
+     * Get vendu
      *
-     * @return \DateTime
+     * @return integer
      */
-    public function getDateProd()
+    public function getVendu()
     {
-        return $this->dateProd;
+        return $this->vendu;
     }
 
     /**
@@ -139,3 +139,4 @@ class Lecteur
         return $this->id;
     }
 }
+

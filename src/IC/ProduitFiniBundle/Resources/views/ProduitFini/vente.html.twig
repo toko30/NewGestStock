@@ -1,0 +1,57 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Vente{% endblock %}
+
+{% block entete %}{{ parent() }} Vente{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/produitFini.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+	<span id="pathAjax" data-path="{{ path('ic_produit_ajax_ajout_liste_vente') }}"></span>
+	<span id="pathAjax1" data-path="{{ path('ic_produit_ajax_vente') }}"></span>
+	
+	<div class="divForm">
+		<select id="selectClient" name="client">
+			<option value="0">Sélectionner un client</option>
+			
+			{% for client in listeClient %}
+				<option value="{{ client.id }}">{{ client.nom }}</option>
+			{% endfor %}			
+		</select>
+		
+		<input id="inputNumSerie" type="text" name="numSerie" placeholder="numéro de série">
+
+		<button id="buttonAddListeVente" class="buttonSubmitNumSerie">Ajouter à la liste</button>
+	</div>
+	
+	<table id="tabListeVente">
+		<tr>
+			<td class="titreDesignation">Client</td>
+			<td class="titreDesignation">Numéro de série</td>
+			<td class="titreDesignation">Produit</td>
+			<td class="titreDesignation">Date</td>
+		</tr>
+	</table>
+	
+	<div id="SendSell">enregistrer la vente</div>
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	{% javascripts '@ICProduitFiniBundle/Resources/public/js/vente.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+		
+{% endblock %}

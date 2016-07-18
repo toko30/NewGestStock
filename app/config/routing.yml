@@ -1,3 +1,7 @@
+ic_user:
+    resource: "@ICUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ic_administration:
     resource: "@ICAdministrationBundle/Resources/config/routing.yml"
     prefix:   /Administration
@@ -21,3 +25,14 @@ ic_production:
 ic_affichage:
     resource: "@ICAffichageBundle/Resources/config/routing.yml"
     prefix:   /Affichage
+
+login:
+    path: /Connexion
+    defaults:
+        _controller: ICUserBundle:Security:login
+
+login_check:
+    path: /Connexion-check
+
+logout:
+    path: /Deconnexion

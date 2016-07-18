@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use IC\ApprovisionnementBundle\Entity\LecteurAutre;
+use IC\ApprovisionnementBundle\Entity\ProduitFiniAutre;
 
 class ApprovisionnementEnCoursController extends Controller
 {
@@ -43,7 +44,7 @@ class ApprovisionnementEnCoursController extends Controller
         //Liste des requètes Doctrine
         $listProdSousTraitant = $em->getRepository('ICApprovisionnementBundle:Production')->getListProdSousTraitantById($idSousTraitant);
         $infoSousTraitant = $em->getRepository('ICApprovisionnementBundle:SousTraitant')->find($idSousTraitant);
-        
+
         $i = 0;
 
         foreach($listProdSousTraitant as $prodSousTraitant)
@@ -208,7 +209,7 @@ class ApprovisionnementEnCoursController extends Controller
     }
     
     public function addLecteurAction(request $request, $idCommande)
-    {      
+    {
         $em = $this->getDoctrine()->getManager();
         $data = $request->get('listeLecteur');
         $nbData = count($data);
@@ -293,26 +294,97 @@ class ApprovisionnementEnCoursController extends Controller
     
     public function approVersStockAutreAction($idCommande)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager(); 
         
-        $appro = $em->getRepository('ICApprovisionnementBundle:Appro')->findOneBy(array('id' => $idCommande));
-        $approAutre = $em->getRepository('ICApprovisionnementBundle:ApproAutre')->getApproAutreById($idCommande);
-       
-        $em->remove($appro);
-                           
-        foreach($approAutre as $aAutre)
+        $appro = $em->getRepository('ICApprovisionnementBundle:Appro')->getListeAutre($idCommande);
+        
+        return $this->render('ICApprovisionnementBundle:EnCours:enregistrementAutre.html.twig', array('partie' => 'approvisionnement',
+                                                                                                      'appro' => $appro));     
+    }
+    
+    public function addAutreAction(request $request, $idCommande)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->get('listeAutre');
+        $nbData = count($data);
+        $quantite = 0;
+        
+        $commande = $em->getRepository('ICApprovisionnementBundle:Appro')->getListeAutre($idCommande);
+        
+        foreach($commande[0]->getApproAutre() as $approAutre)
         {
-            $newQuantite = $aAutre->getAutre()->setQuantite($aAutre->getQuantite() + $aAutre->getAutre()->getQuantite());
+            $quantite += $approAutre->getQuantite();
+        }
+        
+        array_multisort($data['ref'], SORT_ASC, SORT_STRING, $data['numSerie']);
+        
+        if($quantite == $nbData)
+        {
+            foreach($commande[0]->getApproLecteur() as $approLecteur)
+            {
+                $em->remove($approLecteur);
+            }
             
-            $em->persist($newQuantite);
-            $em->remove($aAutre);
+            $em->remove($commande[0]);
+        }
+        else
+        {
+            $i = 0;
+            $tabNbAutre['ref'][$i] = $data['ref'][0];
+            $tabNbAutre['nb'][$i] = 0;
+            
+            foreach ($data['ref'] as $ey => $lecteur)
+            {
+                if($tabNbAutre['ref'][$i] == $lecteur)
+                {
+                    $tabNbAutre['nb'][$i]++;
+                }
+                else
+                {
+                    $tabNbAutre['ref'][++$i] = $lecteur;
+                    $tabNbAutre['nb'][$i] = 1;
+                }
+            }
+            
+            foreach ($tabNbAutre['nb'] as $key => $nbAutre)
+            {
+                $approAutres = $em->getRepository('ICApprovisionnementBundle:ApproAutre')->findBy(array('idCommande' => $idCommande));
+                
+                foreach ($approAutres as $approAutre) 
+                {
+                    if($tabNbAutre['ref'][$key] == $approAutre->getAutre()->getReference())
+                    {
+                         $reste = $approAutre->getQuantite() - $nbAutre;
+                         
+                         if($reste == 0)
+                         {
+                             $em->remove($approAutre);
+                         }
+                         else
+                         {
+                             $approAutre->setQuantite($reste);
+                             $em->persist($approAutre);
+                         }
+                    }
+                }
+            }
+        }
+        
+        foreach($data['ref'] as $key => $autre)
+        {
+            $autre = $em->getRepository('ICApprovisionnementBundle:Autre')->findOneBy(array('reference' => $autre));
+            $aut = new ProduitFiniAutre();           
+            $aut->setNumSerie($data['numSerie'][$key]);
+            $aut->setAutre($autre);
+            $aut->setDateAjout(new \Datetime());
+            $em->persist($aut);
         }
         
         $em->flush();
         
-        return $this->redirectToRoute('ic_approvisionnement_en_cours_autre');
+        return new Response(1);
     }
-    
+        
     public function approVersStockSousTraitantAction(request $request, $idSousTraitant)
     {
         $this->container->get('ic_approvisionnement_en_cours')->addStockSousTraitant($request, $idSousTraitant);

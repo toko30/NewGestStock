@@ -3,8 +3,9 @@ $('#production_type').on('change', function()
     var path = $("#pathAjax").attr("data-path") + '-' + $('#production_type').val();
 
     $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: path,
+    data: {all: $('.lienAll').attr('id')},
     timeout: 30000,
     success: function(data) 
     {
@@ -18,8 +19,9 @@ $( document ).ready(function() {
     var path = $("#pathAjax").attr("data-path") + '-' + $('#production_type').val();
 
     $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: path,
+    data: {all: $('.lienAll').attr('id')},
     timeout: 30000,
     success: function(data) 
     {

@@ -1,0 +1,18 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Historique Produit{% endblock %}
+
+{% block entete %}{{ parent() }} Historique Produit{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/produitFini.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+	pf autre
+{% endblock %}

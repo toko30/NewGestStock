@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new IC\ProduitFiniBundle\ICProduitFiniBundle(),
             new IC\TestBundle\ICTestBundle(),
             new IC\AdministrationBundle\ICAdministrationBundle(),
+            new IC\UserBundle\ICUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

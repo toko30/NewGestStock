@@ -19,7 +19,7 @@ class IdentifiantType extends AbstractType
         $builder->add('reference', TextType::class, array('required' => true));
         $builder->add('designation', TextType::class, array('required' => true));
         
-        $builder->add('frequence', ChoiceType::class, array('choices' => array('13,56MHz' => 1, '125KHz' => 2),
+        $builder->add('frequence', ChoiceType::class, array('choices' => array('13,56 MHz' => 1, '125 KHz' => 2, '900 MHz' => 3),
                       'multiple' => false,
                       'expanded' => false));
                                         

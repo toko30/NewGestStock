@@ -1,18 +1,65 @@
 {% extends "ICAdministrationBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} - Sous Famille{% endblock %}
+{% block title %}{{ parent() }} - Type Lecteur{% endblock %}
 
-{% block entete %}{{ parent() }} Sous Famille{% endblock %}
+{% block entete %}{{ parent() }} Type Lecteur{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/optionSousFamille.css' %}
+	'@ICAdministrationBundle/Resources/public/css/option.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
 
 {% block page %}
 
-	{{ parent()}}
-lecteur
+	{{ parent() }}
+	
+	{% if idTypeLecteur == 0 %}
+    	<form id="TypeLecteur" method="post" action="{{ path('ic_administration_add_type_lecteur') }}">
+	{% else %}
+		<form id="TypeLecteur" method="post" action="{{ path('ic_administration_update_type_lecteur', {'idTypeLecteur': idTypeLecteur}) }}">
+	{% endif %}
+	
+		<table class="tabOption">
+			<tr>
+				<td class="titreDesignation">Nom</td>
+				<td class="details"></td>
+			</tr>
+				
+			{% if idTypeLecteur == 0 %}
+				<tr>
+					<td class="titreDesignation"><input type="text" name="nom"></td>
+					<td class="titreDesignation"><input class="buttonAdd" type="submit" value=""></td>
+				</tr>
+			{% endif %}
+		
+			{% if listeTypeLecteur is not empty %}
+			
+				{% for typeLecteur in listeTypeLecteur %}
+				
+					{% if idTypeLecteur == typeLecteur.id %}
+						<tr>
+							<td class="titreDesignation"><input type="text" name="nom" value="{{ typeLecteur.nom }}"></td>
+							<td class="titreDesignation"><input class="buttonUpdate" type="submit" value=""></td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ typeLecteur.nom }}</td>
+							<td class="details">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<a href="{{ path('ic_administration_affichage_type_lecteur', {'idTypeLecteur': typeLecteur.id}) }}">
+										<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+									</a>
+								{% endimage %}
+							</td>							
+						</tr>					
+					{% endif %}
+				{% endfor %}
+						
+			{% endif %}
+		
+		</table>
+	</form>
+	
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "ICAdministrationBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} - Nomenclature{% endblock %}
+{% block title %}{{ parent() }} - Autre Produit Fini{% endblock %}
 
-{% block entete %}{{ parent() }} Nomenclature{% endblock %}
+{% block entete %}{{ parent() }} Autre Produit Fini{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -70,11 +70,13 @@
                             <td class="designation">{{ lecAutre.designation }}</td>
                             <td>{{ lecAutre.sousTypeLecteur.nom }}</td>
                             <td>
-                            {% if lecAutre.frequence == 1 %}
-                                13.56MHz
-                            {% else %}
-                                125KHz
-                            {% endif %}
+                                {% if lecAutre.frequence == 1 %}
+                                    13.56 MHz
+                                {% elseif lecAutre.frequence == 2 %}
+                                    125 KHz
+                                {% else%}
+                                    900 MHz
+                                {% endif %}
                             </td>
                             <td>{{ lecAutre.petite }}</td>
                             <td>{{ lecAutre.moyenne }}</td>

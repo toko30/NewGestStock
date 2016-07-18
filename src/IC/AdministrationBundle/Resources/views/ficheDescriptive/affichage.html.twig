@@ -39,7 +39,7 @@
             <td class="titreDesignation">{{ form_widget(form.petite) }}</td>
             <td class="titreDesignation">{{ form_widget(form.moyenne) }}</td>
             <td class="titreDesignation">{{ form_widget(form.grande) }}</td>
-            <td class="details">{{ form_widget(form.submit_fiche_descriptive, {attr: {'class': 'buttonAdd'}}) }}</td>
+            <td class="details"><input type="submit" class="buttonAdd"></td>
         </tr>
         
         {% for ficheDescriptive in listeFicheDescriptive %}           
@@ -48,9 +48,11 @@
                 <td class="designation">{{ ficheDescriptive.designation }}</td>
                 <td>
                     {% if ficheDescriptive.frequence == 1 %}
-                        13.56MHz
-                    {% else %}
-                        125KHz
+                        13.56 MHz
+                    {% elseif ficheDescriptive.frequence == 2 %}
+                        125 KHz
+                    {% else%}
+                        900 MHz
                     {% endif %}
                 </td>
                 <td>{{ ficheDescriptive.petite }}</td>

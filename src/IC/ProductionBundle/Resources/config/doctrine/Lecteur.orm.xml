@@ -14,7 +14,11 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="dateProd" type="date" column="date_prod" nullable="false"/>
+    <field name="vendu" type="integer" column="vendu" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="dateCreation" type="date" column="date_creation" nullable="true"/>
   </entity>
 </doctrine-mapping>

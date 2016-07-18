@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Connexion</title>
+
+        {% stylesheets filter='cssrewrite'
+        'Resources/public/css/base.css' 
+        '@ICUserBundle/Resources/public/css/user.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+        {% endstylesheets %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header id="entete">
+            <img src="{{ asset('Resources/public/images/logo.png') }}" alt="logo idcapt">
+            <div>Identification</div>
+        </header>
+
+        {% if error %}
+            <div class="erreurCo">Identifiant ou mot de passe incorect</div>
+        {% endif %}
+
+        <form action="{{ path('login_check') }}" method="post">
+            <label for="username">Login</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}">
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="_password">
+            <br>
+            <br>
+            <input type="submit" value="Connexion" class="inputValider"/>
+        </form>
+    </body>
+</html>

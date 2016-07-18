@@ -197,4 +197,3 @@ class BadgeFournisseur
         return $this->fournisseur;
     }
 }
-

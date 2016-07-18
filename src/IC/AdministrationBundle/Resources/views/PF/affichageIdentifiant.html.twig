@@ -40,11 +40,13 @@
                         <td class="designation">{{ id.designation }}</td>
                         <td>{{ id.sousTypeBadge.nom }}</td>
                         <td>
-                        {% if id.frequence == 1 %}
-                            13.56MHz
-                        {% else %}
-                            125KHz
-                        {% endif %}
+                            {% if id.frequence == 1 %}
+                                13.56 MHz
+                            {% elseif id.frequence == 2 %}
+                                125 KHz
+                            {% else%}
+                                900 MHz
+                            {% endif %}
                         </td>
                         <td class="details">
                             <a href="{{ path('ic_administration_affichage_produit_fini_identifiant_detail', {'idIdentifiant': id.id}) }}">

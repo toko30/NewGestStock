@@ -40,8 +40,7 @@
                 <td class="titreDesignation">{{ form_widget(formFicheDescriptive.grande) }}</td>
             </tr>  
         </table>
-        
-        {{ form_widget(formFicheDescriptive.submit_fiche_descriptive, {attr: {'value': 'Modifier Lecteur'}}) }}
+        <input class="inputValider" type="submit" value="modifier la fiche">
     
     {{ form_end(formFicheDescriptive) }}
     
@@ -58,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
-                    <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.type) }}</td>
+                    <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.sousTypeLecteur) }}</td>
                 </tr> 
                 <tr>
                     <td class="titreDesignation" colspan="2">Options</td>
@@ -67,13 +66,15 @@
                     <td class="titreDesignation" colspan="2">{{ form_widget(formFicheDescriptiveOptionType.optionFicheDescriptive) }}</td>
                 </tr> 
             </table>
-            {{ form_widget(formFicheDescriptiveOptionType.submit_fiche_descriptive) }}
+            <input class="inputValider" type="submit" value="nouveau lecteur">
+            <br>
         {% endif %}
-        
+
         {% for ficheDesciptiveOption in  listeFicheDescriptiveOption %}
         
             {% set nom = nomFiche %}
-            
+
+            {# AJOUT DES OPTIONS AU NOM DE LA FICHE #}
             {% for optionFicheDescriptive in ficheDesciptiveOption.optionFicheDescriptive %}
                 {% set nom = nom|upper ~'-'~ optionFicheDescriptive.optionProduitfini.abreviation|upper %}
             {% endfor %}
@@ -90,7 +91,7 @@
                         <tr>
                             <td class="titreNom">{{ nom }}</td>
                             <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.designation, {attr: {'class': 'inputDesignation'}}) }}</td>
-                            <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.type) }}</td>
+                            <td class="titreDesignation">{{ form_widget(formFicheDescriptiveOptionType.sousTypeLecteur) }}</td>
                             <td class="titreDetails"></td>
                         </tr> 
                         <tr>
@@ -99,7 +100,7 @@
                         </tr> 
                         <tr>
                             <td class="titreDesignation" colspan="3">{{ form_widget(formFicheDescriptiveOptionType.optionFicheDescriptive) }}</td>
-                            <td class="titreDetails"></td>
+                            <td class="titreDetails"><input class="buttonUpdate" type="submit"></td>
                         </tr>
                     {% else %}
                         <tr>
@@ -107,7 +108,7 @@
                             <td>{{ficheDesciptiveOption.designation}}</td>
                             <td>{{ficheDesciptiveOption.sousTypeLecteur.nom}}</td>    
                             <td class="titreDetails">
-                                <a href="{{ path('ic_administration_affichage_fiche_descriptive_detail', {'idFiche': idFiche, 'idFicheOption': ficheDesciptiveOption.id}) }}">
+                                <a id="ancre_{{ idFiche }}" href="{{ path('ic_administration_affichage_fiche_descriptive_detail', {'idFiche': idFiche, 'idFicheOption': ficheDesciptiveOption.id}) }}#ancre_{{ idFiche }}">
                                     {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
                                         <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
                                     {% endimage %}
@@ -120,10 +121,27 @@
                     <td class="titreDesignation" colspan="3">Liste des versions</td>
                     <td class="titreDetails"></td>
                 </tr>
+                {# AFFICHAGE DES VERSIONS #}
                 {% for versionFicheDescriptive in ficheDesciptiveOption.versionFicheDescriptive %}
                     <tr>
-                        <td>Version {{ versionFicheDescriptive.version}}</td>
-                        <td colspan ="2">Aucune Nomenclature Liée</td>
+                        <td>Version {{ versionFicheDescriptive.version}} 
+                        {% if loop.last %}
+                            <a class="versionPlus" href="{{ path('ic_administration_add_version_fiche_descriptive', {'idFicheDescriptiveOption': versionFicheDescriptive.ficheDescriptiveOption.id, 'idFiche': idFiche}) }}"></a>
+                        {% endif %}
+                        </td>
+                        {% if versionFicheDescriptive.nomenclatureFicheDescriptive is not empty %}
+                            {% set nbNomenlature = versionFicheDescriptive.nomenclatureFicheDescriptive|length %}
+
+                            <td colspan ="2">{{ nbNomenlature }} nomenclatures liées : 
+
+                            {% for nomenclatureFicheDescriptive in versionFicheDescriptive.nomenclatureFicheDescriptive %}
+                                {{ nomenclatureFicheDescriptive.versionNomenclature.nomenclature.nom ~ 'V-' ~ nomenclatureFicheDescriptive.versionNomenclature.version }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}   
+
+                            </td>
+                        {% else %}
+                            <td colspan ="2">Aucune nomenclature liée</td>
+                        {% endif %}
                         <td class="titreDetails">
                             <a href="{{ path('ic_administration_affichage_fiche_descriptive_gestion_nomenclature', {'idVersionFicheDescriptive': versionFicheDescriptive.id}) }}">
                                 {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
@@ -135,7 +153,7 @@
                 {% endfor %}
                 
             </table>
-            
+            <hr class="separation espaceOptionFicheDescriptive"/>
         {% endfor %}
         
     {{ form_end(formFicheDescriptiveOptionType) }}    

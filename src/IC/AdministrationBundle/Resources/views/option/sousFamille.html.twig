@@ -6,7 +6,7 @@
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/optionSousFamille.css' %}
+	'@ICAdministrationBundle/Resources/public/css/option.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
@@ -29,7 +29,7 @@
                 </tr>
                 {% if idSousFamille == 0 %}
                     <tr>
-                        <td><input class="inputDesignation center" type="text" name="nom"></td><td class="details"><input type="submit" class="buttonAdd"></td>
+                        <td class="titreDesignation"><input class="inputDesignation center" type="text" name="nom"></td><td class="details"><input type="submit" class="buttonAdd"></td>
                     </tr>
                 {% endif %}
             {% for sousFamille in listSousFamille %}

@@ -74,7 +74,7 @@ $('#inputEnregistrement').on('keyup', function(touche, e)
             $('#titreChange').text('Enregistrement des lecteurs terminé');     
             $('#inputEnregistrement').remove(); 
         }
-        
+                
         $(this).val('');
     }
 });
@@ -247,17 +247,19 @@ $('#addLecteur').on('click', function()
             });
         }   
     }
-      
+
+    alert('veuillez attendre la fin de l\'impression avant de valider'); 
+
     $.ajax({
-    type: 'POST',
-    url: path,
-    data: {listeLecteur : jsonObjects},
-    dataType: "json",
-    timeout: 30000,
-    success: function(data) 
-    {
-        window.location.href =  document.referrer;
-    }
+        type: 'POST',
+        url: path,
+        data: {listeLecteur : jsonObjects},
+        dataType: "json",
+        timeout: 30000,
+        success: function(data) 
+        {
+            window.location.href =  document.referrer;
+        }
     });
 });
     

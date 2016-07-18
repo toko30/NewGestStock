@@ -1,0 +1,16 @@
+<nav id="lienMenuVertical">
+	{% if is_granted('ROLE_PRODUCTION') %}
+	<span class="titreMenuVertical">Produit Fini</span><br>
+	
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_vente') }}">Vente</a><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_vente_badge') }}">Vente Badge</a><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_recherche_histo_produit_fini') }}">Historique Produit</a><br>
+		
+	<span class="titreMenuVertical">SAV</span><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_gestion_sav') }}">Gestion des SAV</a><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_histo_sav') }}">Historique des SAV</a><br>
+	{% endif %}
+	<span class="titreMenuVertical">Pret</span><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_gestion_pret') }}">Gestion des prêts</a><br>
+		<a class="sousMenu decalageNoPlus" href="{{ path('ic_produit_fini_histo_pret') }}">Historique des prêts</a><br>	
+</nav>

@@ -19,7 +19,7 @@ class FournisseurType extends AbstractType
         $builder->add('contact', TextType::class, array('required' => false));
         $builder->add('email', TextType::class, array('required' => false));
         $builder->add('numero', TextType::class, array('required' => false));
-        $builder->add('site', TextType::class, array('required' => false));
+        //$builder->add('site', TextType::class, array('required' => false));
       
         $builder->add('typeProduit', EntityType::class, array(
                       'class' => 'IC\AdministrationBundle\Entity\TypeProduit',

@@ -98,4 +98,3 @@ class Etape
         return $this->test;
     }
 }
-

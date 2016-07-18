@@ -243,4 +243,3 @@ class FicheDescriptive
         return $this->ficheDescriptiveOption;
     }
 }
-

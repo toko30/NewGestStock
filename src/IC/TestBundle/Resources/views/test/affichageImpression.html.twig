@@ -14,9 +14,11 @@
 {% block page %}
 
     {{ parent() }}
-    
+    <span id="path1" data-path="{{ path('ic_test_lancement_test',{idLot: idLot}) }}"></span>
+	<span id="path2" data-path="{{ path('ic_test_petite_label') }}"></span>
+	<span id="path3" data-path="{{ path('ic_test_etape', {idLot: idLot}) }}"></span>
 	{% if idLot != 0 %}
-		<div class="buttonImpression" id="{{ lot[0].versionNomenclature.nomenclature.nom}}-V{{ lot[0].versionNomenclature.version }}" data-path="{{ path('ic_test_petite_label') }}" data-path="{{ path('ic_test_petite_label') }}">
+		<div class="buttonImpression" id="{{ lot[0].versionNomenclature.nomenclature.nom}}-V{{ lot[0].versionNomenclature.version }}">
 			Lancer l'impression des etiquettes
 		</div>
 		

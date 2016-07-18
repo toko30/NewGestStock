@@ -1,18 +1,66 @@
 {% extends "ICAdministrationBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} - Sous Famille{% endblock %}
+{% block title %}{{ parent() }} - Type Badge{% endblock %}
 
-{% block entete %}{{ parent() }} Sous Famille{% endblock %}
+{% block entete %}{{ parent() }} Type Badge{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets filter='cssrewrite'
-	'@ICAdministrationBundle/Resources/public/css/optionSousFamille.css' %}
+	'@ICAdministrationBundle/Resources/public/css/option.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
 {% endblock %}
 
 {% block page %}
 
-	{{ parent()}}
-badge
+	{{ parent() }}
+	
+	{% if idTypeBadge == 0 %}
+    	<form id="TypeBadge" method="post" action="{{ path('ic_administration_add_type_badge') }}">
+	{% else %}
+		<form id="TypeBadge" method="post" action="{{ path('ic_administration_update_type_badge', {'idTypeBadge': idTypeBadge}) }}">
+	{% endif %}
+	
+		<table class="tabOption">
+			<tr>
+				<td class="titreDesignation">Nom</td>
+				<td class="details"></td>
+			</tr>
+				
+			{% if idTypeBadge == 0 %}
+				<tr>
+					<td class="titreDesignation"><input type="text" name="nom"></td>
+					<td class="titreDesignation"><input class="buttonAdd" type="submit" value=""></td>
+				</tr>
+			{% endif %}
+		
+			{% if listeTypeBadge is not empty %}
+			
+				{% for typeBadge in listeTypeBadge %}
+				
+					{% if idTypeBadge == typeBadge.id %}
+						<tr>
+							<td class="titreDesignation"><input type="text" name="nom" value="{{ typeBadge.nom }}"></td>
+							<td class="titreDesignation"><input class="buttonUpdate" type="submit" value=""></td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ typeBadge.nom }}</td>
+							<td class="details">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<a href="{{ path('ic_administration_affichage_type_badge', {'idTypeBadge': typeBadge.id}) }}">
+										<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+									</a>
+								{% endimage %}
+							</td>							
+						</tr>					
+					{% endif %}
+					
+				{% endfor %}
+						
+			{% endif %}
+		
+		</table>
+	</form>
+	
 {% endblock %}

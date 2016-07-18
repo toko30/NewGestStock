@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@ICUserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -43,7 +44,7 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
-
+    bundles: ['ICAdministrationBundle', 'ICAffichageBundle', 'ICApprovisionnementBundle', 'ICProductionBundle', 'ICProduitFiniBundle', 'ICTestBundle', 'ICUserBundle']
 
 # Doctrine Configuration
 doctrine:

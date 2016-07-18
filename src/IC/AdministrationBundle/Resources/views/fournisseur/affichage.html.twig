@@ -22,7 +22,7 @@
                 <td class="titrePageFournisseur">Contact</td>
                 <td class="titrePageFournisseur">Email</td>
                 <td class="titrePageFournisseur">Telephone</td>
-                <td class="titrePageFournisseur">Site Web</td>
+                {#<td class="titrePageFournisseur">Site Web</td>#}
                 <td class="titrePageFournisseur">Type</td>
                 <td class="FournisseurDetails"></td>
             </tr>
@@ -32,7 +32,7 @@
                     <td class="titrePageFournisseur">{{ form_widget(form.contact) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.email) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.numero) }}</td>
-                    <td class="titrePageFournisseur">{{ form_widget(form.site) }}</td>
+                    {#<td class="titrePageFournisseur">{{ form_widget(form.site) }}</td>#}
                     <td class="titrePageFournisseur">{{ form_widget(form.typeProduit, {'attr': {'class': 'inputListe'}}) }}</td>
                     <td class="FournisseurDetails">{{ form_widget(form.submit_fournisseur) }}</td>
                 </tr>
@@ -43,7 +43,7 @@
                     <td class="titrePageFournisseur">{{ form_widget(form.contact) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.email) }}</td>
                     <td class="titrePageFournisseur">{{ form_widget(form.numero) }}</td>
-                    <td class="titrePageFournisseur">{{ form_widget(form.site) }}</td>
+                    {#<td class="titrePageFournisseur">{{ form_widget(form.site) }}</td>#}
                     <td class="titrePageFournisseur">{{ form_widget(form.typeProduit, {'attr': {'class': 'inputListe', 'disabled': 'disabled'}}) }}</td>
                     <td class="FournisseurDetails">{{ form_widget(form.submit_fournisseur, {'attr': {'class': 'buttonUpdate'}}) }}</td>                
                 {% else %} 
@@ -56,7 +56,7 @@
                         {% else %}
                             <td>0{{ fournisseur.numero }}</td>
                         {% endif %}
-                        <td>{{ fournisseur.site }}</td>
+                        {#<td>{{ fournisseur.site }}</td>#}
                         <td>{{ fournisseur.typeProduit.nom }}</td>
                         <td class="FournisseurDetails">
                             <a href="{{ path('ic_administration_affichage_fournisseur', {'idFournisseur': fournisseur.id}) }}">

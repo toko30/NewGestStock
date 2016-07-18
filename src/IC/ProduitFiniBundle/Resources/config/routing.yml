@@ -1,3 +1,83 @@
-ic_produit_fini_affichage:
-    path:     /Produit-Fini
-    defaults: { _controller: ICProduitFiniBundle:ProduitFini:affichage }
+ic_produit_fini_vente:
+    path:     /Vente
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:vente }
+    
+ic_produit_fini_vente_badge:
+    path:     /Vente-Badge
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:venteBadge }
+        
+ic_produit_fini_recherche_histo_produit_fini:
+    path:     /Rechercher-Produit-Fini
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:rechercheHistoProduitFini }
+
+ic_produit_fini_histo_produit_fini:
+    path:     /Historique-Produit-Fini
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:histoProduitFini }
+
+ic_produit_fini_gestion_sav:
+    path:     /Gestion-SAV
+    defaults: { _controller: ICProduitFiniBundle:Sav:gestionSav }
+    
+ic_produit_fini_add_sav:
+    path:     /Ajouter-SAV
+    defaults: { _controller: ICProduitFiniBundle:Sav:addSav }
+    
+ic_produit_fini_detail_sav:
+    path:     /Detail-SAV-{idSAV}
+    defaults: { _controller: ICProduitFiniBundle:Sav:detailSav }
+    requirements:
+        idSAV: \d{1,10}
+        
+ic_produit_fini_detail_sav:
+    path:     /Modifier-SAV-{idSAV}
+    defaults: { _controller: ICProduitFiniBundle:Sav:updateSav }
+    requirements:
+        idSAV: \d{1,10}
+                
+ic_produit_fini_histo_sav:
+    path:     /Historique-SAV
+    defaults: { _controller: ICProduitFiniBundle:Sav:histoSav }
+
+ic_produit_fini_gestion_pret:
+    path:     /Gestion-Pret
+    defaults: { _controller: ICProduitFiniBundle:Pret:gestionPret }
+    
+ic_produit_fini_add_pret:
+    path:     /Ajouter-Pret
+    defaults: { _controller: ICProduitFiniBundle:Pret:addPret }
+    
+ic_produit_fini_retour_pret:
+    path:     /Retour-Pret-{idPret}
+    defaults: { _controller: ICProduitFiniBundle:Pret:retourPret }
+    requirements:
+        idPret: \d{1,10}
+        
+ic_produit_fini_vendu_pret:
+    path:     /Vendu-Pret-{idPret}
+    defaults: { _controller: ICProduitFiniBundle:Pret:venduPret }
+    requirements:
+        idPret: \d{1,10}    
+        
+ic_produit_fini_histo_pret:
+    path:     /Historique-Pret
+    defaults: { _controller: ICProduitFiniBundle:Pret:histoPret }
+
+ic_produit_ajax_ajout_liste_vente:
+    path:     /Ajout-Liste
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:ajoutListeVente }
+
+ic_produit_ajax_vente:
+    path:     /Validation-Vente
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:validationVente }
+    
+ic_produit_ajax_ajout_liste_vente_badge:
+    path:     /Ajout-Liste-Badge
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:ajoutListeVenteBadge }
+
+ic_produit_ajax_vente_badge:
+    path:     /Validation-Vente-Badge
+    defaults: { _controller: ICProduitFiniBundle:ProduitFini:validationVenteBadge }
+
+ic_produit_ajax_modif_remarque:
+    path:     /Modif_Rmarque
+    defaults: { _controller: ICProduitFiniBundle:Pret:modifRemarque }

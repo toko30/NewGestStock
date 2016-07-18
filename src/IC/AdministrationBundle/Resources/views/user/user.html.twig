@@ -1,0 +1,80 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - User{% endblock %}
+
+{% block entete %}{{ parent() }} User{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/controleQualite.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+{{ form_start(formUser) }}
+
+    <table>
+        <tr>
+            <td class="details"></td>
+            <td class="titreDesignation">Username</td>
+            <td class="titreDesignation">Roles</td>
+            <td class="details"></td>
+        </tr>
+        
+        {% if idUser == 0 %}
+            <tr>
+                <td class="details"></td>
+                <td>{{ form_widget(formUser.username) }}</td>
+                <td>{{ form_widget(formUser.textRole) }} </td>
+                <td class="details">  
+                    <input type="submit" class="buttonAdd">
+                </td>
+            </tr>
+        {% endif %}
+        {% for user in listeUser %}
+            {% if user.id != 0 %}
+                {% if idUser == user.id %}
+                    <tr>
+                        <td class="details"></td>
+                        <td>{{ form_widget(formUser.username) }}</td>
+                        <td>{{ form_widget(formUser.textRole) }} </td>
+                        <td class="details">  
+                            <input type="submit" class="buttonUpdate">
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="details">
+                            <a href="{{ path('ic_administration_remove_user', {'idUser': user.id}) }}">
+                                {% image 'Resources/public/images/redcroix.png' %}
+                                    <img class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                                {% endimage %}
+                            </a>
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {{ role }}
+                            {% endfor %}
+                        </td>
+                        <td class="details">  
+                            <a href="{{ path('ic_administration_user', {idUser: user.id}) }}">                      
+                                {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                    <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                                {% endimage %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </table>
+
+{{ form_end(formUser) }}
+
+{% endblock %}

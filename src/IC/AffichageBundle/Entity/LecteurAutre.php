@@ -109,4 +109,62 @@ class LecteurAutre
     {
         return $this->typeLecteurAutre;
     }
+    /**
+     * @var integer
+     */
+    private $vendu;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateAjout;
+
+
+    /**
+     * Set vendu
+     *
+     * @param integer $vendu
+     *
+     * @return LecteurAutre
+     */
+    public function setVendu($vendu)
+    {
+        $this->vendu = $vendu;
+
+        return $this;
+    }
+
+    /**
+     * Get vendu
+     *
+     * @return integer
+     */
+    public function getVendu()
+    {
+        return $this->vendu;
+    }
+
+    /**
+     * Set dateAjout
+     *
+     * @param \DateTime $dateAjout
+     *
+     * @return LecteurAutre
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAjout
+     *
+     * @return \DateTime
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
+    }
 }

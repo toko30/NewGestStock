@@ -93,37 +93,71 @@ class MenuController extends Controller
                         }
                     }            
                 } 
-                foreach ($listComposantSousTraitant as $ComposantST) 
-                {                            
-                    for($i = 0; $i < count($quantiteNomenclature['idComposant']); $i++)
-                    {
-                        if($quantiteNomenclature['idComposant'][$i] == $ComposantST->getIdComposant() && $quantiteNomenclature['quantite'][$i] > $ComposantST->getQuantite())
-                        {
-                            
-                            if(empty($ListSousTraitant))
-                            {
-                                $ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
-                                $ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();
-                            }
-                            else
-                            {
-                                $existe = 0;
-                                //on vérifie que le sous traitant n'est pas déja dans la liste
-                                for($i1 = 0; $i1 < count($ListSousTraitant); $i1++)
-                                {
-                                    if($ComposantST->getSousTraitant()->getId() == $ListSousTraitant[$i1]['id'])
-                                        $existe = 1;
-                                }
-                                //si il n'y est pas on l'ajoute
-                                if($existe == 0)
-                                {
-                                    $ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
-                                    $ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();                        
-                                }
-                            }
+				$existeSt = 0;
+				for($i = 0; $i < count($quantiteNomenclature['idComposant']); $i++)
+				{
+					foreach ($listComposantSousTraitant as $ComposantST) 
+					{                            
+
+                        if($quantiteNomenclature['idComposant'][$i] == $ComposantST->getIdComposant())
+                        {   
+							$existeSt = 1;
+							if($quantiteNomenclature['quantite'][$i] > $ComposantST->getQuantite())
+							{
+								if(empty($ListSousTraitant))
+								{
+									$ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+									$ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();
+								}
+								else
+								{
+									$existe = 0;
+									//on vérifie que le sous traitant n'est pas déja dans la liste
+									for($i1 = 0; $i1 < count($ListSousTraitant); $i1++)
+									{
+										if($ComposantST->getSousTraitant()->getId() == $ListSousTraitant[$i1]['id'])
+											$existe = 1;
+									}
+									//si il n'y est pas on l'ajoute
+									if($existe == 0)
+									{
+										$ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+										$ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();                        
+									}
+								}
+							}
                         }
                     }
-                }                                       
+					
+					if($existeSt == 0)
+					{
+						if(empty($ListSousTraitant))
+						{
+							$ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+							$ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();
+						}
+						else
+						{
+							$existe = 0;
+							//on vérifie que le sous traitant n'est pas déja dans la liste
+							for($i1 = 0; $i1 < count($ListSousTraitant); $i1++)
+							{
+								if($ComposantST->getSousTraitant()->getId() == $ListSousTraitant[$i1]['id'])
+									$existe = 1;
+							}
+							//si il n'y est pas on l'ajoute
+							if($existe == 0)
+							{
+								$ListSousTraitant[$i10]['id'] = $ComposantST->getSousTraitant()->getId();
+								$ListSousTraitant[$i10++]['nom'] = $ComposantST->getSousTraitant()->getNom();                        
+							}
+						}				
+					}
+					$existeSt = 0;
+					
+                }
+				
+				
             }           
         }
 

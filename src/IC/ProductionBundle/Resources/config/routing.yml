@@ -1,13 +1,15 @@
 ic_production_interne:
-    path:     /Production-Interne
-    defaults: { _controller: ICProductionBundle:Production:interne }
+    path:     /Production-Interne-{all}
+    defaults: { _controller: ICProductionBundle:Production:interne, all:0 }
+    requirements:
+        all: \d{1,10}
     
 ic_production_sous_traitant:
-    path:     /Production-SousTraitant-{id}
-    defaults: { _controller: ICProductionBundle:Production:sousTraitant }
+    path:     /Production-SousTraitant-{id}-{all}
+    defaults: { _controller: ICProductionBundle:Production:sousTraitant, all:0 }
     requirements:
         id: \d{1,10}
-
+        all: \d{1,10}
 ic_calcul:
     path:     /Calcul-{idProducteur}-{idType}-{idVersion}-{quantite1}-{quantite2}
     defaults:  

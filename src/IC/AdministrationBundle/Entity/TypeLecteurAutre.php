@@ -313,4 +313,3 @@ class TypeLecteurAutre
         return $this->fournisseur;
     }
 }
-

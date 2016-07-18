@@ -72,3 +72,10 @@ hr
 {
     width:70%;
 }
+.deco
+{
+	float:right;
+	margin: -120px 20px 0 0;
+	font-size: 20px;
+	color: #00B7D6;
+}

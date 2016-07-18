@@ -13,8 +13,10 @@ $('.nomenclature').on('click', function(){
 		$('#' + this.id + '1').slideUp();
 	}
 });
-$( document ).ready(function() {
-    $('.visible').each( function(index){
-        
-    });
+$('input[type="radio"]').on('click', function()
+{
+	if($(this).val() == '0')
+		$(this).parent().parent().prev().removeClass('nomenclatureChecked');
+	else
+		$(this).parent().parent().prev().addClass('nomenclatureChecked');
 });

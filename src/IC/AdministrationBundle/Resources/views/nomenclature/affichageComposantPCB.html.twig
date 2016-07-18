@@ -44,8 +44,8 @@
                     {% for composantNomenclature in versionNomenclature[0].composantNomenclature %}
                         {% if composant.id == composantNomenclature.idComposant %}
                             {% set existe = 1 %}
-                            <td><input class="inputQuantite" type="text" name="{{ composant.id }}" value="{{ composantNomenclature.quantite }}" onfocus="this.value = ''"></td>
-                            <td><input class="inputDesignation" type="text" name="position{{ composant.id }}" value="{{ composantNomenclature.position }}" onfocus="this.value = ''""></td>
+                            <td><input class="inputQuantite" type="text" name="{{ composant.id }}" value="{{ composantNomenclature.quantite }}"></td>
+                            <td><input class="inputDesignation" type="text" name="position{{ composant.id }}" value="{{ composantNomenclature.position }}"></td>
                             
                             {% if composantNomenclature.optionSt == 1 %}
                                 <td><input type="checkbox" name="optionSt[]" value="{{ composant.id }}" checked></td>
@@ -57,14 +57,14 @@
                     {% endfor %}
                     
                     {% if existe == 0 %}
-                        <td><input class="inputQuantite" type="text" name="{{ composant.id }}" onfocus="this.value = ''"></td>
-                        <td><input class="inputDesignation" type="text" name="position{{ composant.id }}" onfocus="this.value = ''"></td>
+                        <td><input class="inputQuantite" type="text" name="{{ composant.id }}"></td>
+                        <td><input class="inputDesignation" type="text" name="position{{ composant.id }}"></td>
                         <td><input type="checkbox" name="optionSt[]" value="{{ composant.id }}"></td>
                     {% endif %}
                     
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Valider la nomenclature" class="inputValider">
+        <input type="submit" value="Valider la nomenclature" class="inputValider largest">
     </form>
 {% endblock %}

@@ -214,4 +214,3 @@ class EtapeNomenclature
         return $this->versionNomenclature;
     }
 }
-

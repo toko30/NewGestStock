@@ -22,9 +22,13 @@
         <br>
         <br>
         {% for nomenclature in listNomenclature %}
-        
-            <h2 class="nomenclature" id="Nomenclature{{ nomenclature.id }}" class="nomenclature">{{ nomenclature.nom }}</h2>
-            
+
+            {% if nomenclature.id in arrayNomenclatureUsed %}
+                <h2 class="nomenclature nomenclatureChecked" id="Nomenclature{{ nomenclature.id }}" class="nomenclature">{{ nomenclature.nom }}</h2>
+            {% else %}
+                <h2 class="nomenclature" id="Nomenclature{{ nomenclature.id }}" class="nomenclature">{{ nomenclature.nom }}</h2>
+            {% endif %}
+
             {% set tourDeboucle = loop.index0 %}
             {% set noNomenclature = 1 %}
             
@@ -62,7 +66,11 @@
             </div>
             
         {% endfor %}
-        
+        <br>
+        <br>
+        <input class="inputValider" type="submit" value="Enregistrer"/>
+        <br>
+        <br>
     </form>
     
 {% endblock %}

@@ -108,7 +108,6 @@ class MatierePremiereController extends Controller
             $composant->setNom($data['nom']);
             $composant->setBoitier($data['boitier']);
             $composant->setStockMini($data['stockMini']);
-            $composant->setStockInterne(0);
             $composant->setFamille($famille);
             $composant->setSousFamille($sousFamille);
             
@@ -188,14 +187,31 @@ class MatierePremiereController extends Controller
     {      
         $em = $this->getDoctrine()->getManager();
         $req = '';
-        
+
         $sousFamille = $em->getRepository('ICAdministrationBundle:SousFamille')->getSousFamilleByIdFamille($idFamille);
         
         foreach ($sousFamille as $sFamille) 
         {
-            $req .= '<option value="'.$sFamille->getId().'" >'.$sFamille->getNom().'</option>';
+            if($sFamille->getId() == $request->get('idChecked'))
+                $req .= '<option value="'.$sFamille->getId().'" selected>'.$sFamille->getNom().'</option>';
+            else
+                $req .= '<option value="'.$sFamille->getId().'">'.$sFamille->getNom().'</option>';
         }
         
         return new Response($req);
+    }
+    
+    public function changeStockAction(request $request)
+    {      
+        $em = $this->getDoctrine()->getManager();
+
+        $composant = $em->getRepository('ICAdministrationBundle:Composant')->find($request->get('idComposant'));
+        
+        $composant->setStockInterne($request->get('stock'));
+
+        $em->persist($composant);
+        $em->flush();
+
+        return new Response(1);
     }
 }

@@ -10,4 +10,13 @@ namespace IC\AdministrationBundle\Repository;
  */
 class VersionFicheDescriptiveRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbVersion($idFicheDescriptiveOption)
+    {
+        return $this->createQueryBuilder('vfd')
+        ->select('COUNT(vfd)')
+        ->where('vfd.idFicheDescriptiveOption = :idFicheDescriptiveOption')
+        ->setParameter('idFicheDescriptiveOption', $idFicheDescriptiveOption)
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
 }

@@ -1,0 +1,95 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Client{% endblock %}
+
+{% block entete %}{{ parent() }} Client{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/client.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent()}}
+    
+    {{ form_start(formClient) }}
+    <table>
+        <tr id="menu_fixed">
+            <td class="titreDesignation">Nom</td>
+            <td class="titreDesignation">ref Compta</td>
+            <td class="details"></td>
+        </tr>
+    {% if idClient == 0 %}
+        <tr>
+            <td class="titreDesignation">{{ form_widget(formClient.nom) }}</td>
+            <td class="titreDesignation">{{ form_widget(formClient.refCompta) }}</td>
+            <td class="details">{{ form_widget(formClient.submit_client) }}</td>
+        </tr>
+    {% endif %}
+    
+    {% if listeClient is not empty %}
+    
+        {% for client in listeClient %}
+            
+            {% if idClient == client.id %}
+                <tr id="ancre_{{ client.id }}">
+                    <td class="titreDesignation">{{ form_widget(formClient.nom) }}</td>
+                    <td class="titreDesignation">{{ form_widget(formClient.refCompta) }}</td>
+                    <td class="details">{{ form_widget(formClient.submit_client, {'attr': {'class': 'buttonUpdate'}}) }}</td>
+                </tr>
+            {% else %}
+                {% set idAncre = client.id - 10 %}
+                <tr id="ancre_{{ client.id }}">
+                    <td class="nom">{{ client.nom }}</td>
+                    <td class="ref">{{ client.refCompta }}</td>
+                    <td class="details">
+                        <a href="{{ path('ic_administration_affichage_client', {'idClient': client.id}) }}#ancre_{{ idAncre }}">
+                            {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+                                <img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+                            {% endimage %}
+                        </a>
+                    </td>
+                </tr>                
+            {% endif %}
+            
+        {% endfor %}
+        
+    {% endif %}
+    {% block javascripts %}
+
+        {{ parent() }}
+
+    	<script>
+            var positionElementInPage = $('#menu_fixed').offset().top;
+
+            if ($(window).scrollTop() >= positionElementInPage) 
+            {
+                $('.titreDesignation')[0].css('width', $('.famille').css('width'));
+                $('.titreDesignation')[1].css('width', $('.famille').css('width'));
+
+                $('#menu_fixed').addClass("floatable");
+            }
+                    
+            $(window).on('scroll', function() 
+            {
+                    if ($(window).scrollTop() >= positionElementInPage) 
+                    {
+                        $('#menu_fixed').addClass("floatable");
+                    }
+                    else
+                    {
+                        $('#menu_fixed').removeClass("floatable");
+                    }
+                }
+            );    
+        </script>
+    {% endblock %}
+
+    {{ form_end(formClient) }}
+
+{% endblock %}

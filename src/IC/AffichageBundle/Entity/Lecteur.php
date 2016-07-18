@@ -167,4 +167,62 @@ class Lecteur
     {
         return $this->typeLecteur;
     }
+    /**
+     * @var integer
+     */
+    private $vendu;
+
+    /**
+     * @var \IC\AffichageBundle\Entity\VersionFicheDescriptive
+     */
+    private $versionFicheDescriptive;
+
+
+    /**
+     * Set vendu
+     *
+     * @param integer $vendu
+     *
+     * @return Lecteur
+     */
+    public function setVendu($vendu)
+    {
+        $this->vendu = $vendu;
+
+        return $this;
+    }
+
+    /**
+     * Get vendu
+     *
+     * @return integer
+     */
+    public function getVendu()
+    {
+        return $this->vendu;
+    }
+
+    /**
+     * Set versionFicheDescriptive
+     *
+     * @param \IC\AffichageBundle\Entity\VersionFicheDescriptive $versionFicheDescriptive
+     *
+     * @return Lecteur
+     */
+    public function setVersionFicheDescriptive(\IC\AffichageBundle\Entity\VersionFicheDescriptive $versionFicheDescriptive = null)
+    {
+        $this->versionFicheDescriptive = $versionFicheDescriptive;
+
+        return $this;
+    }
+
+    /**
+     * Get versionFicheDescriptive
+     *
+     * @return \IC\AffichageBundle\Entity\VersionFicheDescriptive
+     */
+    public function getVersionFicheDescriptive()
+    {
+        return $this->versionFicheDescriptive;
+    }
 }

@@ -197,4 +197,3 @@ class ComposantFournisseur
         return $this->fournisseur;
     }
 }
-

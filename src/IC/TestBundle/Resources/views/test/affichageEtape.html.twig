@@ -73,15 +73,8 @@
 {% block javascripts %}
 
 	{{ parent() }}
-		<script type="text/javascript">
-        $("#num_serie_numSerie").focus();
-        
-        $('body').on('click', function(e)
-        {
-            $("#num_serie_numSerie").focus();
-        });
-        </script>
-	{% javascripts %}
+    
+	{% javascripts '@ICTestBundle/Resources/public/js/numSerie.js' %}
 		<script type="text/javascript" src="{{ asset_url }}">
  
         </script>

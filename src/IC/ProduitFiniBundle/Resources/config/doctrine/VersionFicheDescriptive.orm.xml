@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="IC\ProduitFiniBundle\Entity\VersionFicheDescriptive" repository-class="IC\ProduitFiniBundle\Repository\VersionFicheDescriptiveRepository" table="version_fiche_descriptive">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="idFicheDescriptiveOption" type="integer" column="id_fiche_descriptive_option" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="version" type="integer" column="version" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="ficheDescriptiveOption" target-entity="FicheDescriptiveOption" inversed-by="versionFicheDescriptive">
+      <join-column name="id_fiche_descriptive_option" referenced-column-name="id" />
+    </many-to-one>
+    <one-to-many field="nomenclatureFicheDescriptive" target-entity="NomenclatureFicheDescriptive" mapped-by="versionFicheDescriptive"/>
+    <one-to-many field="lecteur" target-entity="Lecteur" mapped-by="versionFicheDescriptive"/>
+  </entity>
+</doctrine-mapping>

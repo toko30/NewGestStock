@@ -5,7 +5,7 @@
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_nomenclature') }}">Nomenclatures</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_firmware') }}">Firmware</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_nomenclature_qualite') }}">Contrôle Qualité</a><br>
-
+        <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_client') }}">Client</a><br>
         
         {% image 'Resources/public/images/plus.png' %}
             <span id="sousMenu1" class="sousMenu"><img id="sousMenu11" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Produits Finis</span><br>
@@ -21,10 +21,15 @@
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_sous_famille') }}">Sous Familles</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_type_badge') }}">Type badges</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_type_lecteur') }}">Type lecteurs</a><br>
+        <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_option_fiche_descriptive') }}">Option Fiche Descriptive</a><br>
         <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_affichage_type_autre') }}">Type autres PF</a><br>
         
     <span class="titreMenuVertical">Historique</span><br>
         <a class="sousMenu decalageNoPlus" href="">Historique Appro</a><br>
         <a class="sousMenu decalageNoPlus" href="">Historique Production</a><br>
         <a class="sousMenu decalageNoPlus" href="">Historique Vente</a><br> 
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    <span class="titreMenuVertical">Mode Super Admin</span><br>
+        <a class="sousMenu decalageNoPlus" href="{{ path('ic_administration_user') }}">Gestion des utilisateurs</a><br>
+    {% endif %}
 </nav>

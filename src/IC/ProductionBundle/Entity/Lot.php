@@ -168,3 +168,4 @@ class Lot
         return $this->versionFicheDescriptive;
     }
 }
+

@@ -15,44 +15,55 @@
         <header id="entete">
             <img src="{{ asset('Resources/public/images/logo.png') }}" alt="logo idcapt">
             <div>{% block entete %}{% endblock %}</div>
+            <a class="deco" href="{{ path('logout') }}">Déconnexion</a>
         </header>
         <nav id="menuHorizontal">
         {% if partie == 'affichage' %}
             <span class="spanMenu">Affichage</span>
         {% else %}
-            <a href="{{ path('ic_affichage_composant_interne') }}">Affichage</a>
+            {% if is_granted('ROLE_PRODUCTION') %}
+                <a href="{{ path('ic_affichage_composant_interne') }}">Affichage</a>
+            {% else %}
+                <a href="{{ path('ic_affichage_produit_fini_interne') }}">Affichage</a>
+            {% endif %}
         {% endif %}
-        
-        {% if partie == 'approvisionnement' %}
-            <span class="spanMenu">Approvisionnement</span>
-        {% else %}
-            <a href="{{ path('ic_approvisionnement_mp_production') }}">Approvisionnement</a>
+
+        {% if is_granted('ROLE_PRODUCTION') %}
+            {% if partie == 'approvisionnement' %}
+                <span class="spanMenu">Approvisionnement</span>
+            {% else %}
+                <a href="{{ path('ic_approvisionnement_mp_production') }}">Approvisionnement</a>
+            {% endif %}
+            
+            {% if partie == 'production' %}
+                <span class="spanMenu">Production</span>
+            {% else %}        
+                <a href="{{ path('ic_production_interne') }}">Production</a>
+            {% endif %}
+            
+            {% if partie == 'test' %}
+                <span class="spanMenu">Contrôle Qualité</span>
+            {% else %}  
+                <a href="{{ path('ic_test_affichage') }}">Contrôle Qualité</a>
+            {% endif %}
         {% endif %}
-        
-        {% if partie == 'production' %}
-            <span class="spanMenu">Production</span>
-        {% else %}        
-            <a href="{{ path('ic_production_interne') }}">Production</a>
-        {% endif %}
-        
-        {% if partie == 'test' %}
-            <span class="spanMenu">Contrôle Qualité</span>
-        {% else %}  
-            <a href="{{ path('ic_test_affichage') }}">Contrôle Qualité</a>
-        {% endif %}
-        
+
         {% if partie == 'produit_fini' %}
             <span class="spanMenu">Produit Fini</span>
         {% else %}  
-            <a href="{{ path('ic_produit_fini_affichage') }}">Produit Fini</a>
+        	{% if is_granted('ROLE_PRODUCTION') %}
+            <a href="{{ path('ic_produit_fini_vente') }}">Produit Fini</a>
+            {% else %}
+                <a href="{{ path('ic_produit_fini_gestion_pret') }}">Produit Fini</a>
+            {% endif %}
         {% endif %}
-        
-        {% if partie == 'Administration' %}
-            <span class="spanMenu">Administration</span>
-        {% else %}  
-            <a href="{{ path('ic_administration_matiere_premiere') }}">Administration</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if partie == 'Administration' %}
+                <span class="spanMenu">Administration</span>
+            {% else %}  
+                <a href="{{ path('ic_administration_matiere_premiere') }}">Administration</a>
+            {% endif %}
         {% endif %}
-        
         </nav>
         {% block body %}{% endblock %}
         

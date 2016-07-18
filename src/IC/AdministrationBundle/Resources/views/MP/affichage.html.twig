@@ -1,4 +1,6 @@
-{% extends "ICAdministrationBundle::layout.html.twig" %}
+ 
+ 
+ {% extends "ICAdministrationBundle::layout.html.twig" %}
 {% block title %}{{ parent() }} - Stock Interne{% endblock %}
 
 {% block entete %}{{ parent() }} Stock Interne{% endblock %}
@@ -12,12 +14,16 @@
 {% endblock %}
 
 {% block page %}
-	{{ parent()}}
-    
+
+	{{ parent() }}
+
+    <span id="pathAjax1" data-path="{{ path('ic_ajax_modif_stock') }}"></span>
+
 	{{ form_start(form, {'attr': {'class': 'form-verical' }}) }}
     
 	<table class="imp">
-		<tr>
+    <thead>
+		<tr id="menu_fixed">
 			<td class="titreFamille">Famille</td>
 			<td class="titreFamille">Sous Famille</td>
 			<td class="titreDesignation">Désignation</td>
@@ -26,6 +32,8 @@
 			<td class="titreStock">Stock</td>
 			<td class="details"></td>
 		</tr>
+        </thead>
+        <tbody>
         
         <tr id="pathAjax" data-path="{{ path('ic_ajax_choixFamille') }}">
             <td class="titreFamille">{{ form_widget(form.famille, {'attr': {'class': 'inputListe'}} ) }}</td>
@@ -33,8 +41,8 @@
             <td class="titreDesignation">{{ form_widget(form.nom, {'attr': {'class': 'inputDesignation'}} ) }}</td>
             <td class="titreBoitier">{{ form_widget(form.boitier, {'attr': {'class': 'inputQuantite'}} ) }}</td>
             <td class="titreStock mini">{{ form_widget(form.stockMini, {'attr': {'class': 'inputQuantite'}} )}}</td>
-            <td class="supprimer"></td>
-            <td class="supprimer">{{ form_widget(form.submit_composant) }}</td>
+            <td class="details"></td>
+            <td class="details">{{ form_widget(form.submit_composant) }}</td>
         </tr>      
 
 		{% for composant in composants %}
@@ -45,10 +53,15 @@
                         {{composant.SousFamille.nom}}
                     {% endif %}
                 </td>
-                <td class="designation">{{composant.nom}}</td>
-                <td class="boitier">{{composant.boitier}}</td>
-                <td class="stock mini">{{composant.stockMini}}</td>
-                <td class="stock">{{composant.stockInterne}}</td>
+                <td class="designation">{{ composant.nom }}</td>
+                <td class="boitier">{{ composant.boitier }}</td>
+                <td class="stock mini">{{ composant.stockMini }}</td>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td class="stock"><input id="{{ composant.id }}" class="inputStock" type="text" value="{{ composant.stockInterne }}"></td>
+                {% else %}
+                    <td class="stock">{{ composant.stockInterne }}</td>
+                {% endif %}
                 <td class="details">
                     <a href="{{ path('ic_administration_mp_detail', {'idComposant': composant.id}) }}">
                         {% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
@@ -58,6 +71,7 @@
                 </td>
             </tr>	
 		{% endfor %}
+        </tbody>
 		</table>
         {{ form_end(form) }}
 {% endblock %}
@@ -66,8 +80,45 @@
 
 	{{ parent() }}
 	
-	{% javascripts '@ICAdministrationBundle/Resources/public/js/trieChoixFamille.js' %}
+	{% javascripts '@ICAdministrationBundle/Resources/public/js/modifStock.js' %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
-	
+	<script>
+        var positionElementInPage = $('#menu_fixed').offset().top;
+
+        if ($(window).scrollTop() >= positionElementInPage) 
+        {
+            $('#menu_fixed').addClass("floatable");
+            
+            $('.titreFamille').each(function()
+            {
+                $(this).css('width', $('.famille').css('width'));
+            });
+
+            $('.titreDesignation').css('width', $('.designation').css('width'));
+            $('.titreStock').css('width', $('.stock').css('width'));
+        }
+                
+        $(window).on('scroll', function() 
+        {
+                if ($(window).scrollTop() >= positionElementInPage) 
+                {
+                    $('.titreFamille').each(function()
+                    {
+                        $(this).css('width', $('.famille').css('width'));
+                        $(this).css('width', $('.famille').css('width'));
+                    });
+
+                    $('.titreDesignation').css('width', $('.designation').css('width'));
+                    $('.titreStock').css('width', $('.stock').css('width'));
+
+                    $('#menu_fixed').addClass("floatable");
+                }
+                else
+                {
+                    $('#menu_fixed').removeClass("floatable");
+                }
+            }
+        );    
+    </script>
 {% endblock %}

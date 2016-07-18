@@ -18,7 +18,7 @@ class FicheDescriptiveType extends AbstractType
                 
         $builder->add('designation', TextType::class, array('required' => true));                                             
                                               
-        $builder->add('frequence', ChoiceType::class, array('choices' => array('13,56MHz' => 1, '125KHz' => 2),
+        $builder->add('frequence', ChoiceType::class, array('choices' => array('13,56 MHz' => 1, '125 KHz' => 2, '900 MHz' => 3),
                       'multiple' => false,
                       'expanded' => false));  
                                             
@@ -33,8 +33,6 @@ class FicheDescriptiveType extends AbstractType
         $builder->add('grande', ChoiceType::class, array('choices' => array('0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5),
                       'multiple' => false,
                       'expanded' => false));
-                                            
-        $builder->add('submit_fiche_descriptive', SubmitType::class);
     }
     
     public function configureOptions(OptionsResolver $resolver)

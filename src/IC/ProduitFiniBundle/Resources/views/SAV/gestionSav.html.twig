@@ -1,0 +1,52 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Gestion SAV{% endblock %}
+
+{% block entete %}{{ parent() }} Gestion SAV{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/sav.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+	
+	<form id="sav" method="post" action="{{ path('ic_produit_fini_add_sav') }}">
+		<input class="inputRechercheNumSerie" type="text" name="numSerie" placeholder="Numéro de série">
+		<input class="inputSubmit" type="submit" value="ajouter au SAV">
+	</form>
+
+	{% if listeSAV != 0 %}
+		<table>
+			<tr>
+				<td class="titreClient">Client</td>
+				<td class="titreLecteur">Lecteur</td>
+				<td class="titreNumSerie">Num Série</td>
+				<td class="titreDate">Date Réception</td>
+				<td class="titreDetails"></td>
+			</tr>
+			{% for sav in listeSAV %}
+
+			<tr>
+				<td>{{ sav.client }} {{ loop.index }}</td>
+				<td>{{ sav.lecteur }}</td>
+				<td>{{ sav.numSerie }}</td>
+				<td>{{ sav.dateReception|date('d/m/Y') }}</td>
+				<td class="titreDetails">
+					<a href="{{ path('ic_produit_fini_detail_sav', {'idSAV': sav.id}) }}">                        
+						{% image 'Resources/public/images/fleche.png' %}
+							<img class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+						{% endimage %}
+					</a>				
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+		<br><br><div class="infoPageVide">Aucun SAV en cours</div>
+	{% endif %}
+{% endblock %}

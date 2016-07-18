@@ -35,7 +35,9 @@
 	{{ parent() }}
     
 	{% javascripts
-	'@ICApprovisionnementBundle/Resources/public/js/*' %}
+	'@ICApprovisionnementBundle/Resources/public/js/DymoLabelFramework.js'
+	'@ICApprovisionnementBundle/Resources/public/js/labelPrinter.js'
+	'@ICApprovisionnementBundle/Resources/public/js/menu_deroulant.js' %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}

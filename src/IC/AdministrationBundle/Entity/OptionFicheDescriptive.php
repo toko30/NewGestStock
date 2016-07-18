@@ -139,4 +139,3 @@ class OptionFicheDescriptive
         return $this->ficheDescriptiveOption;
     }
 }
-

@@ -82,4 +82,16 @@ class ApproRepository extends \Doctrine\ORM\EntityRepository
 		->getQuery()
 		->getResult();         
    }
+   
+   public function getListeAutre($idCommande)
+   {
+		return $this->createQueryBuilder('a')
+		->join('a.approAutre', 'aa')
+		->join('aa.autre', 'aaa')
+		->addSelect('a', 'aa', 'aaa')
+		->where('a.id = :idCommande')
+        ->setParameter('idCommande', $idCommande)
+		->getQuery()
+		->getResult();         
+   }
 }

@@ -1,4 +1,5 @@
 <nav id="lienMenuVertical">
+	{% if is_granted('ROLE_PRODUCTION') %}
 	<span class="titreMenuVertical">Stock Matière Première</span><br>
 	
 		<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_composant_interne') }}">Stock Interne</a><br>
@@ -51,11 +52,9 @@
 				    {% endif %}
                 {% endfor %}
 			</div>
-            
+		{% endif %}
 			<span class="titreMenuVertical">Approvisionnement</span><br>
-            
 				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_appro_interne') }}">Appro Matière Première</a><br>
-				
                 {#
 				{% image 'Resources/public/images/plus.png' %}
 					<span id="sousMenu4" class="sousMenu"><img id="sousMenu41" class="imgFlecheliste majuscule" src="{{ asset_url }}" alt="Fleche Bas" />Appro Sous Traitant</span><br>
@@ -92,12 +91,11 @@
 						{% endfor %}
 					{% endif %}
 				</div>
-				
+			{% endif %}
 			<span class="titreMenuVertical">Stock Produits Finis</span><br>
 				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_produit_fini_interne') }}">Lecteurs</a><br>
 				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_produit_fini_identifiant') }}">Identifiants</a><br>
-				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_produit_fini_autre') }}">Autres</a><br>
-	{% endif %}
+				<a class="sousMenu decalageNoPlus" href="{{ path('ic_affichage_produit_fini_autre') }}">Autres Produits Finis</a><br>
 </nav>
 <span class="lienImp" onclick="$('.imp').tableExport({type:'excel', escape:'false'})">Enregistrer au format Excel</span><br>
 <span class="lienImp" onclick="javascript:window.print()">Imprimer</span><br>

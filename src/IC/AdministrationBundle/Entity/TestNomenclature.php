@@ -139,4 +139,3 @@ class TestNomenclature
         return $this->etapeNomenclature;
     }
 }
-

@@ -1,0 +1,17 @@
+.inputStock
+{
+    width: 50px;
+}
+#menu_fixed
+{
+    width:66.5%;
+}
+.details
+{
+    border:none;
+}
+.floatable
+{
+position: fixed;
+margin-top:-240px;
+}

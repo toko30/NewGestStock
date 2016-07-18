@@ -234,7 +234,13 @@ ic_administration_fiche_descriptive_option_update:
     defaults: { _controller: ICAdministrationBundle:FicheDescriptive:updateFicheDescriptiveOption }
     requirements:
         idFicheOption: \d{1,10}
-        
+ic_administration_add_version_fiche_descriptive:
+    path:     /Add-Version-Fiche-Descriptive-{idFicheDescriptiveOption}-{idFiche}
+    defaults: { _controller: ICAdministrationBundle:FicheDescriptive:addVersionFicheDescriptive }      
+    requirements:
+        idFicheDescriptiveOption: \d{1,10}
+        idFiche: \d{1,10}
+                        
 ic_administration_affichage_nomenclature_qualite:
     path:     /Controle-Qualite-Nomenclature-{allVersion}
     defaults: { _controller: ICAdministrationBundle:Qualite:affichageNomenclatureQualite, allVersion:0 }
@@ -346,23 +352,119 @@ ic_administration_update_sous_famille:
         idSousFamille: \d{1,10}   
             
 ic_administration_affichage_type_badge:
-    path:     /Type-Badge
-    defaults: { _controller: ICAdministrationBundle:Option:typeBadge }      
+    path:     /Type-Badge-{idTypeBadge}
+    defaults: { _controller: ICAdministrationBundle:Option:typeBadge, idTypeBadge: 0 }      
     requirements:
-        idSousFamille: \d{1,10}
+        idTypeBadge: \d{1,10}
+
+ic_administration_add_type_badge:
+    path:     /Ajouter-Type-Badge
+    defaults: { _controller: ICAdministrationBundle:Option:addTypeBadge }      
         
+ic_administration_update_type_badge:
+    path:     /Modifier-Type-Badge-{idTypeBadge}
+    defaults: { _controller: ICAdministrationBundle:Option:updateTypeBadge }      
+    requirements:
+        idTypeBadge: \d{1,10}
+                
 ic_administration_affichage_type_lecteur:
-    path:     /Type-Lecteur
-    defaults: { _controller: ICAdministrationBundle:Option:typeLecteur }      
+    path:     /Type-Lecteur-{idTypeLecteur}
+    defaults: { _controller: ICAdministrationBundle:Option:typeLecteur, idTypeLecteur: 0 }      
     requirements:
-        idSousFamille: \d{1,10}
+        idTypeLecteur: \d{1,10}
         
+ic_administration_add_type_lecteur:
+    path:     /Ajouter-Type-Lecteur
+    defaults: { _controller: ICAdministrationBundle:Option:addTypeLecteur }
+        
+ic_administration_update_type_lecteur:
+    path:     /Modifier-Type-lecteur-{idTypeLecteur}
+    defaults: { _controller: ICAdministrationBundle:Option:updateTypeLecteur }      
+    requirements:
+        idTypeLecteur: \d{1,10}     
+           
 ic_administration_affichage_type_autre:
-    path:     /Type-Autre
-    defaults: { _controller: ICAdministrationBundle:Option:typeAutre }      
-                                         
+    path:     /Type-Autre-{idTypeAutre}
+    defaults: { _controller: ICAdministrationBundle:Option:typeAutre, idTypeAutre: 0 }      
+    requirements:
+        idTypeAutre: \d{1,10}
+
+ic_administration_add_type_autre:
+    path:     /Ajouter-Type-Autre
+    defaults: { _controller: ICAdministrationBundle:Option:addTypeAutre }      
+        
+ic_administration_update_type_autre:
+    path:     /Modifier-Type-Autre-{idTypeAutre}
+    defaults: { _controller: ICAdministrationBundle:Option:updateTypeAutre }      
+    requirements:
+        idTypeAutre: \d{1,10}
+        
+ic_administration_affichage_option_fiche_descriptive:
+    path:     /Type-Option-Fiche-Descriptive-{idOption}
+    defaults: { _controller: ICAdministrationBundle:Option:optionFicheDescriptive, idOption: 0 }      
+    requirements:
+        idOption: \d{1,10}
+
+ic_administration_add_option_fiche_descriptive:
+    path:     /Ajouter-Option-Fiche-Descriptive
+    defaults: { _controller: ICAdministrationBundle:Option:addOptionFicheDescriptive }      
+        
+ic_administration_update_option_fiche_descriptive:
+    path:     /Modifier-Option-Fiche-Descriptive-{idOption}
+    defaults: { _controller: ICAdministrationBundle:Option:updateOptionFicheDescriptive }      
+    requirements:
+        idOption: \d{1,10}
+                                
+ic_administration_affichage_client:
+    path:     /Client-{idClient}
+    defaults: { _controller: ICAdministrationBundle:Client:affichageClient, idClient: 0 }
+    requirements:
+        idClient: \d{1,10}
+        
+ic_administration_client_add:
+    path:     /Ajouter-Client
+    defaults: { _controller: ICAdministrationBundle:Client:addClient }
+    
+ic_administration_client_update:
+    path:     /Modifier-Client-{idClient}
+    defaults: { _controller: ICAdministrationBundle:Client:updateClient }
+    requirements:
+        idClient: \d{1,10}  
+
+ic_administration_user:
+    path:     /Gestion-User-{idUser}
+    defaults: { _controller: ICAdministrationBundle:User:gestionUser, idUser: 0 }
+    requirements:
+        idUser: \d{1,10}
+
+ic_administration_add_user:
+    path:     /Ajouter-User
+    defaults: { _controller: ICAdministrationBundle:User:addUser }
+
+ic_administration_update_user:
+    path:     /Ajouter-User-{idUser}
+    defaults: { _controller: ICAdministrationBundle:User:updateUser }
+    requirements:
+        idUSer: \d{1,10}
+
+ic_administration_remove_user:
+    path:     /Supprimer-User-{idUser}
+    defaults: { _controller: ICAdministrationBundle:User:removeUser }
+    requirements:
+        idUSer: \d{1,10}
+
+ic_administration_manip_stock:
+    path:     /Manipulation-Stock
+    defaults: { _controller: ICAdministrationBundle:User:removeUser }
+    requirements:
+        idUSer: \d{1,10}
+
 ic_ajax_choixFamille:
     path:     /Choix-Famille-{idFamille}
     defaults: { _controller: ICAdministrationBundle:MatierePremiere:choixFamille, idFamille: 0 }
     requirements:
         idFamille: \d{1,10}
+
+ic_ajax_modif_stock:
+    path:     /Modif-Stock
+    defaults: { _controller: ICAdministrationBundle:MatierePremiere:changeStock }

@@ -1,0 +1,57 @@
+{% extends 'ICApprovisionnementBundle::layout.html.twig' %}
+
+{% block title %} {{ parent() }} - En Cours Matières Premières{% endblock %}
+
+{% block entete %} {{ parent() }} En Cours Matières Premières{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	
+	{% stylesheets filter='cssrewrite'
+	'@ICApprovisionnementBundle/Resources/public/css/enregistrementLecteur.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+    
+{% endblock %}
+
+{% block page %}
+
+    {{ parent() }}
+    
+    <h1 id="pathAjax" data-path="{{ path('ic_approvisionnement_add_autre', {'idCommande': appro[0].id}) }}">Sélection du Produit Fini</h1>
+
+    {% for approAutre in appro[0].approAutre %}
+    
+        {% if loop.index0 == 0 %}
+            <div id="focus" class="lecteur" petite="{{ approAutre.autre.petite }}" moyenne="{{ approAutre.autre.moyenne }}" grande="{{ approAutre.autre.grande }}" name="{{ approAutre.autre.reference }}">{{ approAutre.autre.designation }}<span class="compteur"><span class="decrement">{{ approAutre.quantite }}</span> / {{ approAutre.quantite }}</span></div>
+        {% else %}
+            <div class="lecteur" petite="{{ approAutre.autre.petite }}" moyenne="{{ approAutre.autre.moyenne }}" grande="{{ approAutre.autre.grande }}" name="{{ approAutre.autre.reference }}">{{ approAutre.autre.designation }}<span class="compteur"><span class="decrement">{{ approAutre.quantite }}</span> / {{ approAutre.quantite }}</span> </div>
+        {% endif %}
+        
+    {% endfor %}
+    
+    <h1 id="titreChange" class="titreListe">Entrer un numéro de série</h1>
+    
+        <input id="inputEnregistrement" type="text">
+        <div id="addLecteur" class="lienValiderCommande1">Ajouter les Produit finis au stock</div>
+        
+    <h1 class="titreListe">Liste des produits finis</h1>
+    
+        <table id="listeLecteur">
+            <tr><td class="titreDesignation">Reférence</td><td class="titreDesignation">Numéro de série</td></tr>
+        </table>
+        
+    <span id="pathAjaxPetite" data-path="{{ path('ic_approvisionnement_petite_label') }}"></span>
+    <span id="pathAjaxMoyenne" data-path="{{ path('ic_approvisionnement_moyenne_label') }}"></span>
+    <span id="pathAjaxGrande" data-path="{{ path('ic_approvisionnement_grande_label') }}"></span>
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+    
+	{% javascripts '@ICApprovisionnementBundle/Resources/public/js/ajoutAutre.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}    
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "ICAdministrationBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} - Option Fiche Descriptive{% endblock %}
+
+{% block entete %}{{ parent() }} Option Fiche Descriptive{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+    
+	{% stylesheets filter='cssrewrite'
+	'@ICAdministrationBundle/Resources/public/css/option.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+
+{% block page %}
+
+	{{ parent() }}
+	
+	{% if idOption == 0 %}
+    	<form id="TypeAutre" method="post" action="{{ path('ic_administration_add_option_fiche_descriptive') }}">
+	{% else %}
+		<form id="TypeAutre" method="post" action="{{ path('ic_administration_update_option_fiche_descriptive', {'idOption': idOption}) }}">
+	{% endif %}
+	
+		<table class="tabOption">
+			<tr>
+				<td class="titreDesignation">Nom</td>
+                <td class="titreDesignation">Abreviation</td>
+				<td class="details"></td>
+			</tr>
+			
+			{% if idOption == 0 %}
+				<tr>
+					<td class="titreDesignation"><input type="text" name="nom"></td>
+                    <td class="titreDesignation"><input type="text" name="abreviation"></td>
+					<td class="titreDesignation"><input class="buttonAdd" type="submit" value=""></td>
+				</tr>
+			{% endif %}
+		
+			{% if listeOption is not empty %}
+			
+				{% for option in listeOption %}
+				
+					{% if idOption == option.id %}
+						<tr>
+							<td class="titreDesignation"><input type="text" name="nom" value="{{ option.nom }}"></td>
+                            <td class="titreDesignation"><input type="text" name="abreviation" value="{{ option.abreviation }}"></td>
+							<td class="titreDesignation"><input class="buttonUpdate" type="submit" value=""></td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ option.nom }}</td>
+                            <td>{{ option.abreviation }}</td>
+							<td class="details">
+								{% image '@ICAffichageBundle/Resources/public/img/fleche.png' %}
+									<a href="{{ path('ic_administration_affichage_option_fiche_descriptive', {'idOption': option.id}) }}">
+										<img id="" class="flecheDetails" src="{{ asset_url }}" alt="Fleche Détail" />
+									</a>
+								{% endimage %}
+							</td>							
+						</tr>					
+					{% endif %}
+					
+				{% endfor %}
+						
+			{% endif %}
+		
+		</table>
+	</form>
+	
+{% endblock %}

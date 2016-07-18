@@ -43,3 +43,18 @@
     margin:auto;
     display:none;
 }
+.versionPlus
+{
+    background:url('../images/blueplus.png') top left no-repeat;
+    display:inline-block;
+    width:16px;
+    height:16px;
+}
+.espaceOptionFicheDescriptive
+{
+    margin: 0 auto 100px auto;
+}
+.nomenclatureChecked
+{
+    color:lightGreen;
+}

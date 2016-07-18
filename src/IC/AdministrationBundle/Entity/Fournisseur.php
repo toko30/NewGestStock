@@ -392,4 +392,3 @@ class Fournisseur
         return $this->autre;
     }
 }
-

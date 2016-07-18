@@ -23,7 +23,6 @@ class FicheDescriptiveController extends Controller
         
         $ficheDescriptive = new FicheDescriptive();
         $form = $this->createForm(FicheDescriptiveType::class, $ficheDescriptive, array('action' => $this->generateUrl('ic_administration_fiche_descriptive_add')))->createView();
-
         
         return $this->render('ICAdministrationBundle:ficheDescriptive:affichage.html.twig', array('partie' => 'Administration',
                                                                                                   'form' => $form,
@@ -65,11 +64,28 @@ class FicheDescriptiveController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $listNomenclature = $em->getRepository('ICAdministrationBundle:Nomenclature')->getAllNomenclature();
-        $listNomenclatureFichedescriptive = $em->getRepository('ICAdministrationBundle:NomenclatureFicheDescriptive')->findBy(array('idVersionFicheDescriptive' => $idVersionFicheDescriptive));
+        $listNomenclatureFichedescriptive = $em->getRepository('ICAdministrationBundle:NomenclatureFicheDescriptive')->getNomenlatures($idVersionFicheDescriptive);
+        $arrayIdNomenclatureUsed = array();
+        
+        foreach ($listNomenclature as $key => $nomenclature) 
+        {
+            foreach ($nomenclature->getVersionNomenclature() as $key => $version) 
+            {
+                foreach ($listNomenclatureFichedescriptive as $key => $nomenclatureFichedescriptive) 
+                {
+                    if($nomenclatureFichedescriptive->getIdVersionNomenclature() == $version->getId())
+                    {
+                        $arrayIdNomenclatureUsed[] = $nomenclature->getId();
+                        break;
+                    }       
+                }
+            }
+        }
 
         return $this->render('ICAdministrationBundle:ficheDescriptive:gestionNomenclature.html.twig', array('partie' => 'Administration',
                                                                                                             'idVersionFicheDescriptive' => $idVersionFicheDescriptive,
                                                                                                             'listNomenclature' => $listNomenclature,
+                                                                                                            'arrayNomenclatureUsed' => $arrayIdNomenclatureUsed,
                                                                                                             'listNomenclatureFichedescriptive' => $listNomenclatureFichedescriptive));         
     }
      
@@ -86,20 +102,20 @@ class FicheDescriptiveController extends Controller
         
         for($i = 0; ; )
         {
-           $data = $request->get('versionNomenclature'.$i);
-           if($data != 0)
-           {
-               $versionNomenclature = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->find($data);
-               $nomenclatureFichedescriptive = new NomenclatureFicheDescriptive();
-               
-               $nomenclatureFichedescriptive->setVersionNomenclature($versionNomenclature);
-               $nomenclatureFichedescriptive->setVersionficheDescriptive($versionFicheDescriptive);
-               
-               $em->persist($nomenclatureFichedescriptive);
-           }
+            $data = $request->get('versionNomenclature'.$i);
+            if($data != 0)
+            {
+                $versionNomenclature = $em->getRepository('ICAdministrationBundle:VersionNomenclature')->find($data);
+                $nomenclatureFichedescriptive = new NomenclatureFicheDescriptive();
+                
+                $nomenclatureFichedescriptive->setVersionNomenclature($versionNomenclature);
+                $nomenclatureFichedescriptive->setVersionficheDescriptive($versionFicheDescriptive);
+                
+                $em->persist($nomenclatureFichedescriptive);
+            }
            
-           if($request->get('versionNomenclature'.++$i) == null)
-            break;
+            if($request->get('versionNomenclature'.++$i) == null)
+                break;
         }
         
         $em->flush();
@@ -152,9 +168,9 @@ class FicheDescriptiveController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data = $request->get('fiche_descriptive_option');
         array_multisort($data['optionFicheDescriptive']);
-        
+        var_dump($data);
         $ficheDescriptive = $em->getRepository('ICAdministrationBundle:FicheDescriptive')->find($idFiche);
-        $type = $em->getRepository('ICAdministrationBundle:SousTypeLecteur')->find($data['type']);
+        $type = $em->getRepository('ICAdministrationBundle:SousTypeLecteur')->find($data['sousTypeLecteur']);
         $ficheDescriptiveOption = new FicheDescriptiveOption();
         
         $ficheDescriptiveOption->setDesignation($data['designation']);
@@ -192,7 +208,7 @@ class FicheDescriptiveController extends Controller
         array_multisort($data['optionFicheDescriptive']);
         
         
-        $type = $em->getRepository('ICAdministrationBundle:SousTypeLecteur')->find($data['type']);
+        $type = $em->getRepository('ICAdministrationBundle:SousTypeLecteur')->find($data['sousTypeLecteur']);
         $ficheDescriptiveOption = $em->getRepository('ICAdministrationBundle:FicheDescriptiveOption')->find($idFicheOption);
         $ficheDescriptive = $em->getRepository('ICAdministrationBundle:FicheDescriptive')->find($ficheDescriptiveOption->getIdFicheDescriptive());
         
@@ -224,5 +240,22 @@ class FicheDescriptiveController extends Controller
         $em->flush();
         
         return $this->redirectToRoute('ic_administration_affichage_fiche_descriptive_detail', array('idFiche' => $ficheDescriptive->getId()));         
+    }
+    
+    public function addVersionFicheDescriptiveAction($idFicheDescriptiveOption, $idFiche)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $nbVersion = $em->getRepository('ICAdministrationBundle:VersionFicheDescriptive')->countNbVersion($idFicheDescriptiveOption);        
+        $ficheDescriptiveOption = $em->getRepository('ICAdministrationBundle:FicheDescriptiveOption')->find($idFicheDescriptiveOption);   
+
+        $versionFicheDescriptive = new VersionFicheDescriptive();
+        $versionFicheDescriptive->setVersion($nbVersion + 1);
+        $versionFicheDescriptive->setFicheDescriptiveOption($ficheDescriptiveOption);
+        
+        $em->persist($versionFicheDescriptive);
+        $em->flush();
+        
+        return $this->redirectToRoute('ic_administration_affichage_fiche_descriptive_detail', array('idFiche' => $idFiche));    
     }
 }

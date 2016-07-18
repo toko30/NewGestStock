@@ -19,11 +19,6 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="quantite" type="integer" column="quantite" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="type" type="integer" column="type" nullable="false">
       <options>
         <option name="unsigned"/>

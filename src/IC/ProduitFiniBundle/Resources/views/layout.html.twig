@@ -1,31 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration{% endblock %}
+{% block title %}Produit Fini{% endblock %}
+
 {% block stylesheets %}
+
 	{% stylesheets filter='cssrewrite'
 	'@ICAdministrationBundle/Resources/public/css/layout.css'
 	'@ICAdministrationBundle/Resources/public/css/menu_vertical.css' %}
 		{{ parent() }}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% endstylesheets %}
+	
 	{% stylesheets filter='cssrewrite'
 	'@ICAffichageBundle/Resources/public/css/impression.css' %}
 		{{ parent() }}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="print">
 	{% endstylesheets %}
 {% endblock %}
-{% block entete %}Administration{% endblock %}
+
+{% block entete %}Produit Fini{% endblock %}
 
 {% block body %}
 	<section id="menuVertical">
-		{# {{ render(controller("ICAdministrationBundle:Menu:menu", {'url': app.request.attributes.get('_route')})) }} #}
+		{{ render(controller("ICProduitFiniBundle:Menu:menu", {'url': app.request.attributes.get('_route')})) }}
 	</section>
+	
     <section id="page">
         {% block page %}
-        
         {% endblock %}
     </section>
 {% endblock %}
+
 {% block javascripts %}
+
 	{{ parent() }}
+	
 {% endblock %}

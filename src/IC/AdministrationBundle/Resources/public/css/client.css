@@ -1,0 +1,17 @@
+table
+{
+    width:50%;    
+}
+input
+{
+    width:98%;
+}
+.floatable
+{
+position: fixed;
+margin-top: -278px;
+}
+#menu_fixed
+{
+    width: 33.5%;
+}

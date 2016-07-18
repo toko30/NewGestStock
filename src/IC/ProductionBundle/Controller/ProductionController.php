@@ -8,10 +8,11 @@ use IC\ProductionBundle\Form\Type\ProductionType;
 use IC\ProductionBundle\Entity\Production;
 use IC\ProductionBundle\Entity\Lot;
 use IC\ProductionBundle\Entity\CarteTest;
+use IC\ProductionBundle\Entity\HistoProd;
 
 class ProductionController extends Controller
 {
-    public function interneAction(Request $request)
+    public function interneAction(Request $request, $all)
     {
         $em = $this->getDoctrine()->getManager(); 
         $data = $request->get('production');
@@ -23,8 +24,6 @@ class ProductionController extends Controller
             //recupération de la liste des composant nécéssaire à la production, le nb de prod manquant et le nom de la nomenclature
             $info = $this->container->get('ic_production')->getListComposantNomenclatureInterne($data);
             list($tabComposant, $nbProdManquant) = $info;                
-
-            
             
             //génération de la vue avec les info de la carte et ses composants calculés précédement
             return $this->render('ICProductionBundle:Liste:interne.html.twig', array('partie' => 'production',
@@ -41,21 +40,31 @@ class ProductionController extends Controller
             $info = $this->container->get('ic_production')->getTabProdInterne();
             list($listeEnCours, $listePrevisionnelle) = $info;
             
-            //Listage des dernières nomenclatures
-            $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
-            
-            //Création du formulaire et affichage de la vue
-            $formOptions = array('listLastFicheDescriptive' => $listLastFicheDescriptive);
-            $form = $this->createForm(ProductionType::class, $formOptions);
+            if($all == 0)
+            {
+                $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
+
+                //Création du formulaire et affichage de la vue
+                $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listLastFicheDescriptive)));
+            }
+
+            else
+            {
+                $listAllFicheDescriptive = $this->container->get('ic_production')->listAllFicheDescriptive();
+
+                //Création du formulaire et affichage de la vue
+                $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listAllFicheDescriptive)));
+            }
             
             return $this->render('ICProductionBundle:Production:interne.html.twig', array('partie' => 'production',
                                                                                           'form' => $form->createView(),
                                                                                           'listeEnCours' => $listeEnCours,
-                                                                                          'listePrevisionnelle' => $listePrevisionnelle));
+                                                                                          'listePrevisionnelle' => $listePrevisionnelle,
+                                                                                          'all' => $all));
         }
     }
     
-    public function sousTraitantAction(Request $request, $id)
+    public function sousTraitantAction(Request $request, $id, $all)
     {
         $em = $this->getDoctrine()->getManager();
         $data = $request->get('production');
@@ -84,13 +93,29 @@ class ProductionController extends Controller
             //Listage des dernières nomenclatures
             $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
 
-            //Création du formulaire et affichage de la vue
-            $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listLastFicheDescriptive)));
-            
+            if($all == 0)
+            {
+                $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
+
+                //Création du formulaire et affichage de la vue
+                $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listLastFicheDescriptive)));
+            }
+
+            else
+            {
+                $listAllFicheDescriptive = $this->container->get('ic_production')->listAllFicheDescriptive();
+
+                //Création du formulaire et affichage de la vue
+                $form = $this->createForm(ProductionType::class, 0, array('data' => array('listLastFicheDescriptive' => $listAllFicheDescriptive)));
+            }
+                
+
             return $this->render('ICProductionBundle:Production:sousTraitant.html.twig', array('partie' => 'production',
+                                                                                               'idST' => $id,
                                                                                                'form' => $form->createView(),
                                                                                                'listeEnCours' => $listeEnCours,
-                                                                                               'listePrevisionnelle' => $listePrevisionnelle));
+                                                                                               'listePrevisionnelle' => $listePrevisionnelle,
+                                                                                               'all' => $all));
         }
     }
     
@@ -309,7 +334,16 @@ class ProductionController extends Controller
         $production = $em->getRepository('ICProductionBundle:Production')->findOneBy(array('id' => $idProd));
         $versionFicheDescriptive = $em->getRepository('ICProductionBundle:VersionFicheDescriptive')->findOneBy(array('id' => $production->getIdVersionFicheDescriptive()));
         $idProducteur = $production->getIdLieu();
-        echo $production->getIdVersionFicheDescriptive() ;
+        $nbProd = $production->getQuantite();
+        
+        //Enregistrement historique de production
+        $histoProd = new HistoProd();
+        $histoProd->setIdVersion($production->getIdNomenclature());
+        $histoProd->setQuantite($production->getQuantite());
+        $histoProd->setDateProd(new \Datetime());
+        $histoProd->setLieu($production->getIdLieu());
+        $em->persist($histoProd);
+        
         //création du lot de lecteur
         $lot = new Lot();
         $lot->setIdVersionNomenclature($production->getVersion()->getId());
@@ -318,10 +352,6 @@ class ProductionController extends Controller
         $lot->setVersionFicheDescriptive($versionFicheDescriptive);
         $em->persist($lot);
         $em->flush();
-        
-        //recupération du lot créé précédement
-        $lastLot = $em->getRepository('ICProductionBundle:Lot')->getLastLot();
-        $nbProd = $production->getQuantite();
         
         //création de la liste de carte à tester ainsi que leurs numéro de série
         for($i = 0; $i < $nbProd; $i++)
@@ -332,17 +362,22 @@ class ProductionController extends Controller
                 
                 //vérification que le numéro généré n'est pas déja utilisé
                 $verifDispoLecteur = $em->getRepository('ICProductionBundle:Lecteur')->findOneBy(array('numSerie' => $rand));
+                $verifDispoLecteurAutre = $em->getRepository('ICProductionBundle:LecteurAutre')->findOneBy(array('numSerie' => $rand));
                 $verifDispoCarteTest = $em->getRepository('ICProductionBundle:CarteTest')->findOneBy(array('numSerie' => $rand));
-                $verifDispoHistoVenteLecteur = $em->getRepository('ICProductionBundle:HistoVenteLecteur')->findOneBy(array('numSerie' => $rand));
+                $verifDispoHistoReprise = $em->getRepository('ICProductionBundle:HistoReprise')->findOneBy(array('numSerie' => $rand));
+                $verifDispoHistoCarteHs = $em->getRepository('ICProductionBundle:HistoCarteHs')->findOneBy(array('numSerie' => $rand));
+                $verifDispoNomenclatureLecteur = $em->getRepository('ICProductionBundle:NomenclatureLecteur')->findOneBy(array('numSerie' => $rand));
+                
                 //s'il n'est pas utilisé on ajoute le ligne dans CarteTest
-                if(empty($verifDispoLecteur) && empty($verifDispoCarteTest) && empty($verifDispoHistoVenteLecteur))
+                if(empty($verifDispoLecteur) && empty($verifDispoLecteurAutre) && empty($verifDispoCarteTest) &&
+                   empty($verifDispoHistoReprise) && empty($verifDispoHistoCarteHs) && empty($verifDispoNomenclatureLecteur))
                 {
                     $lecteurTest = new CarteTest();  
                     $lecteurTest->setNumSerie($rand);
-                    $lecteurTest->setIdLot($lastLot[0]->getId());
+                    $lecteurTest->setIdLot($lot->getId());
                     $lecteurTest->setEtape(0);
                     $lecteurTest->setAssemble(0);
-                    
+
                     $em->persist($lecteurTest);
                     break;
                 }
@@ -378,14 +413,17 @@ class ProductionController extends Controller
             return $this->redirectToRoute('ic_production_sous_traitant', array('id' => $idProducteur));
     }
     
-    public function changementTypeAction($idType)
+    public function changementTypeAction($idType, request $request)
     {
         $i = 0;
         $req = '';
         if($idType == 0)
         {
-            $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
-            
+            if($request->get('all') == 0)
+                $listLastFicheDescriptive = $this->container->get('ic_production')->listLastFicheDescriptive();
+            else
+                $listLastFicheDescriptive = $this->container->get('ic_production')->listAllFicheDescriptive(); 
+
             foreach ($listLastFicheDescriptive as $value) 
             {
 

@@ -16,17 +16,23 @@
 
 	{{ parent() }}
 
-    <h1 id="pathAjax" data-path="{{ path('ic_ajax_changement_type') }}">Evaluation des besoins de la production</h1>
+    <h1 id="pathAjax" data-path="{{ path('ic_ajax_changement_type') }}">Evaluation des besoins de production</h1>
         
 	{{ include("ICProductionBundle:Form:FormProduction.html.twig") }}
+
+    {% if all == 1 %}
+        <a id="{{ all }}" class="lienAll" href="{{ path('ic_production_sous_traitant', {id: idST, all: '0'}) }}">Afficher seulement les dernières versions</a>
+    {% else %}
+        <a id="{{ all }}" class="lienAll" href="{{ path('ic_production_sous_traitant', {id: idST, all: '1'}) }}">Afficher toute les versions</a>
+    {% endif %}
     
     <div class="divTableProduction">
-
-        {% if listePrevisionnelle is not empty %}   
-            
-            <h1>Production en attente</h1>          
-            
-            <table>
+    
+        <h1>Production en attente</h1> 
+        
+        {% if listePrevisionnelle is not empty %}  
+         
+             <table>
                 <tr>
                     <td class="caseVideSup"></td>
                     <td class="titreNomenclature">Nomenclature</td>
@@ -67,17 +73,18 @@
                 {% endfor %}
 
             </table>
-
+        {% else %}
+            <div class="divProdVide">Aucune Production en attente</div>
         {% endif %}
         
     </div>
 
     <div class="divTableProduction"> 
-
-        {% if listeEnCours is not empty %}
-        
-            <h1>Production en cours</h1>
+    
+        <h1>Production en cours</h1>
             
+        {% if listeEnCours is not empty %}
+
             <table>
                 <tr>
                     <td class="titreNomenclature">Nomenclature</td>
@@ -94,7 +101,8 @@
                 {% endfor %}
 
             </table>
-
+        {% else %}
+            <div class="divProdVide">Aucune Production en cours</div>
         {% endif %}
 
     </div>

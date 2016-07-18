@@ -284,3 +284,4 @@ class TypeLecteur
         return $this->id;
     }
 }
+

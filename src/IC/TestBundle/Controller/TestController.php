@@ -47,7 +47,7 @@ class TestController extends Controller
         }
         $em->flush();
         
-         return new Response($this->generateUrl('ic_test_etape', array('idLot' => $idLot)));
+        return new Response('0');
     }
     
     public function etapeTestAction($idLot)
@@ -106,7 +106,7 @@ class TestController extends Controller
         if($numSerie == 0)
         {
            $data = $request->get('num_serie');
-           $numSerie = $data['numSerie'];
+           $numSerie = trim($data['numSerie'], '!#§');
         }
         
         $reprise = $em->getRepository('ICTestBundle:Reprise')->findBy(array('numSerie' => $numSerie));
@@ -115,6 +115,7 @@ class TestController extends Controller
             return $this->redirectToRoute('ic_test_reprise', array('numSerie' => $numSerie));
         
         $carteTest = $em->getRepository('ICTestBundle:CarteTest')->getLotAndTestByNumSerie($numSerie);
+
         $listeTest = $em->getRepository('ICTestBundle:EtapeNomenclature')->getListeTestByEtape($carteTest[0]->getLot()->getVersionNomenclature()->getId(), $carteTest[0]->getEtape());
         $etapeSuivante = $em->getRepository('ICTestBundle:EtapeNomenclature')->getListeTestByEtape($carteTest[0]->getLot()->getVersionNomenclature()->getId(), $carteTest[0]->getEtape() + 1);
 
@@ -128,10 +129,15 @@ class TestController extends Controller
                 
                 //vérification que le numéro généré n'est pas déja utilisé
                 $verifDispoLecteur = $em->getRepository('ICProductionBundle:Lecteur')->findOneBy(array('numSerie' => $rand));
+                $verifDispoLecteurAutre = $em->getRepository('ICProductionBundle:LecteurAutre')->findOneBy(array('numSerie' => $rand));
                 $verifDispoCarteTest = $em->getRepository('ICProductionBundle:CarteTest')->findOneBy(array('numSerie' => $rand));
-                $verifDispoHistoVenteLecteur = $em->getRepository('ICProductionBundle:HistoVenteLecteur')->findOneBy(array('numSerie' => $rand));
+                $verifDispoHistoReprise = $em->getRepository('ICProductionBundle:HistoReprise')->findOneBy(array('numSerie' => $rand));
+                $verifDispoHistoHistoCarteHs = $em->getRepository('ICProductionBundle:HistoCarteHs')->findOneBy(array('numSerie' => $rand));
+                $verifDispoNomenclatureLecteur = $em->getRepository('ICProductionBundle:NomenclatureLecteur')->findOneBy(array('numSerie' => $rand));
+                
                 //s'il n'est pas utilisé on ajoute le ligne dans CarteTest
-                if(empty($verifDispoLecteur) && empty($verifDispoCarteTest) && empty($verifDispoHistoVenteLecteur))
+                if(empty($verifDispoLecteur) && empty($verifDispoLecteurAutre) && empty($verifDispoCarteTest) && 
+                   empty($verifDispoHistoReprise) && empty($verifDispoHistoHistoCarteHs) && empty($verifDispoNomenclatureLecteur))
                 {
                     $numSerieProduitFini = $rand;
                     break;
@@ -212,7 +218,7 @@ class TestController extends Controller
                         $nomenclatureLecteur = new NomenclatureLecteur();
                         
                         $nomenclatureLecteur->setNumSerie($carteTest[0]->getNumSerie());
-                        $nomenclatureLecteur->setIdVersionNomenclature($carteTest[0]->getLot()->getIdVersionNomenclature());
+                        $nomenclatureLecteur->setIdVersionNomenclature($carteTest[0]->getLot()->getVersionNomenclature()->getId());
                         $nomenclatureLecteur->setIdLecteur(0);
                         $nomenclatureLecteur->setIdFirmware($carteTest[0]->getIdFirmware());
                         $nomenclatureLecteur->setDateProd($carteTest[0]->getLot()->getDateProd());
@@ -270,7 +276,7 @@ class TestController extends Controller
                             $nomenclatureLecteur = new NomenclatureLecteur();
                             
                             $nomenclatureLecteur->setNumSerie($carteTest[0]->getNumSerie());
-                            $nomenclatureLecteur->setIdVersionNomenclature($carteTest[0]->getLot()->getIdVersionNomenclature());
+                            $nomenclatureLecteur->setIdVersionNomenclature($carteTest[0]->getLot()->getVersionNomenclature()->getId());
                             $nomenclatureLecteur->setIdLecteur(0);
                             $nomenclatureLecteur->setIdFirmware($carteTest[0]->getIdFirmware());
                             
@@ -285,7 +291,9 @@ class TestController extends Controller
                             $attenteAssemblage->setIdVersionFicheDescriptive($carteTest[0]->getLot()->getIdVersionFicheDescriptive());
                             $attenteAssemblage->setNumSerieProduitFini($carteTest[0]->getNumSerieProduitFini());
                             $attenteAssemblage->setIdFirmware($carteTest[0]->getIdFirmware());
-                            
+                            $attenteAssemblage->setDateProd($carteTest[0]->getLot()->getDateProd());
+                            $attenteAssemblage->setDateTest($carteTest[0]->getLot()->getDateTest()); 
+
                             $em->persist($attenteAssemblage);
                         }
                         $em->remove($carteTest[0]);
@@ -307,7 +315,7 @@ class TestController extends Controller
                             $nomenclatureLecteur = new NomenclatureLecteur();
                             
                             $nomenclatureLecteur->setNumSerie($carteTest[0]->getNumSerie());
-                            $nomenclatureLecteur->setIdVersionNumenclature($carteTest[0]->getLot()->getIdVersionNomenclature());
+                            $nomenclatureLecteur->setIdVersionNumenclature($carteTest[0]->getLot()->getVersionNomenclature()->getId());
                             $nomenclatureLecteur->setIdLecteur(0);
                             $nomenclatureLecteur->setIdFirmware($carteTest[0]->getIdFirmware());
                             
@@ -322,7 +330,9 @@ class TestController extends Controller
                             $attenteAssemblage->setIdVersionFicheDescriptive($carteTest[0]->getLot()->getIdVersionFicheDescriptive());
                             $attenteAssemblage->setNumSerieProduitFini($carteTest[0]->getNumSerieProduitFini());
                             $attenteAssemblage->setIdFirmware($carteTest[0]->getIdFirmware());
-                            
+                            $attenteAssemblage->setDateProd($carteTest[0]->getLot()->getDateProd());
+                            $attenteAssemblage->setDateTest($carteTest[0]->getLot()->getDateTest()); 
+
                             $em->persist($attenteAssemblage);
                         }
                         $em->remove($carteTest[0]);
@@ -390,7 +400,7 @@ class TestController extends Controller
                     $nomenclatureLecteur = new NomenclatureLecteur();
                     
                     $nomenclatureLecteur->setNumSerie($reprise[0]->getNumSerie());
-                    $nomenclatureLecteur->setIdVersionNumenclature($reprise[0]->getLot()->getIdVersionNomenclature());
+                    $nomenclatureLecteur->setIdVersionNumenclature($reprise[0]->getLot()->getVersionNomenclature()->getId());
                     $nomenclatureLecteur->setIdLecteur(0);
                     $nomenclatureLecteur->setIdFirmware($reprise[0]->getIdFirmware());
                     
@@ -405,7 +415,9 @@ class TestController extends Controller
                     $attenteAssemblage->setIdVersionFicheDescriptive($reprise[0]->getLot()->getIdVersionFicheDescriptive());
                     $attenteAssemblage->setNumSerieProduitFini($reprise[0]->getNumSerieProduitFini());
                     $attenteAssemblage->setIdFirmware($reprise[0]->getIdFirmware());
-                    
+                    $attenteAssemblage->setDateProd($carteTest[0]->getLot()->getDateProd());
+                    $attenteAssemblage->setDateTest($carteTest[0]->getLot()->getDateTest());
+
                     $em->persist($attenteAssemblage);
                 }
             }
@@ -517,7 +529,7 @@ class TestController extends Controller
         if(!empty($etapeSuivante))
         {
             $carteTest[0]->setIdFirmware($request->get('firmware'));
-            $carteTest[0]->setEtape($carteTest[0]->setEtape($carteTest[0]->getEtape() + 1));
+            $carteTest[0]->setEtape($carteTest[0]->getEtape() + 1);
             
             if($firwmware->getNumSerie() == 1)
                 $carteTest[0]->setNumSerieProduitFini($numSerieProduitFini);            
@@ -543,6 +555,8 @@ class TestController extends Controller
                 $attenteAssemblage->setIdVersionNomenclature($carteTest[0]->getLot()->getVersionNomenclature()->getId());
                 $attenteAssemblage->setIdVersionFicheDescriptive($carteTest[0]->getLot()->getIdVersionFicheDescriptive());
                 $attenteAssemblage->setIdFirmware($request->get('firmware'));
+                $attenteAssemblage->setDateProd($carteTest[0]->getLot()->getDateProd());
+                $attenteAssemblage->setDateTest($carteTest[0]->getLot()->getDateTest()); 
                 
                 if($firwmware->getNumSerie() == 1)
                     $attenteAssemblage->setNumSerieProduitFini($numSerieProduitFini);  
@@ -733,7 +747,7 @@ class TestController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $listeNumSeriePF = '';
+        $NumSeriePF = '';
         $listeNumSerieNomenclature = '';
         
         if ($request->isMethod('POST'))

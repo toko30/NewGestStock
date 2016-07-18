@@ -1,0 +1,80 @@
+{% extends 'ICProduitFiniBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Historique Produit{% endblock %}
+
+{% block entete %}{{ parent() }} Historique Produit{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite'
+	'@ICProduitFiniBundle/Resources/public/css/produitFini.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+	{% endstylesheets %}
+{% endblock %}
+{% block page %}
+
+    {{ parent() }}
+
+	<h1>Lecteur {{ ficheDescriptive }}</h1>
+
+	<div class="decalageHistoProduit">
+		Numéro de série : {{ lecteur.numSerie }}<br>
+		Date assemblage produit : {{ lecteur.dateCreation|date('d/m/Y') }}<br>
+		<br>
+		{% if nomenclatures != null %}
+			<div class="titrePartieHisto">Nomenclatures :</div>
+			<br>
+			<div class="divNomenclature">		
+				{% for nomenclature in nomenclatures %}
+					<div class="nomNomenclature">{{ nomenclature.nom }}</div>
+					<br>
+					<div class="decalageSousPartieNomenclature">
+					Date de production: {{ nomenclature.dateProd|date('d/m/Y') }}<br>
+					Date du test: {{ nomenclature.dateTest|date('d/m/Y') }}<br>
+					Version du firmware installé: {{ nomenclature.firmware }}<br>
+
+					<span class="titreReprise">Reprise :</span><br>
+					{% if nomenclature.reprise == 0 %}
+						<div class="decalageSousPartieReprise">Aucune reprise éffectuée sur la carte<br>
+					{% else %}
+						{% for reprise in nomenclature.reprise %}
+							<div class="decalageSousPartieReprise">
+								<div class="numeroReprise">Reprise n°{{ reprise.repriseNb }} :</div> 
+								<div class="decalageSousPartieReprise">
+									Effectuée le : {{ reprise.dateReprise|date('d/m/Y')}} <br>
+									Etape : {{ reprise.test.etape.nom }}<br>
+									Test : {{ reprise.test.nom }}<br>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+					</div>
+					<br>
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if histoPret is not empty %}
+			<div class="titrePartieHisto">Historique des pret du lecteur</div>
+			<br>
+			{% for pret in histoPret %}
+				<div class="decalageSousPartieReprise">
+					{% if pret.etat == 'vendu' %}
+						Pret envoyer le : {{ pret.datePret|date('d/m/Y') }} puis vendu au client {{ pret.client.nom }}
+					{% else %}
+						Pret envoyé au client {{ pret.client.nom }} le : {{ pret.datePret|date('d/m/Y') }} et retourné le {{ pret.dateRetour|date('d/m/Y') }} 
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% endif %}
+		<br>
+		{% if vente is not empty %}
+			<div class="etatActuel">Vendu le {{ vente.dateVente|date('d/m/Y') }} à {{ vente.client.nom }}</div>
+		{% elseif pret is not empty %}
+			<div class="etatActuel">Lecteur en pret</div>
+		{% else %}
+			<div class="etatActuel">Produit En Stock</div>
+		{% endif %}
+	</div>
+	{# Partie SAV et carte HS #}
+
+{% endblock %}

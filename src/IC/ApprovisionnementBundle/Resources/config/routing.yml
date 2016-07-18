@@ -83,7 +83,13 @@ ic_approvisionnement_vers_autre:
     defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockAutre }
     requirements:
         idCommande: \d{1,10}
-
+        
+ic_approvisionnement_add_autre:
+    path:     /Ajout-Stock-Autre-{idCommande}
+    defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:addAutre }
+    requirements:
+        idCommande: \d{1,10}
+        
 ic_approvisionnement_vers_sous_traitant:
     path:     /Vers-StockSous-Traitant-{idSousTraitant}
     defaults: { _controller: ICApprovisionnementBundle:ApprovisionnementEnCours:approVersStockSousTraitant }

@@ -139,4 +139,3 @@ class NomenclatureFicheDescriptive
         return $this->versionFicheDescriptive;
     }
 }
-

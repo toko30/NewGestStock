@@ -1,0 +1,79 @@
+#buttonAddListeVente
+{
+    color:white;
+    background: #7b7c7e;
+    border: none;
+    height:21px;    
+}
+#formVente
+{
+    width:100%;
+    text-align: center;
+}
+#SendSell
+{
+    display: none;
+    margin:20px auto;
+    width:30%;
+    text-align:center;
+    background: #7b7c7e;
+    color:white;
+    padding:10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.divForm
+{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.decalageHistoProduit
+{
+    margin: 10px 0 10px 30px;
+    font-size: 18px;
+}
+.nomNomenclature
+{
+    font-weight:bold;
+    color: #00B7D6;
+}
+.titrePartieHisto
+{
+    color: #7b7c7e;
+    font-size: 22px;
+    text-decoration: underline;
+}
+.decalageSousPartieNomenclature
+{
+    margin-left:10px;
+}
+.titreReprise
+{
+    text-decoration: underline;
+}
+.decalageSousPartieReprise
+{
+    margin-left: 20px;
+}
+.numeroReprise
+{
+    font-style: italic;
+}
+.etatActuel
+{
+    width:100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 30px 0;
+}
+.divNomenclature
+{
+    margin-left:20px;
+}
+#formRechercheHistoProd
+{
+    width:100%;
+    text-align: center;
+}

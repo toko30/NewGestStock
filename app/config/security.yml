@@ -1,11 +1,24 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        IC\UserBundle\Entity\User: 
+            algorithm: bcrypt
+            cost:      15
+        IC\AdministrationBundle\Entity\User: 
+            algorithm: bcrypt
+            cost:      15           
+    role_hierarchy:
+        ROLE_PRODUCTION: ROLE_COMMERCE
+        ROLE_ADMIN:  [ROLE_COMMERCE, ROLE_PRODUCTION]
+        ROLE_SUPER_ADMIN: [ROLE_COMMERCE, ROLE_PRODUCTION, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        main:
+            entity:
+                class:    IC\UserBundle\Entity\User
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,8 +26,21 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        main_login:
+            pattern:   ^/Connexion$
+            anonymous: true # On autorise alors les anonymes sur ce pare-feu
+
         main:
-            anonymous: ~
+            pattern:      ^/
+            anonymous:    false
+            provider:     main
+            form_login:
+                login_path: /Connexion
+                check_path: /Connexion-check
+                default_target_path: /Redirection
+            logout:
+                path:       /Deconnexion
+                target:     /Connexion
             # activate different ways to authenticate
 
             # http_basic: ~

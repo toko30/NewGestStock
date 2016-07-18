@@ -156,4 +156,3 @@ class VersionFicheDescriptive
         return $this->ficheDescriptiveOption;
     }
 }
-

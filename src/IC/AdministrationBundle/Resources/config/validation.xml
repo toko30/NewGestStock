@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="IC\AdministrationBundle\Entity\Fournisseur">
-         <property name="nom">
+        <property name="nom">
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">3</option>

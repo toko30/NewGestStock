@@ -90,19 +90,18 @@
 }
 .formTest
 {
-    margin:auto;
     width:60%;
     padding-left:5%;
 }
 
 .commentaireTest
 {
-    margin: 20px 0 0 20%;
+    margin: 20px 0 0 0;
 }
 
 .inputRadioTest
 {
-    margin:10px 0 15px 20%;
+    margin:10px 0 15px 0;
 }
 .center
 {

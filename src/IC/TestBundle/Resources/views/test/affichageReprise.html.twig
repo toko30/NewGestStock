@@ -22,9 +22,9 @@
 		<textarea class="commentaireTest" name="commentaire" id="" cols="40" rows="7" placeholder="laisser un commentaire..."></textarea><br>
 		
 		{% if reprise[0].reprise == 1 %}
-			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème règlé lors de la {{ reprise[0].reprise }}er reprise</label><br>
+			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème réglé lors de la {{ reprise[0].reprise }}er reprise</label><br>
 		{% else %}
-			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème règlé lors de la {{ reprise[0].reprise }}eme reprise</label><br>
+			<label><input class="inputRadioTest" type="radio" name="reprise" value="0" checked>Problème réglé lors de la {{ reprise[0].reprise }}eme reprise</label><br>
 		{% endif %}
 		
 		{% for test in listeTest[0].testNomenclature %}

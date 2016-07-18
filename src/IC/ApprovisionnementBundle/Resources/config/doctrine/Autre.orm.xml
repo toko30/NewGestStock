@@ -19,12 +19,22 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="quantite" type="integer" column="quantite" nullable="false">
+    <field name="type" type="integer" column="type" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="type" type="integer" column="type" nullable="false">
+    <field name="petite" type="integer" column="petite" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="moyenne" type="integer" column="moyenne" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="grande" type="integer" column="grande" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>

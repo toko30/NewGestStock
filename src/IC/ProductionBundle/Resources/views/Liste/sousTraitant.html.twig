@@ -44,23 +44,23 @@
                             <td class="titreCheckBox"></td>  
                             <td class="titreDesignation">Designation</td>
                             <td class="titreQte">Qte nécessaire</td>
-                            <td class="titreQte">Stock Manquant</td>
+                            <td class="titreQte">Stock restant</td>
                         </tr>
                         
                         {% for composant in nomenclature %}
                         
                             {% if loop.index != 1 and loop.index != 2 %} 
-                                <tr>   
+                                <tr class="{% if composant.stock < 0 %}stockInsufisant{% endif %}">   
                                     <td>
                                         {% if composant.option == 0 %}
-                                            <input type="checkbox" name="option[]" value="{{composant.id}}" checked>
+                                            <input type="checkbox" name="option[]" value="{{ composant.id }}" checked>
                                         {% else %}
-                                            <input type="checkbox" name="option[]" value="{{composant.id}}">
+                                            <input type="checkbox" name="option[]" value="{{ composant.id }}">
                                         {% endif %}
                                     </td>
-                                    <td class="designation">{{composant.designation}}</td>
-                                    <td>{{composant.quantite}}</td>
-                                    <td>{{composant.stock}}</td>
+                                    <td class="designation">{{ composant.designation }}</td>
+                                    <td>{{ composant.quantite }}</td>
+                                    <td>{{ composant.stock }}</td>
                                 </tr>
                             {% endif %}
                             
